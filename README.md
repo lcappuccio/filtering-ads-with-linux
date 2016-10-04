@@ -39,6 +39,8 @@ Will not get much into detail here, simply install lighttpd, apache, pixelserv o
 
 On the `lighttpd.conf` file remember to set:
 
+`server.error-handler-404    = "/1px.gif"`
+
 `index-file.names            = ( "1px.gif" )`
 
 This will forward requests to http://127.0.0.1 directly to our 1px gif.
