@@ -66,3 +66,8 @@ And you should see something like this:
 `Oct  4 19:40:38 dnsmasq[9669]: config s7.addthis.com is 127.0.0.1`
 
 So we are redirecting some stuff. :)
+
+## Extras
+
+* If using DHCP I've prepared a php page listing all leases
+* Bandwidthd monitor (`sudo apt-get install bandwidthd`)
