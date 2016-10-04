@@ -1,5 +1,5 @@
 # How to filter (some) advertising with linux and dnsmasq
-A brief recap about how to filter (some) ads with a linux box.
+A brief recap about how to filter (some) ads with a linux box. This will not remove all ads but can greatly help if used with AdBlock, uBlockOrigin, Ghostery, etc.
 
 The idea is very simple and very well documented on the 'net:
 
@@ -32,3 +32,37 @@ Everything is on domain `home`. After installing and configuring:
 ## Configure router
 
 On my home modem/router I had to set the new dnsmasq machine as DNS. Remember to disable also the DHCP server, otherwise disable the DHCP on the dnsmasq machine.
+
+## Configure local webserver
+
+Will not get much into detail here, simply install lighttpd, apache, pixelserv or whatever other web server of your choice. Personally I'm using lighttpd.
+
+On the `lighttpd.conf` file remember to set:
+
+`index-file.names            = ( "1px.gif" )`
+
+This will forward requests to http://127.0.0.1 directly to our 1px gif.
+
+## Create the lists
+
+Now for the fun part. Actually I'm not creating anything, just putting together pieces that I've found on the web. Inspired by a post about [pihole](https://pi-hole.net) I started to gather information and create a DIY solution to address the same problem:
+
+* A [post](https://www.reddit.com/r/pihole/comments/4p2tp7/adding_easylist_and_other_adblocklike_sources_to/) on reddit
+* Look for google *dnsmasq block ads*
+
+The entrypoint is `manual_easylist.sh`. This bash script will download the lists in `lists.lst`, parse them and put them into another file.
+
+On this same file I'm appending some other hosts found on [URLBlacklist](http://www.urlblacklist.com). After all this parsing and appending the script will sort and remove duplicates.
+
+Finally we will generate `blacklist_dnsmasq.txt`. Copy this file to `/etc/dnsmasq.d` and again restart dnsmasq.
+
+Start browsing and issue
+`> sudo tail -f /var/log/dnsmasq.log | grep 127.0.0.1`
+
+And you should see something like this:
+
+`Oct  4 19:40:38 dnsmasq[9669]: config pagead2.googlesyndication.com is 127.0.0.1`
+
+`Oct  4 19:40:38 dnsmasq[9669]: config s7.addthis.com is 127.0.0.1`
+
+So we are redirecting some stuff. :)
