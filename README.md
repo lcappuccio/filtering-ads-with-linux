@@ -54,6 +54,8 @@ Now for the fun part. Actually I'm not creating anything, just putting together 
 
 The entrypoint is `manual_easylist.sh`. This bash script will download the lists in `lists.lst`, parse them and put them into another file.
 
+If lighttpd is not running on your local machine I replace the `127.0.0.1` on the end of the script with the ip of my ad trap system.
+
 On this same file I'm appending some other hosts found on [URLBlacklist](http://www.urlblacklist.com). After all this parsing and appending the script will sort and remove duplicates.
 
 Finally we will generate `blacklist_dnsmasq.txt`. Copy this file to `/etc/dnsmasq.d` and again restart dnsmasq.
