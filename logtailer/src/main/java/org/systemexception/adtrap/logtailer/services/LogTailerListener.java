@@ -46,8 +46,8 @@ public class LogTailerListener implements TailerListener {
 
 	@Override
 	public void handle(String line) {
-		lines.add(line);
-		// TODO implement post action here
+		HttpConnector httpConnector = new HttpConnector(line);
+		httpConnector.run();
 	}
 
 	@Override
