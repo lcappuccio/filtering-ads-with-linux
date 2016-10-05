@@ -2,13 +2,18 @@ package org.systemexception.adtrap.logtailer.services;
 
 import org.apache.commons.io.input.Tailer;
 import org.apache.commons.io.input.TailerListener;
+import org.systemexception.logger.api.Logger;
+import org.systemexception.logger.impl.LoggerImpl;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LogTailerListener implements TailerListener {
 
+	private static final Logger LOGGER = LoggerImpl.getFor(LogTailerListener.class);
 	private List<String> lines = new ArrayList<>();
+	private final static int THREAD_SLEEP = 500;
 
 	@Override
 	public void init(Tailer tailer) {
@@ -17,21 +22,21 @@ public class LogTailerListener implements TailerListener {
 
 	@Override
 	public void fileNotFound() {
-		System.out.println("File not found");
+		LOGGER.error("File not found", new FileNotFoundException());
 		try {
-			Thread.sleep(500);
+			Thread.sleep(THREAD_SLEEP);
 		} catch (InterruptedException e) {
-			System.out.println(e.getMessage());
+			logInterruptedException();
 		}
 	}
 
 	@Override
 	public void fileRotated() {
-		System.out.println("File rotated");
+		LOGGER.info("File rotated");
 		try {
-			Thread.sleep(500);
+			Thread.sleep(THREAD_SLEEP);
 		} catch (InterruptedException e) {
-			System.out.println(e.getMessage());
+			logInterruptedException();
 		}
 	}
 
@@ -42,7 +47,7 @@ public class LogTailerListener implements TailerListener {
 
 	@Override
 	public void handle(Exception ex) {
-		System.out.println(ex.getMessage());
+		LOGGER.error("Exception", ex);
 	}
 
 	/**
@@ -51,6 +56,7 @@ public class LogTailerListener implements TailerListener {
 	 * @return the lines in buffer
 	 */
 	public List<String> getLines() {
+		LOGGER.info("Get " + lines.size() + " lines");
 		return lines;
 	}
 
@@ -58,6 +64,11 @@ public class LogTailerListener implements TailerListener {
 	 * Clear the lines in the buffer, to be called after fetching them
 	 */
 	public void clearLines() {
+		LOGGER.info("Clear lines");
 		lines = new ArrayList<>();
+	}
+
+	private void logInterruptedException() {
+		LOGGER.error("Thread sleep error", new InterruptedException());
 	}
 }
