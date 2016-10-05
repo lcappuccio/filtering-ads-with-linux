@@ -19,10 +19,6 @@ class Main {
 
 		fileToTail = new File(fileName);
 
-		// if (!fileToTail.exists()) {
-		// 	throw new FileNotFoundException();
-		// }
-
 		logTailerListener = new LogTailerListener();
 		logTailer = new LogTailer(fileToTail, logTailerListener, 100);
 
