@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public class Main {
+class Main {
 
 	private static File fileToTail;
 	private static LogTailerListener logTailerListener;
