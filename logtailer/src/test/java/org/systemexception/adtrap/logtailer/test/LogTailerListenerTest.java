@@ -42,7 +42,7 @@ public class LogTailerListenerTest {
 	public void should_listen_new_lines() throws InterruptedException, IOException {
 		String outString = "TEST" + System.currentTimeMillis();
 		write(testLogFile, outString);
-		Thread.sleep(500 * 2);
+		Thread.sleep(500);
 		List<String> listenerLines = logTailerListener.getLines();
 		logTailerListener.clearLines();
 
