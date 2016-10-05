@@ -13,7 +13,11 @@ public class LogTailerListener implements TailerListener {
 
 	private static final Logger LOGGER = LoggerImpl.getFor(LogTailerListener.class);
 	private List<String> lines = new ArrayList<>();
-	private final static int THREAD_SLEEP = 500;
+	private final int threadSleep;
+
+	public LogTailerListener(final int threadSleep) {
+		this.threadSleep = threadSleep;
+	}
 
 	@Override
 	public void init(Tailer tailer) {
@@ -24,7 +28,7 @@ public class LogTailerListener implements TailerListener {
 	public void fileNotFound() {
 		LOGGER.error("File not found", new FileNotFoundException());
 		try {
-			Thread.sleep(THREAD_SLEEP);
+			Thread.sleep(threadSleep);
 		} catch (InterruptedException e) {
 			logInterruptedException();
 		}
@@ -34,7 +38,7 @@ public class LogTailerListener implements TailerListener {
 	public void fileRotated() {
 		LOGGER.info("File rotated");
 		try {
-			Thread.sleep(THREAD_SLEEP);
+			Thread.sleep(threadSleep);
 		} catch (InterruptedException e) {
 			logInterruptedException();
 		}
@@ -43,6 +47,7 @@ public class LogTailerListener implements TailerListener {
 	@Override
 	public void handle(String line) {
 		lines.add(line);
+		// TODO implement post action here
 	}
 
 	@Override

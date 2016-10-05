@@ -27,7 +27,7 @@ public class LogTailerListenerTest {
 	@Before
 	public void setUp() throws URISyntaxException {
 		testLogFile = new File(testLogFileUrl.toURI());
-		logTailerListener = new LogTailerListener();
+		logTailerListener = new LogTailerListener(100);
 		logTailer = new LogTailer(testLogFile, logTailerListener, 100);
 		Thread thread = new Thread(logTailer);
 		thread.start();

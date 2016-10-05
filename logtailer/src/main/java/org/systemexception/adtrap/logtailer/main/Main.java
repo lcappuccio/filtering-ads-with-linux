@@ -6,7 +6,6 @@ import org.systemexception.adtrap.logtailer.services.LogTailerListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
 
 class Main {
 
@@ -28,20 +27,10 @@ class Main {
 		File fileToTail = new File(fileName);
 
 		Integer sleepTimer = Integer.valueOf(commandLine.getOptionValue(SLEEP_OPTION));
-		LogTailerListener logTailerListener = new LogTailerListener();
+		LogTailerListener logTailerListener = new LogTailerListener(sleepTimer);
 		LogTailer logTailer = new LogTailer(fileToTail, logTailerListener, sleepTimer);
 
-		System.out.println("Starting listener");
-		Thread thread = new Thread(logTailer);
-		thread.start();
-
-		while (true) {
-			System.out.println("Listening");
-			Thread.sleep(sleepTimer * 2);
-			List<String> listenerLines = logTailerListener.getLines();
-			System.out.println(listenerLines);
-			logTailerListener.clearLines();
-		}
+		logTailer.run();
 	}
 
 	/**
