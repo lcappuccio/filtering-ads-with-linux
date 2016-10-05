@@ -23,14 +23,13 @@ public class LogTailerListenerTest {
 	private File testLogFile;
 	private LogTailerListener logTailerListener;
 	private LogTailer logTailer;
-	private Thread thread;
 
 	@Before
 	public void setUp() throws URISyntaxException {
 		testLogFile = new File(testLogFileUrl.toURI());
 		logTailerListener = new LogTailerListener();
 		logTailer = new LogTailer(testLogFile, logTailerListener, 100);
-		thread = new Thread(logTailer);
+		Thread thread = new Thread(logTailer);
 		thread.start();
 	}
 
