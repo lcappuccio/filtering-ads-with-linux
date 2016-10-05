@@ -49,7 +49,9 @@ public class LogTailerListenerTest {
 		assertTrue(listenerLines.contains(outString));
 	}
 
-	/** Append some lines to a file */
+	/**
+	 * Append some lines to a file
+	 */
 	private void write(File file, String... lines) throws IOException {
 		FileWriter writer = null;
 		try {
