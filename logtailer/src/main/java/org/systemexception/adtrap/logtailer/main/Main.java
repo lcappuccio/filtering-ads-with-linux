@@ -1,5 +1,6 @@
 package org.systemexception.adtrap.logtailer.main;
 
+import org.apache.commons.cli.*;
 import org.systemexception.adtrap.logtailer.services.LogTailer;
 import org.systemexception.adtrap.logtailer.services.LogTailerListener;
 
@@ -9,18 +10,26 @@ import java.util.List;
 
 class Main {
 
-	private static File fileToTail;
-	private static LogTailerListener logTailerListener;
-	private static LogTailer logTailer;
+	private static final String FILE_OPTION = "f", SLEEP_OPTION = "s";
 
-	public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+	public static void main(String[] args) throws FileNotFoundException, InterruptedException, ParseException {
 
-		final String fileName = args[0];
+		Options options = options();
+		CommandLineParser commandLineParser = new DefaultParser();
+		CommandLine commandLine = commandLineParser.parse(options, args);
 
-		fileToTail = new File(fileName);
+		if (!commandLine.hasOption(FILE_OPTION) || !commandLine.hasOption(SLEEP_OPTION)) {
+			HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp("java -jar logtailer.jar", options);
+			System.exit(1);
+		}
 
-		logTailerListener = new LogTailerListener();
-		logTailer = new LogTailer(fileToTail, logTailerListener, 100);
+		String fileName = commandLine.getOptionValue(FILE_OPTION);
+		File fileToTail = new File(fileName);
+
+		Integer sleepTimer = Integer.valueOf(commandLine.getOptionValue(SLEEP_OPTION));
+		LogTailerListener logTailerListener = new LogTailerListener();
+		LogTailer logTailer = new LogTailer(fileToTail, logTailerListener, sleepTimer);
 
 		System.out.println("Starting listener");
 		Thread thread = new Thread(logTailer);
@@ -28,11 +37,25 @@ class Main {
 
 		while (true) {
 			System.out.println("Listening");
-			Thread.sleep(500 * 2);
+			Thread.sleep(sleepTimer * 2);
 			List<String> listenerLines = logTailerListener.getLines();
 			System.out.println(listenerLines);
 			logTailerListener.clearLines();
 		}
+	}
+
+	/**
+	 * Build the command line options
+	 *
+	 * @return command line options
+	 */
+	private static Options options() {
+		Options options = new Options();
+		Option filenameOption = new Option(FILE_OPTION, true, "filename to tail with path");
+		Option pollingOption = new Option(SLEEP_OPTION, true, "sleep timer");
+		options.addOption(filenameOption);
+		options.addOption(pollingOption);
+		return options;
 	}
 
 }
