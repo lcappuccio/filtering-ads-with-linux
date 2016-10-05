@@ -6,3 +6,4 @@ This module is intended to be launched on the init stage during boot to monitor 
 
 * Skip reading content already on file and post only new content
 * Implement Http connector, should be on a separate thread to avoid blocking LogTailerListener
+* HttpConnector should be a runnable (no!) or ArrayBlockingQueue, LinkedBlockingQueue, etc? (yes)
