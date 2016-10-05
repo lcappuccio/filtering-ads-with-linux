@@ -56,7 +56,7 @@ public class LogTailerListenerTest {
 		try {
 			writer = new FileWriter(file, true);
 			for (String line : lines) {
-				writer.write(line + "\n");
+				writer.write(line + System.getProperty("line.separator"));
 			}
 		} finally {
 			IOUtils.closeQuietly(writer);
