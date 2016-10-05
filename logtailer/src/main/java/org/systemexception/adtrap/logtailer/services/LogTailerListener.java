@@ -38,7 +38,7 @@ public class LogTailerListener implements TailerListener {
 	/**
 	 * Get the lines in buffer
 	 *
-	 * @return
+	 * @return the lines in buffer
 	 */
 	public List<String> getLines() {
 		return lines;
