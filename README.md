@@ -1,4 +1,10 @@
 # How to filter (some) advertising with linux and dnsmasq
+
+[![Build Status](https://travis-ci.org/lcappuccio/filtering_ads_with_linux.svg?branch=master)](https://travis-ci.org/lcappuccio/filtering_ads_with_linux)
+[![codecov](https://codecov.io/gh/lcappuccio/filtering_ads_with_linux/branch/master/graph/badge.svg)](https://codecov.io/gh/lcappuccio/filtering_ads_with_linux)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f1f23a0f0bce49bcb5f42eb091e5e8e4)](https://www.codacy.com/app/lcappuccio/filtering_ads_with_linux?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lcappuccio/filtering_ads_with_linux&amp;utm_campaign=Badge_Grade)
+[![codebeat badge](https://codebeat.co/badges/f85e4cde-a52c-4cf2-a560-8e175f8b48f0)](https://codebeat.co/projects/github-com-lcappuccio-filtering_ads_with_linux)
+
 A brief recap about how to filter (some) ads with a linux box. This will not remove all ads but can greatly help if used with AdBlock, uBlockOrigin, Ghostery, etc.
 
 The idea is very simple and very well documented on the 'net:
@@ -75,3 +81,8 @@ So we are redirecting some stuff. :)
 
 * If using DHCP I've prepared a php page listing all leases
 * Bandwidthd monitor (`sudo apt-get install bandwidthd`)
+
+## ToDo
+
+* Log listener
+* Statistics Analysis Facility
