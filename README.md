@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/lcappuccio/filtering-ads-with-linux.svg?branch=master)](https://travis-ci.org/lcappuccio/filtering-ads-with-linux)
 [![codecov](https://codecov.io/gh/lcappuccio/filtering-ads-with-linux/branch/master/graph/badge.svg)](https://codecov.io/gh/lcappuccio/filtering-ads-with-linux)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b6cf8eb58c5c441eaaa52a79b6f91bf7)](https://www.codacy.com/app/lcappuccio/filtering-ads-with-linux?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lcappuccio/filtering-ads-with-linux&amp;utm_campaign=Badge_Grade)
-[![codebeat badge](https://codebeat.co/badges/c4a5fb2a-bfef-45ab-b66d-bd3cbdfa44fb)](https://codebeat.co/projects/travis-ci-org-lcappuccio-filtering-ads-with-linux)
+[![codebeat badge](https://codebeat.co/badges/420cede9-dd38-4629-ac71-0d377143553b)](https://codebeat.co/projects/github-com-lcappuccio-filtering-ads-with-linux)
 
 A brief recap about how to filter (some) ads with a linux box. This will not remove all ads but can greatly help if used with AdBlock, uBlockOrigin, Ghostery, etc.
 
