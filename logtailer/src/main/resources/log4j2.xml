@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+    <Appenders>
+        <File name="info_logfile" fileName="target/info.log">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}|%level|%c|%msg%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="debug_logfile" fileName="target/debug.log">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}|%level|%c|%msg%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="error_logfile" fileName="target/error.log">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}|%level|%c|%msg%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="info_logfile" level="INFO"/>
+            <AppenderRef ref="error_logfile" level="ERROR"/>
+            <AppenderRef ref="debug_logfile" level="DEBUG"/>
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>
