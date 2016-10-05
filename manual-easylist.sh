@@ -43,6 +43,7 @@ rm ads_unique.txt
 
 # read blacklist and convert to dnsmasq format
 while IFS='' read -r line || [[ -n "$line" ]]; do
+	# replace 127.0.0.1 with the IP of your http serving the 1px gif
     echo "address=/$line/127.0.0.1" >> blacklist_dnsmasq.txt
 done < ${blacklist}
 
