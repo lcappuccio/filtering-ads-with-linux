@@ -19,7 +19,7 @@ import static junit.framework.TestCase.assertTrue;
 public class LogTailerListenerTest {
 
 	private final static String TEST_LOG_FILE = "empty.log";
-	private URL testLogFileUrl = ClassLoader.getSystemResource(TEST_LOG_FILE);
+	private final URL testLogFileUrl = ClassLoader.getSystemResource(TEST_LOG_FILE);
 	private File testLogFile;
 	private LogTailerListener logTailerListener;
 	private LogTailer logTailer;
