@@ -12,17 +12,27 @@ public class LogTailerListener implements TailerListener {
 
 	@Override
 	public void init(Tailer tailer) {
-		// TODO implement, if needed
+		lines = new ArrayList<>();
 	}
 
 	@Override
 	public void fileNotFound() {
-		// TODO implement
+		System.out.println("File not found");
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@Override
 	public void fileRotated() {
-		// TODO implement
+		System.out.println("File rotated");
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@Override
@@ -32,7 +42,7 @@ public class LogTailerListener implements TailerListener {
 
 	@Override
 	public void handle(Exception ex) {
-		// TODO implement
+		System.out.println(ex.getMessage());
 	}
 
 	/**
