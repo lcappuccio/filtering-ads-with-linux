@@ -60,9 +60,8 @@
             $response = curl_exec($curl_resource);
             if ($response) {
                 return $response;
-            } else {
-                return "N/A";
             }
+            return "N/A";
         }
 
 
