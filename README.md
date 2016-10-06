@@ -86,3 +86,8 @@ So we are redirecting some stuff. :)
 
 * Investigate this: `cat /var/log/dnsmasq.log | awk '{print $4 $5 $6 $7 $8}'`
 * Statistics Analysis Facility
+* Integrate `logtailer` with `statsviewer`, the first will POST the string to the latter.
+* Decide database to use on `statsviewer`. Best candidate: embedded H2. I WILL NOT code on java the aggregations to 
+be performed if using a key value store. If there is a value in data relation then the database needs to be 
+relational. Use a KV only if you do not really care or are interested in what you're saving. **If you expect a 
+formatted JSON then your data and the relation in it has a value**
