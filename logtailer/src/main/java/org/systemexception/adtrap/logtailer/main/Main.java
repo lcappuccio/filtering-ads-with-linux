@@ -7,6 +7,7 @@ import org.systemexception.adtrap.logtailer.services.LogTailerListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.security.InvalidParameterException;
 import java.util.concurrent.LinkedBlockingQueue;
 
 class Main {
@@ -22,7 +23,7 @@ class Main {
 		if (!commandLine.hasOption(FILE_OPTION) || !commandLine.hasOption(SLEEP_OPTION)) {
 			HelpFormatter formatter = new HelpFormatter();
 			formatter.printHelp("java -jar logtailer.jar", options);
-			System.exit(1);
+			throw new InvalidParameterException();
 		}
 
 		String fileName = commandLine.getOptionValue(FILE_OPTION);
