@@ -20,8 +20,10 @@ public class HttpConnector implements Runnable {
 	@Override
 	public void run() {
 		try {
-			String take = (String) blockingQueue.take();
-			LOGGER.info("Sent " + take);
+			while (true) {
+				String take = (String) blockingQueue.take();
+				LOGGER.info("Sent " + take);
+			}
 		} catch (InterruptedException | ClassCastException e) {
 			LogTailerListener.logInterruptedException(e);
 		}
