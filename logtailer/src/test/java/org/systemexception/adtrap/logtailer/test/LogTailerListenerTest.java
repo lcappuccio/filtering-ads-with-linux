@@ -25,10 +25,10 @@ public class LogTailerListenerTest {
 	private LogTailerListener logTailerListener;
 	private LogTailer logTailer;
 	private final LinkedBlockingQueue<String> blockingQueue = new LinkedBlockingQueue<>();
-	private final static File INFO_LOG_FILE = new File("target/info.log");
+	final static File INFO_LOG_FILE = new File("target/info.log"), ERROR_LOG_FILE = new File("target/error.log");
 	private final static String TEST_LOG_FILE = "empty.log";
 	private final static int SLEEP_TIMER = 100;
-	public final static int THREAD_SLEEP = 500;
+	final static int THREAD_SLEEP = 500;
 
 	@BeforeClass
 	public static void setLogTailerListenerTest() throws URISyntaxException, FileSystemException {
@@ -86,9 +86,10 @@ public class LogTailerListenerTest {
 		Thread thread = new Thread(logTailer);
 		thread.start();
 		Thread.sleep(THREAD_SLEEP);
-		String logFileToString = FileUtils.readFileToString(new File("target/error.log"), Charset.defaultCharset());
+		String logFileToString = FileUtils.readFileToString(ERROR_LOG_FILE, Charset.defaultCharset());
 
-		assertTrue("FileNotFoundException not logged", logFileToString.contains(FileNotFoundException.class.getName()));
+		assertTrue("FileNotFoundException not logged", logFileToString.contains(FileNotFoundException.class.getName
+				()));
 	}
 
 	@Test

@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.systemexception.adtrap.logtailer.services.HttpConnector;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -15,7 +14,6 @@ import static junit.framework.TestCase.assertTrue;
 public class HttpConnectorTest {
 
 	private HttpConnector sut;
-	private final static File INFO_LOG_FILE = new File("target/info.log");
 	private static final LinkedBlockingQueue BLOCKING_QUEUE = new LinkedBlockingQueue();
 
 	@Before
@@ -32,7 +30,8 @@ public class HttpConnectorTest {
 		BLOCKING_QUEUE.put(outString);
 
 		Thread.sleep(LogTailerListenerTest.THREAD_SLEEP);
-		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
+		String logFileToString = FileUtils.readFileToString(LogTailerListenerTest.INFO_LOG_FILE,
+				Charset.defaultCharset());
 
 		assertTrue("Not logged " + outString, logFileToString.contains(outString));
 	}
@@ -42,7 +41,8 @@ public class HttpConnectorTest {
 		sut = new HttpConnector(BLOCKING_QUEUE);
 		BLOCKING_QUEUE.put(this);
 		Thread.sleep(LogTailerListenerTest.THREAD_SLEEP);
-		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
+		String logFileToString = FileUtils.readFileToString(LogTailerListenerTest.ERROR_LOG_FILE,
+				Charset.defaultCharset());
 
 		assertTrue(ClassCastException.class.getName() + " not logged",
 				logFileToString.contains(ClassCastException.class.getName()));
