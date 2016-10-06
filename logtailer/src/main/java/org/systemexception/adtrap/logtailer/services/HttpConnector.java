@@ -1,24 +1,29 @@
 package org.systemexception.adtrap.logtailer.services;
 
+import org.systemexception.logger.api.Logger;
+import org.systemexception.logger.impl.LoggerImpl;
+
+import java.util.concurrent.LinkedBlockingQueue;
+
 /**
  * @author leo
- * @date 05/10/2016 22:57
  */
 public class HttpConnector implements Runnable {
 
-	private final String logLine;
+	private static final Logger LOGGER = LoggerImpl.getFor(HttpConnector.class);
+	private final LinkedBlockingQueue blockingQueue;
 
-	public HttpConnector(final String logLine) {
-		this.logLine = logLine;
+	public HttpConnector(final LinkedBlockingQueue blockingQueue) {
+		this.blockingQueue = blockingQueue;
 	}
 
 	@Override
 	public void run() {
 		try {
-			Thread.sleep(5000);
+			String take = (String) blockingQueue.take();
+			LOGGER.info("Sent " + take);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			LogTailerListener.logInterruptedException();
 		}
-		System.out.println(logLine);
 	}
 }

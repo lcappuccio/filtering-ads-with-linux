@@ -1,11 +1,13 @@
 package org.systemexception.adtrap.logtailer.main;
 
 import org.apache.commons.cli.*;
+import org.systemexception.adtrap.logtailer.services.HttpConnector;
 import org.systemexception.adtrap.logtailer.services.LogTailer;
 import org.systemexception.adtrap.logtailer.services.LogTailerListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.concurrent.LinkedBlockingQueue;
 
 class Main {
 
@@ -26,11 +28,15 @@ class Main {
 		String fileName = commandLine.getOptionValue(FILE_OPTION);
 		File fileToTail = new File(fileName);
 
+		LinkedBlockingQueue blockingQueue = new LinkedBlockingQueue();
 		Integer sleepTimer = Integer.valueOf(commandLine.getOptionValue(SLEEP_OPTION));
-		LogTailerListener logTailerListener = new LogTailerListener(sleepTimer);
+		LogTailerListener logTailerListener = new LogTailerListener(blockingQueue);
 		LogTailer logTailer = new LogTailer(fileToTail, logTailerListener, sleepTimer);
 
+		HttpConnector httpConnector = new HttpConnector(blockingQueue);
+
 		logTailer.run();
+		httpConnector.run();
 	}
 
 	/**
