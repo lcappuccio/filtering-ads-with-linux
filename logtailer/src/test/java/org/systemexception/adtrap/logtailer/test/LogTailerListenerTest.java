@@ -2,7 +2,10 @@ package org.systemexception.adtrap.logtailer.test;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.systemexception.adtrap.logtailer.services.HttpConnector;
 import org.systemexception.adtrap.logtailer.services.LogTailer;
 import org.systemexception.adtrap.logtailer.services.LogTailerListener;
@@ -17,6 +20,7 @@ import java.nio.charset.Charset;
 import java.nio.file.FileSystemException;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 public class LogTailerListenerTest {
@@ -31,7 +35,7 @@ public class LogTailerListenerTest {
 	final static int THREAD_SLEEP = 500;
 
 	@BeforeClass
-	public static void setLogTailerListenerTest() throws URISyntaxException, FileSystemException {
+	public static void setLogTailerListenerTest() throws URISyntaxException, IOException {
 		URL testLogFileUrl = ClassLoader.getSystemResource(TEST_LOG_FILE);
 		testLogFile = new File(testLogFileUrl.toURI());
 		if (testLogFile.exists()) {
@@ -40,6 +44,8 @@ public class LogTailerListenerTest {
 				throw new FileSystemException("Could not delete");
 			}
 		}
+		String outString = "STARTING";
+		write(testLogFile, outString);
 		testLogFileRotate = new File(testLogFile.getAbsolutePath() + ".1");
 		if (testLogFileRotate.exists()) {
 			boolean delete = testLogFileRotate.delete();
@@ -88,8 +94,8 @@ public class LogTailerListenerTest {
 		Thread.sleep(THREAD_SLEEP);
 		String logFileToString = FileUtils.readFileToString(ERROR_LOG_FILE, Charset.defaultCharset());
 
-		assertTrue("FileNotFoundException not logged", logFileToString.contains(FileNotFoundException.class.getName
-				()));
+		assertTrue("FileNotFoundException not logged", logFileToString.contains(
+				FileNotFoundException.class.getName()));
 	}
 
 	@Test
@@ -106,10 +112,20 @@ public class LogTailerListenerTest {
 		assertTrue("File rotation not logged", logFileToString.contains("File rotated"));
 	}
 
+	@Test
+	public void should_skip_old_file_content() throws URISyntaxException, IOException {
+		URL testLogFileUrl = ClassLoader.getSystemResource("sample_dnsmasq.log");
+		File fileWithData  = new File(testLogFileUrl.toURI());
+		logTailer = new LogTailer(fileWithData, logTailerListener, SLEEP_TIMER);
+		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
+
+		assertFalse("Loaded old content", logFileToString.contains("googleads.g.doubleclick.net"));
+	}
+
 	/**
 	 * Append some lines to a file
 	 */
-	private void write(File file, String... lines) throws IOException {
+	private static void write(File file, String... lines) throws IOException {
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(file, true);
