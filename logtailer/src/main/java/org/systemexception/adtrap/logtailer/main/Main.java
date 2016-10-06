@@ -45,7 +45,7 @@ public class Main {
 		HttpConnector httpConnector = new HttpConnector(blockingQueue);
 
 		new Thread(logTailer).start();
-		new Thread(httpConnector).run();
+		new Thread(httpConnector).start();
 	}
 
 	/**
