@@ -25,6 +25,11 @@ public class LogTailerListener implements TailerListener {
 	@Override
 	public void fileNotFound() {
 		LOGGER.error("File not found", new FileNotFoundException());
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			logInterruptedException(e);
+		}
 	}
 
 	@Override
