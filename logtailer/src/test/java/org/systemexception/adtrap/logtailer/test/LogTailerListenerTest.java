@@ -27,7 +27,8 @@ public class LogTailerListenerTest {
 	private final LinkedBlockingQueue<String> blockingQueue = new LinkedBlockingQueue<>();
 	private final static File INFO_LOG_FILE = new File("target/info.log");
 	private final static String TEST_LOG_FILE = "empty.log";
-	public final static int SLEEP_TIMER = 100, THREAD_SLEEP = 500;
+	private final static int SLEEP_TIMER = 100;
+	public final static int THREAD_SLEEP = 500;
 
 	@BeforeClass
 	public static void setLogTailerListenerTest() throws URISyntaxException, FileSystemException {
