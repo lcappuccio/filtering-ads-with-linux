@@ -84,5 +84,5 @@ So we are redirecting some stuff. :)
 
 ## ToDo
 
-* Log listener
+* Investigate this: `cat /var/log/dnsmasq.log | awk '{print $4 $5 $6 $7 $8}'`
 * Statistics Analysis Facility
