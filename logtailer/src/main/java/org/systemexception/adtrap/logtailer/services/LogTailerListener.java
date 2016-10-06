@@ -37,7 +37,7 @@ public class LogTailerListener implements TailerListener {
 		try {
 			blockingQueue.put(line);
 		} catch (InterruptedException e) {
-			logInterruptedException();
+			logInterruptedException(e);
 		}
 	}
 
@@ -46,7 +46,7 @@ public class LogTailerListener implements TailerListener {
 		LOGGER.error("Exception", ex);
 	}
 
-	public static void logInterruptedException() {
-		LOGGER.error("Thread sleep error", new InterruptedException());
+	public static void logInterruptedException(Exception e) {
+		LOGGER.error(e.getMessage(), e);
 	}
 }

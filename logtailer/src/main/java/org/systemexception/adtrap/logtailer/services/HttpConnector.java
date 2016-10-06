@@ -22,8 +22,8 @@ public class HttpConnector implements Runnable {
 		try {
 			String take = (String) blockingQueue.take();
 			LOGGER.info("Sent " + take);
-		} catch (InterruptedException e) {
-			LogTailerListener.logInterruptedException();
+		} catch (InterruptedException | ClassCastException e) {
+			LogTailerListener.logInterruptedException(e);
 		}
 	}
 }
