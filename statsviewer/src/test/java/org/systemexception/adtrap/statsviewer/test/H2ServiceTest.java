@@ -57,4 +57,12 @@ public class H2ServiceTest {
 		assertTrue(saved.equals(dnsLogLine));
 		verify(dataRepository).save(dnsLogLine);
 	}
+
+	@Test
+	public void should_find_by_id() {
+		DnsLogLine one = sut.findOne(LOG_ID);
+
+		assertTrue(one.equals(dnsLogLine));
+		verify(dataRepository).findOne(LOG_ID);
+	}
 }
