@@ -53,7 +53,6 @@ public class H2Service implements DnsLogLineRepository {
 	 */
 	@Override
 	public List<DnsLogLine> findByDate(Date date) {
-		;
 		logger.info("Find by date: " + convertTime(date));
 		return dataRepository.findByDate(date);
 	}
