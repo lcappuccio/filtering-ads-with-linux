@@ -27,4 +27,69 @@ public class DnsLogLine {
 
 	@Column(name = "REQUESTER")
 	private String queryFromOrTo;
+
+	public long getLogId() {
+		return logId;
+	}
+
+	public void setLogId(long logId) {
+		this.logId = logId;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getQueryType() {
+		return queryType;
+	}
+
+	public void setQueryType(String queryType) {
+		this.queryType = queryType;
+	}
+
+	public String getQueryDomain() {
+		return queryDomain;
+	}
+
+	public void setQueryDomain(String queryDomain) {
+		this.queryDomain = queryDomain;
+	}
+
+	public String getQueryFromOrTo() {
+		return queryFromOrTo;
+	}
+
+	public void setQueryFromOrTo(String queryFromOrTo) {
+		this.queryFromOrTo = queryFromOrTo;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		DnsLogLine that = (DnsLogLine) o;
+
+		if (logId != that.logId) return false;
+		if (date != null ? !date.equals(that.date) : that.date != null) return false;
+		if (queryType != null ? !queryType.equals(that.queryType) : that.queryType != null) return false;
+		if (queryDomain != null ? !queryDomain.equals(that.queryDomain) : that.queryDomain != null) return false;
+		return queryFromOrTo != null ? queryFromOrTo.equals(that.queryFromOrTo) : that.queryFromOrTo == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = (int) (logId ^ (logId >>> 32));
+		result = 31 * result + (date != null ? date.hashCode() : 0);
+		result = 31 * result + (queryType != null ? queryType.hashCode() : 0);
+		result = 31 * result + (queryDomain != null ? queryDomain.hashCode() : 0);
+		result = 31 * result + (queryFromOrTo != null ? queryFromOrTo.hashCode() : 0);
+		return result;
+	}
 }
