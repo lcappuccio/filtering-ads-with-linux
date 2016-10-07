@@ -29,10 +29,11 @@ public class LogTailerListenerTest {
 	private LogTailerListener logTailerListener;
 	private LogTailer logTailer;
 	private final LinkedBlockingQueue<String> blockingQueue = new LinkedBlockingQueue<>();
-	public final static File INFO_LOG_FILE = new File("target/info.log"), ERROR_LOG_FILE = new File("target/error.log");
 	private final static String TEST_LOG_FILE = "empty.log";
 	private final static int SLEEP_TIMER = 100;
-	final static int THREAD_SLEEP = 500;
+
+	public final static File INFO_LOG_FILE = new File("target/info.log"), ERROR_LOG_FILE = new File("target/error.log");
+	public final static int THREAD_SLEEP = 500;
 
 	@BeforeClass
 	public static void setLogTailerListenerTest() throws URISyntaxException, IOException {
