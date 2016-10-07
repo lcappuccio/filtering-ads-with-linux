@@ -1,20 +1,30 @@
 package org.systemexception.adtrap.statsviewer.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * @author leo
  * @date 07/10/2016 17:15
  */
+@Entity
 public class DnsLogLine {
 
-	private long dataId;
+	@Id
+	@GeneratedValue
+	@Column(name = "LOG_ID", unique = true, nullable = false)
+	private long logId;
 
+	@Column(name = "LOG_TIMESTAMP")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
-	private String action;
+	@Column(name = "QUERY_TYPE")
+	private String queryType;
 
-	private String actionDomain;
+	@Column(name = "DOMAIN")
+	private String queryDomain;
 
-	private String actionRequester;
+	@Column(name = "REQUESTER")
+	private String queryFromOrTo;
 }
