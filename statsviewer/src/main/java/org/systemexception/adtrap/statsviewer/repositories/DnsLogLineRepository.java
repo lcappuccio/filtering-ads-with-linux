@@ -44,19 +44,19 @@ public interface DnsLogLineRepository {
 	List<DnsLogLine> findByQueryType(String queryType);
 
 	/**
-	 * Returns all queries by requester
+	 * Returns all queries by domain
 	 *
-	 * @param requester the requester ip address
+	 * @param domain the domain requested
 	 * @return a list of Dns Log lines
 	 */
-	List<DnsLogLine> findByQueryRequester(String requester);
+	List<DnsLogLine> findByQueryDomain(String domain);
 
 	/**
 	 * Returns all queries by domain (from or to)
 	 *
-	 * @param fromOrTo the domain in the dns request
+	 * @param queryTarget the target of the dns request
 	 * @return a list of Dns Log lines
 	 */
-	List<DnsLogLine> findByQueryFromOrTo(String fromOrTo);
+	List<DnsLogLine> findByQueryTarget(String queryTarget);
 
 }
