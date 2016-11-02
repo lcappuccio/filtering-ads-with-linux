@@ -1,5 +1,6 @@
 package org.systemexception.adtrap.logtailer.services;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import org.systemexception.logger.api.Logger;
 import org.systemexception.logger.impl.LoggerImpl;
 
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -17,6 +19,7 @@ public class HttpConnector implements Runnable {
 	private static final String APPLICATION_JSON_PROPERTY = "application/json";
 	private static final Logger LOGGER = LoggerImpl.getFor(HttpConnector.class);
 	private final LinkedBlockingQueue blockingQueue;
+	private final JsonMapper jsonMapper = new JsonMapper();
 
 	public HttpConnector(final LinkedBlockingQueue blockingQueue) {
 		this.blockingQueue = blockingQueue;
@@ -30,24 +33,28 @@ public class HttpConnector implements Runnable {
 				postLine(logLine);
 				LOGGER.info("Sent " + logLine);
 			}
-		} catch (InterruptedException | ClassCastException e) {
+		} catch (InterruptedException | ClassCastException | ParseException e) {
 			LogTailerListener.logInterruptedException(e);
 		}
 	}
 
-	private void postLine(final String logLine) throws InterruptedException {
+	private void postLine(final String logLine) throws InterruptedException, ParseException {
 		try {
-			URL url = new URL("http://localhost:8080/statsviewer/add");
+			URL url = new URL("http://192.168.0.4:8080/logarchiver/add");
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setRequestMethod("POST");
 			urlConnection.setDoOutput(true);
 			urlConnection.setConnectTimeout(1000);
 			urlConnection.setRequestProperty("Content-Type", APPLICATION_JSON_PROPERTY);
 			urlConnection.setRequestProperty("Accept", APPLICATION_JSON_PROPERTY);
+			String encode = Base64.encode("admin:admin_pwd".getBytes());
+			urlConnection.setRequestProperty("Authorization", "Basic " + encode);
 			OutputStreamWriter osw = new OutputStreamWriter(urlConnection.getOutputStream());
-			osw.write(JsonMapper.jsonFromLogLine(logLine));
+			String jsonFromLogLine = jsonMapper.jsonFromLogLine(logLine);
+			osw.write(jsonFromLogLine);
 			osw.flush();
 			osw.close();
+			LOGGER.info("Response: " + urlConnection.getResponseCode() + ", data: " + jsonFromLogLine);
 		} catch (IOException ex) {
 			LOGGER.error("Unreachable", ex);
 		}
