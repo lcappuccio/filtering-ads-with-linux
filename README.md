@@ -82,6 +82,16 @@ So we are redirecting some stuff. :)
 * If using DHCP I've prepared a php page listing all leases
 * Bandwidthd monitor (`sudo apt-get install bandwidthd`)
 
+# Software
+
+## logtailer
+
+`mvn clean compile assembly:single`
+
+## logarchiver
+
+`mvn clean package spring-boot:repackage`
+
 ## ToDo
 
 * Investigate this: `cat /var/log/dnsmasq.log | awk '{print $4 $5 $6 $7 $8}'`
