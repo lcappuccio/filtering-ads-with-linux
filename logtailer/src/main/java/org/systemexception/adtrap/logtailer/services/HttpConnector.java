@@ -45,7 +45,7 @@ public class HttpConnector implements Runnable {
 			urlConnection.setRequestProperty("Content-Type", "application/json");
 			urlConnection.setRequestProperty("Accept", "application/json");
 			OutputStreamWriter osw = new OutputStreamWriter(urlConnection.getOutputStream());
-			osw.write(logLine);
+			osw.write(JsonMapper.jsonFromLogLine(logLine));
 			osw.flush();
 			osw.close();
 		} catch (IOException ex) {
