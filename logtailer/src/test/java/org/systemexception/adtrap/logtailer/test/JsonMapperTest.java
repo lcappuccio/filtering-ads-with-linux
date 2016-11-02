@@ -21,8 +21,8 @@ public class JsonMapperTest {
 	public void should_convert_to_json() throws ParseException {
 		String jsonFromLogLine = sut.jsonFromLogLine(SAMPLE_LOG_LINE);
 
-		assertTrue("{\"logLine\":\"Oct  5 07:29:15 dnsmasq[14261]: config googleads.g.doubleclick.net is 127.0.0.1\"}"
-				.equals(jsonFromLogLine));
+		assertTrue(jsonFromLogLine.contains("\"queryType\":\"config\"," +
+				"\"queryDomain\":\"googleads.g.doubleclick.net\",\"queryTarget\":\"127.0.0.1\"}"));
 	}
 
 }

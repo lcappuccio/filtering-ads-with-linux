@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="DEBUG">
 	<Appenders>
-		<RollingFile name="info_logfile" fileName="logtailer_logs/info.log"
+		<RollingFile name="info_logfile" fileName="target/info.log"
 		             filePattern="target/info-%d{MM-dd-yyyy}-%i.log">
 			<PatternLayout>
 				<Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}|%level|%c|%msg%n</Pattern>
@@ -12,7 +12,7 @@
 			</Policies>
 			<DefaultRolloverStrategy max="5"/>
 		</RollingFile>
-		<RollingFile name="debug_logfile" fileName="logtailer_logs/debug.log"
+		<RollingFile name="debug_logfile" fileName="target/debug.log"
 		             filePattern="target/debug-%d{MM-dd-yyyy}-%i.log">
 			<PatternLayout>
 				<Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}|%level|%c|%msg%n</Pattern>
@@ -23,7 +23,7 @@
 			</Policies>
 			<DefaultRolloverStrategy max="5"/>
 		</RollingFile>
-		<RollingFile name="error_logfile" fileName="logtailer_logs/error.log"
+		<RollingFile name="error_logfile" fileName="target/error.log"
 		             filePattern="target/error-%d{MM-dd-yyyy}-%i.log">
 			<PatternLayout>
 				<Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}|%level|%c|%msg%n</Pattern>

@@ -40,7 +40,7 @@ public class HttpConnector implements Runnable {
 
 	private void postLine(final String logLine) throws InterruptedException, ParseException {
 		try {
-			URL url = new URL("http://192.168.0.4:8080/statsviewer/add");
+			URL url = new URL("http://192.168.0.4:8080/logarchiver/add");
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setRequestMethod("POST");
 			urlConnection.setDoOutput(true);
