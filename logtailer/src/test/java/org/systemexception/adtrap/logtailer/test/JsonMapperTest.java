@@ -3,6 +3,8 @@ package org.systemexception.adtrap.logtailer.test;
 import org.junit.Test;
 import org.systemexception.adtrap.logtailer.services.JsonMapper;
 
+import java.text.ParseException;
+
 import static junit.framework.TestCase.assertTrue;
 
 /**
@@ -12,23 +14,15 @@ import static junit.framework.TestCase.assertTrue;
 public class JsonMapperTest {
 
 	private static final String SAMPLE_LOG_LINE = "Oct  5 07:29:15 dnsmasq[14261]: config googleads.g.doubleclick" +
-			".net" +
-			" is 127.0.0.1";
+			".net is 127.0.0.1";
+	private final JsonMapper sut = new JsonMapper();
 
 	@Test
-	public void should_convert_to_json() {
-		String jsonFromLogLine = JsonMapper.jsonFromLogLine(SAMPLE_LOG_LINE);
+	public void should_convert_to_json() throws ParseException {
+		String jsonFromLogLine = sut.jsonFromLogLine(SAMPLE_LOG_LINE);
 
 		assertTrue("{\"logLine\":\"Oct  5 07:29:15 dnsmasq[14261]: config googleads.g.doubleclick.net is 127.0.0.1\"}"
 				.equals(jsonFromLogLine));
-	}
-
-	@Test
-	public void should_keep_api_with_statsviewer() {
-		String jsonFromLogLine = JsonMapper.jsonFromLogLine(SAMPLE_LOG_LINE);
-
-		assertTrue(jsonFromLogLine.contains(JsonMapper.JSON_PROPERTY_LOG_LINE));
-
 	}
 
 }

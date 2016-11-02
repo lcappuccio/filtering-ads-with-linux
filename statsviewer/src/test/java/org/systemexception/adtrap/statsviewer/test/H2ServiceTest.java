@@ -33,8 +33,9 @@ public class H2ServiceTest {
 	@Before
 	public void setUp() {
 		dnsLogLine = new DnsLogLine();
+		long date = System.currentTimeMillis();
 		dnsLogLine.setLogId(LOG_ID);
-		dnsLogLine.setDate(NOW_DATE);
+		dnsLogLine.setDate(date);
 		dnsLogLine.setQueryType(QUERY_TYPE);
 		dnsLogLine.setQueryDomain(QUERY_DOMAIN);
 		dnsLogLine.setQueryTarget(QUERY_TARGET);

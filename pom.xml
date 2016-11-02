@@ -18,10 +18,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<spring.version>1.4.0.RELEASE</spring.version>
+		<swagger.version>2.2.2</swagger.version>
 	</properties>
 
 	<dependencies>
-		<!-- Test Dependencies -->
+		<!-- Test Dependencies-->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

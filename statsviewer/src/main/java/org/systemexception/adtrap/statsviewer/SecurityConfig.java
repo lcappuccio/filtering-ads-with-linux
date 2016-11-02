@@ -17,7 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String USER_USER = "user", USER_PASSWORD = "user_pwd", USER_ROLE = "USER";
-	private static final String ADMIN_USER = "admin", ADMIN_PASSWORD = "admin_pwd", ADMIN_ROLE = "ADMIN";
+	public static final String ADMIN_USER = "admin", ADMIN_PASSWORD = "admin_pwd", ADMIN_ROLE = "ADMIN";
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
