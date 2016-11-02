@@ -11,7 +11,6 @@ import java.util.ArrayList;
  */
 public class JsonMapper {
 
-	public static final String JSON_PROPERTY_LOG_LINE = "logLine";
 	private final LogParser logParser = new LogParser();
 
 	public String jsonFromLogLine(final String logLine) throws ParseException {
