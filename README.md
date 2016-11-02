@@ -91,3 +91,4 @@ So we are redirecting some stuff. :)
 be performed if using a key value store. If there is a value in data relation then the database needs to be 
 relational. Use a KV only if you do not really care or are interested in what you're saving. **If you expect a 
 formatted JSON then your data and the relation in it has a value**
+* How to handle HTTPS requests
