@@ -14,6 +14,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class HttpConnector implements Runnable {
 
+	private static final String APPLICATION_JSON_PROPERTY = "application/json";
 	private static final Logger LOGGER = LoggerImpl.getFor(HttpConnector.class);
 	private final LinkedBlockingQueue blockingQueue;
 
@@ -34,16 +35,15 @@ public class HttpConnector implements Runnable {
 		}
 	}
 
-	// TODO Add tests
 	private void postLine(final String logLine) throws InterruptedException {
 		try {
-			URL url = new URL("http://localhost:8080/ecommuter/person/add");
+			URL url = new URL("http://localhost:8080/statsviewer/add");
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setRequestMethod("POST");
 			urlConnection.setDoOutput(true);
 			urlConnection.setConnectTimeout(1000);
-			urlConnection.setRequestProperty("Content-Type", "application/json");
-			urlConnection.setRequestProperty("Accept", "application/json");
+			urlConnection.setRequestProperty("Content-Type", APPLICATION_JSON_PROPERTY);
+			urlConnection.setRequestProperty("Accept", APPLICATION_JSON_PROPERTY);
 			OutputStreamWriter osw = new OutputStreamWriter(urlConnection.getOutputStream());
 			osw.write(JsonMapper.jsonFromLogLine(logLine));
 			osw.flush();
