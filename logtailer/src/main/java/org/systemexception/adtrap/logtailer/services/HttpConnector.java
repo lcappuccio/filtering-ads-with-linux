@@ -26,7 +26,7 @@ public class HttpConnector implements Runnable {
 		try {
 			while (true) {
 				String logLine = (String) blockingQueue.take();
-				postLine(blockingQueue, logLine);
+				postLine(logLine);
 				LOGGER.info("Sent " + logLine);
 			}
 		} catch (InterruptedException | ClassCastException e) {
@@ -35,7 +35,7 @@ public class HttpConnector implements Runnable {
 	}
 
 	// TODO Add tests
-	private void postLine(final LinkedBlockingQueue queue, final String logLine) throws InterruptedException {
+	private void postLine(final String logLine) throws InterruptedException {
 		try {
 			URL url = new URL("http://localhost:8080/ecommuter/person/add");
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
