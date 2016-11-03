@@ -45,9 +45,9 @@ public class JsonMapper {
 	 * @return
 	 */
 	private String jsonFromDhcpLogLine(final ArrayList<String> logSplitted, final JsonObject jsonObject) {
-		jsonObject.addProperty(QUERY_TYPE, logSplitted.get(5));
-		jsonObject.addProperty(QUERY_DOMAIN, logSplitted.get(7));
-		jsonObject.addProperty(QUERY_TARGET, logSplitted.get(6));
+		jsonObject.addProperty(QUERY_TYPE, logSplitted.get(4));
+		jsonObject.addProperty(QUERY_DOMAIN, logSplitted.get(6));
+		jsonObject.addProperty(QUERY_TARGET, logSplitted.get(5));
 		return jsonObject.toString();
 	}
 

@@ -28,7 +28,7 @@ public class JsonMapperTest {
 		String jsonFromLogLine = sut.jsonFromLogLine(LogParserTest.DHCP_LOG_LINE);
 
 		assertTrue(jsonFromLogLine.contains("\"queryType\":\"DHCPREQUEST(eth0)\"," +
-				"\"queryDomain\":\"e8:b2:ac:1a:79:af\",\"queryTarget\":\"192.168.0.168\"}"));
+				"\"queryDomain\":\"34:12:98:77:5e:b3\",\"queryTarget\":\"192.168.0.214\"}"));
 	}
 
 	@Test
@@ -36,7 +36,7 @@ public class JsonMapperTest {
 		String jsonFromLogLine = sut.jsonFromLogLine(LogParserTest.DHCPACK_LOG_LINE);
 
 		assertTrue(jsonFromLogLine.contains("\"queryType\":\"DHCPACK(eth0)\"," +
-				"\"queryDomain\":\"b0:e8:92:6f:a2:df\",\"queryTarget\":\"192.168.0.208\"}"));
+				"\"queryDomain\":\"34:12:98:77:5e:b3\",\"queryTarget\":\"192.168.0.214\"}"));
 	}
 
 }
