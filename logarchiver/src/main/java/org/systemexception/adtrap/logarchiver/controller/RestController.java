@@ -1,5 +1,6 @@
 package org.systemexception.adtrap.logarchiver.controller;
 
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 import org.systemexception.adtrap.logarchiver.service.DataService;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
 import java.text.ParseException;
@@ -22,6 +24,8 @@ import java.text.ParseException;
  */
 @Controller
 @RequestMapping(value = "logarchiver")
+@EnableSwagger2
+@Api(basePath = "logarchiver", value = "Data", description = "Data REST API")
 public class RestController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RestController.class);
