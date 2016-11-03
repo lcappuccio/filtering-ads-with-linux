@@ -1,5 +1,7 @@
 package org.systemexception.adtrap.logarchiver.model;
 
+import org.systemexception.adtrap.logarchiver.pojo.LogParser;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -92,5 +94,11 @@ public class DnsLogLine {
 		result = 31 * result + (queryDomain != null ? queryDomain.hashCode() : 0);
 		result = 31 * result + (queryTarget != null ? queryTarget.hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return queryType + LogParser.LOG_LINE_SEPARATOR + queryDomain + LogParser.LOG_LINE_SEPARATOR
+				+ queryTarget;
 	}
 }

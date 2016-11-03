@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class LogParser {
 
-	private static final String LOG_LINE_SEPARATOR = " ", EMTPY_STRING = "";
+	public static final String LOG_LINE_SEPARATOR = " ", EMTPY_STRING = "";
 	private static final int QUERY_TYPE = 4;
 	private static final int DOMAIN = 5;
 	private static final int TARGET = 7;

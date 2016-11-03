@@ -1,5 +1,6 @@
 package org.systemexception.adtrap.logarchiver.repositories;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * @date 07/10/2016 18:34
  */
 @Repository
-public interface DnsLogLineRepository {
+public interface DnsLogLineRepository extends CrudRepository<DnsLogLine, Long> {
 
 	/**
 	 * Save data to the database
@@ -26,6 +27,11 @@ public interface DnsLogLineRepository {
 	 * @return a single Dns Log line
 	 */
 	DnsLogLine findOne(Long logId);
+
+	/**
+	 * @return
+	 */
+	List<DnsLogLine> findAll();
 
 	/**
 	 * Returns all queries on specified date
