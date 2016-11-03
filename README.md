@@ -92,6 +92,35 @@ So we are redirecting some stuff. :)
 
 `mvn clean package spring-boot:repackage`
 
+## Monitoring
+
+Connect to the h2-console with the correct JDBC URL (e.g. `jdbc:h2:./database`) in `application.properties`.
+Username and password are also the ones in `application.properties`.
+To open the console go to `http://server_ip:port/h2-console`.
+
+Useful queries:
+
+`select * from dns_log_line 
+--where target = '$ADTRAP_IP_ADDRESS'
+--where domain like '%home%'
+order by LOG_TImestamp desc`
+
+`select query_type, count(*)
+from dns_log_line
+group by query_Type
+order by 2 desc`
+
+`select domain, count(*)
+from dns_log_line
+group by domain
+order by 2 desc`
+
+`select domain, count(*)
+from dns_log_line
+where target = '192.168.0.4'
+group by domain
+order by 2 desc`
+
 ## ToDo
 
 * Investigate this: `cat /var/log/dnsmasq.log | awk '{print $4 $5 $6 $7 $8}'`
