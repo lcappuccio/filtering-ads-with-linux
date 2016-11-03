@@ -31,6 +31,48 @@ This is basically a matter of typing:
 
 See `dnsmasq.conf` and `hosts`. On my example I'm also using this machine as DHCP server and resolving some local hostnames. I'm also using google's DNS.
 
+Example `dnsmasq.conf` (**please be sure to disable dhcp logging, otherwise logtailer will crash**)
+
+```
+######### dns ########
+# Never forward plain names (without a dot or domain part)
+domain-needed
+# Never forward addresses in the non-routed address spaces
+bogus-priv
+# dont read resolv.conf   use the defined servers instead
+no-resolv
+server=8.8.8.8
+server=8.8.4.4
+# increase dns cache from 512 to 4096
+cache-size=4096
+
+######### dhcp ##########
+# Add local-only domains here, queries in these domains are answered
+# from /etc/hosts or DHCP only
+local=/home/
+# Set this (and domain: see below) if you want to have a domain
+# automatically added to simple names in a hosts-file.
+expand-hosts
+# adds my localdomain to each dhcp host
+domain=home
+# my private dhcp range + subnetmask + 14d lease time
+dhcp-range=192.168.0.20,192.168.0.254,255.255.255.0,8h
+# set route to my local network router
+dhcp-option=option:router,192.168.0.1
+#windows 7 float fix
+#http://brielle.sosdg.org/archives/522-Windows-7-flooding-DHCP-server-with-DHCPINFORM-messages.html
+dhcp-option=252,"\n"
+
+###### logging ############
+# own logfile
+log-facility=/var/log/dnsmasq.log
+log-async
+# log dhcp infos
+# log-dhcp
+# debugging dns
+log-queries
+```
+
 Everything is on domain `home`. After installing and configuring:
 
 `sudo service dnsmasq restart`
@@ -130,3 +172,29 @@ be performed if using a key value store. If there is a value in data relation th
 relational. Use a KV only if you do not really care or are interested in what you're saving. **If you expect a 
 formatted JSON then your data and the relation in it has a value**
 * How to handle HTTPS requests
+* How to handle DHCP logs
+```
+Nov  3 06:35:07 dnsmasq[27711]: DHCP 192.168.0.214 is xxxx.home
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 available DHCP range: 192.168.0.20 -- 192.168.0.254
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 vendor class: udhcp
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 client provides name: xxxx
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 DHCPREQUEST(eth0) 192.168.0.208 b0:e8:92:6f:a2:df 
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 tags: eth0
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 DHCPACK(eth0) 192.168.0.208 b0:e8:92:6f:a2:df xxxx
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 requested options: 1:netmask, 3:router, 6:dns-server, 12:hostname, 
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 requested options: 15:domain-name, 17:root-path, 28:broadcast, 
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 requested options: 40:nis-domain, 41:nis-server, 42:ntp-server
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 next server: 192.168.0.4
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  1 option: 53 message-type  5
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option: 54 server-identifier  192.168.0.4
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option: 51 lease-time  8h
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option: 58 T1  3h44m54s
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option: 59 T2  6h44m54s
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option:  1 netmask  255.255.255.0
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option: 28 broadcast  192.168.0.255
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option:  6 dns-server  192.168.0.4
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option: 15 domain-name  home
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size: 11 option: 12 hostname  xxxx
+Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option:  3 router  192.168.0.1
+Nov  3 06:36:35 dnsmasq[27711]: query[A] checkip.synology.com from 192.168.0.1
+```

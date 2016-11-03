@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class LogParserTest {
 
-	private static final String LOG_LINE = "Nov  2 20:42:55 dnsmasq[27711]: forwarded e4478.a.akamaiedge.net to " +
+	public static final String LOG_LINE = "Nov  2 20:42:55 dnsmasq[27711]: forwarded e4478.a.akamaiedge.net to " +
 			"8.8.4.4";
 	private static final String QUERY_TYPE = "forwarded";
 	private static final String QUERY_DOMAIN = "e4478.a.akamaiedge.net";

@@ -13,16 +13,14 @@ import static junit.framework.TestCase.assertTrue;
  */
 public class JsonMapperTest {
 
-	private static final String SAMPLE_LOG_LINE = "Oct  5 07:29:15 dnsmasq[14261]: config googleads.g.doubleclick" +
-			".net is 127.0.0.1";
 	private final JsonMapper sut = new JsonMapper();
 
 	@Test
 	public void should_convert_to_json() throws ParseException {
-		String jsonFromLogLine = sut.jsonFromLogLine(SAMPLE_LOG_LINE);
+		String jsonFromLogLine = sut.jsonFromLogLine(LogParserTest.LOG_LINE);
 
-		assertTrue(jsonFromLogLine.contains("\"queryType\":\"config\"," +
-				"\"queryDomain\":\"googleads.g.doubleclick.net\",\"queryTarget\":\"127.0.0.1\"}"));
+		assertTrue(jsonFromLogLine.contains("\"queryType\":\"forwarded\"," +
+				"\"queryDomain\":\"e4478.a.akamaiedge.net\",\"queryTarget\":\"8.8.4.4\"}"));
 	}
 
 }
