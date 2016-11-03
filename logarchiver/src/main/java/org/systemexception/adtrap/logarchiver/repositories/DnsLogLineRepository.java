@@ -1,6 +1,9 @@
 package org.systemexception.adtrap.logarchiver.repositories;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 
@@ -64,5 +67,15 @@ public interface DnsLogLineRepository extends CrudRepository<DnsLogLine, Long> {
 	 * @return a list of Dns Log lines
 	 */
 	List<DnsLogLine> findByQueryTarget(String queryTarget);
+
+	/**
+	 * Clean up database
+	 *
+	 * @param date
+	 * @return
+	 */
+	@Modifying
+	@Query("delete from DnsLogLine dns where dns.date < :date")
+	void cleanUp(@Param("date") Long date);
 
 }
