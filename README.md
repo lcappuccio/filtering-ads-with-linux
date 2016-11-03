@@ -126,13 +126,19 @@ So we are redirecting some stuff. :)
 
 # Software
 
-## logtailer
+## Compile logtailer
 
 `mvn clean compile assembly:single`
 
-## logarchiver
+## Compile logarchiver
 
 `mvn clean package spring-boot:repackage`
+
+## init, launch and stop scripts
+
+1. Copy script `adtrap` to /etc/init.d
+2. Copy `launch_all.sh` and `stop_all.sh` to the paths in `adtrap`
+3. `sudo update-rc.d adtrap defaults` will register the service at boot and stop
 
 ## Monitoring
 
@@ -142,26 +148,33 @@ To open the console go to `http://server_ip:port/h2-console`.
 
 Useful queries:
 
-`select * from dns_log_line 
+```
+select *
+from dns_log_line 
 --where target = '$ADTRAP_IP_ADDRESS'
 --where domain like '%home%'
-order by LOG_TImestamp desc`
+order by LOG_TImestamp desc;
 
-`select query_type, count(*)
+select query_type, count(*)
 from dns_log_line
 group by query_Type
-order by 2 desc`
+order by 2 desc;
 
-`select domain, count(*)
+select domain, count(*)
 from dns_log_line
 group by domain
-order by 2 desc`
+order by 2 desc;
 
-`select domain, count(*)
+select domain, count(*)
 from dns_log_line
-where target = '192.168.0.4'
+where target = 'ADTRAP_IP_ADDRESS'
 group by domain
-order by 2 desc`
+order by 2 desc;
+
+select count(*)
+from dns_log_line
+where target = 'ADTRAP_IP_ADDRESS';
+```
 
 ## ToDo
 
