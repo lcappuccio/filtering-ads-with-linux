@@ -3,6 +3,7 @@ package org.systemexception.adtrap.logarchiver.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 import org.systemexception.adtrap.logarchiver.repositories.DnsLogLineRepository;
 
@@ -16,7 +17,8 @@ import java.util.Locale;
  * @author leo
  * @date 07/10/2016 18:49
  */
-public class H2Service implements DnsLogLineRepository {
+@Service
+public class H2DataService implements DataService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final DnsLogLineRepository dataRepository;
@@ -26,7 +28,7 @@ public class H2Service implements DnsLogLineRepository {
 	 * {@inheritDoc}
 	 */
 	@Autowired
-	public H2Service(final DnsLogLineRepository dataRepository) {
+	public H2DataService(DnsLogLineRepository dataRepository) {
 		this.dataRepository = dataRepository;
 	}
 
@@ -35,7 +37,7 @@ public class H2Service implements DnsLogLineRepository {
 	 */
 	@Override
 	public DnsLogLine save(DnsLogLine dnsLogLine) {
-		logger.info("Save data: " + dnsLogLine.getLogId());
+		logger.info("Save data: " + dnsLogLine.toString());
 		return dataRepository.save(dnsLogLine);
 	}
 
@@ -46,6 +48,16 @@ public class H2Service implements DnsLogLineRepository {
 	public DnsLogLine findOne(Long logId) {
 		logger.info("Find id: " + logId);
 		return dataRepository.findOne(logId);
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<DnsLogLine> findAll() {
+		logger.info("Find all");
+		return dataRepository.findAll();
 	}
 
 	/**
