@@ -1,0 +1,24 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          adtrap
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: adtrap
+# Description:       Trap advertisers in a 1x1 gif
+### END INIT INFO
+
+case $1 in
+    start)
+        /bin/bash /home/pi/Programs/logtailer/launch_all.sh
+    ;;
+    stop)
+        /bin/bash /home/pi/Programs/logtailer/stop_all.sh
+    ;;
+    restart)
+        /bin/bash /home/pi/Programs/logtailer/launch_all.sh
+        /bin/bash /home/pi/Programs/logtailer/stop_all.sh
+    ;;
+esac
+exit 0
