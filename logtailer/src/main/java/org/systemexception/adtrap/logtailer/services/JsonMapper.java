@@ -12,10 +12,10 @@ import java.util.ArrayList;
 public class JsonMapper {
 
 	private final LogParser logParser = new LogParser();
-	private final String date = "date";
-	private final String queryDomain = "queryDomain";
-	private final String queryTarget = "queryTarget";
-	private final String queryType = "queryType";
+	private static final String DATE = "date";
+	private static final String QUERY_DOMAIN = "queryDomain";
+	private static final String QUERY_TARGET = "queryTarget";
+	private static final String QUERY_TYPE = "queryType";
 
 	/**
 	 * Format log line as JSON for logarchiver
@@ -27,13 +27,13 @@ public class JsonMapper {
 	public String jsonFromLogLine(final String logLine) throws ParseException {
 		JsonObject jsonObject = new JsonObject();
 		ArrayList<String> logSplitted = logParser.splitLogLine(logLine);
-		jsonObject.addProperty(date, System.currentTimeMillis());
+		jsonObject.addProperty(DATE, System.currentTimeMillis());
 		if (logLine.contains("dnsmasq-dhcp")) {
 			return jsonFromDhcpLogLine(logSplitted, jsonObject);
 		}
-		jsonObject.addProperty(queryType, logSplitted.get(LogParser.QUERY_TYPE));
-		jsonObject.addProperty(queryDomain, logSplitted.get(LogParser.DOMAIN));
-		jsonObject.addProperty(queryTarget, logSplitted.get(LogParser.TARGET));
+		jsonObject.addProperty(QUERY_TYPE, logSplitted.get(LogParser.QUERY_TYPE));
+		jsonObject.addProperty(QUERY_DOMAIN, logSplitted.get(LogParser.DOMAIN));
+		jsonObject.addProperty(QUERY_TARGET, logSplitted.get(LogParser.TARGET));
 		return jsonObject.toString();
 	}
 
@@ -45,9 +45,9 @@ public class JsonMapper {
 	 * @return
 	 */
 	private String jsonFromDhcpLogLine(final ArrayList<String> logSplitted, final JsonObject jsonObject) {
-		jsonObject.addProperty(queryType, logSplitted.get(5));
-		jsonObject.addProperty(queryDomain, logSplitted.get(7));
-		jsonObject.addProperty(queryTarget, logSplitted.get(6));
+		jsonObject.addProperty(QUERY_TYPE, logSplitted.get(5));
+		jsonObject.addProperty(QUERY_DOMAIN, logSplitted.get(7));
+		jsonObject.addProperty(QUERY_TARGET, logSplitted.get(6));
 		return jsonObject.toString();
 	}
 
