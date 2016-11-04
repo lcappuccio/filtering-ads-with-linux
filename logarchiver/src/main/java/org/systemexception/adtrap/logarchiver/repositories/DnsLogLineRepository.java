@@ -1,13 +1,12 @@
 package org.systemexception.adtrap.logarchiver.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +14,7 @@ import java.util.List;
  * @date 07/10/2016 18:34
  */
 @Repository
-public interface DnsLogLineRepository extends CrudRepository<DnsLogLine, Long> {
+public interface DnsLogLineRepository extends JpaRepository<DnsLogLine, Long> {
 
 	/**
 	 * Save data to the database
@@ -25,48 +24,8 @@ public interface DnsLogLineRepository extends CrudRepository<DnsLogLine, Long> {
 	 */
 	DnsLogLine save(DnsLogLine dnsLogLine);
 
-	/**
-	 * @param logId
-	 * @return a single Dns Log line
-	 */
-	DnsLogLine findOne(Long logId);
-
-	/**
-	 * @return
-	 */
-	List<DnsLogLine> findAll();
-
-	/**
-	 * Returns all queries on specified date
-	 *
-	 * @param date
-	 * @return a list of Dns Log lines
-	 */
-	List<DnsLogLine> findByDate(Date date);
-
-	/**
-	 * Returns all queries by type
-	 *
-	 * @param queryType https://en.wikipedia.org/wiki/List_of_DNS_record_types
-	 * @return a list of Dns Log lines
-	 */
-	List<DnsLogLine> findByQueryType(String queryType);
-
-	/**
-	 * Returns all queries by domain
-	 *
-	 * @param domain the domain requested
-	 * @return a list of Dns Log lines
-	 */
-	List<DnsLogLine> findByQueryDomain(String domain);
-
-	/**
-	 * Returns all queries by domain (from or to)
-	 *
-	 * @param queryTarget the target of the dns request
-	 * @return a list of Dns Log lines
-	 */
-	List<DnsLogLine> findByQueryTarget(String queryTarget);
+	@Query(value = "select count(dns) from DnsLogLine dns")
+	int countAll();
 
 	/**
 	 * Clean up database

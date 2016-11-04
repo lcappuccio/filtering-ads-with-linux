@@ -63,11 +63,19 @@ public class RestControllerTest {
 	@Test
 	@WithMockUser(username = SecurityConfig.ADMIN_USER, password = SecurityConfig.ADMIN_PASSWORD,
 			roles = {SecurityConfig.ADMIN_ROLE})
-	public void save_data() throws Exception {
+	public void should_save_data() throws Exception {
 		sut.perform(MockMvcRequestBuilders.post("/logarchiver/save").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(dataJson().getBytes())).andExpect(status().is(HttpStatus.CREATED.value()));
 
 		verify(dataService).save(dnsLogLine);
+	}
+
+	@Test
+	public void should_count_all() throws Exception {
+		sut.perform(MockMvcRequestBuilders.get("/logarchiver/countall")).andExpect(
+				status().is(HttpStatus.OK.value()));
+
+		verify(dataService).countAll();
 	}
 
 	private String dataJson() {
