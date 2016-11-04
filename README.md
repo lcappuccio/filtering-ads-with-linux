@@ -149,10 +149,11 @@ To open the console go to `http://server_ip:port/h2-console`.
 Useful queries:
 
 ```
+select count(*)
+from dns_log_line;
+
 select *
 from dns_log_line 
---where target = '$ADTRAP_IP_ADDRESS'
---where domain like '%home%'
 order by LOG_TImestamp desc;
 
 select query_type, count(*)
