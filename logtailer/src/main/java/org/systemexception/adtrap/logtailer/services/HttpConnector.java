@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -35,7 +34,7 @@ public class HttpConnector implements Runnable {
 					postLine(jsonMapper.jsonFromLogLine(logLine).get());
 					LOGGER.info("Sent " + logLine);
 				} else {
-					LOGGER.error("Bad line caught, skipped: " + logLine, new InvalidParameterException());
+					LOGGER.info("Bad line caught, skipped: " + logLine);
 				}
 			}
 		} catch (InterruptedException | ClassCastException | ParseException e) {

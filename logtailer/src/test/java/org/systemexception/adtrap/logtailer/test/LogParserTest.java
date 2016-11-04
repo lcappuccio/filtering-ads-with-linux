@@ -21,6 +21,7 @@ public class LogParserTest {
 			"34:12:98:77:5e:b3 SomeServer";
 	public static final String BAD_LOG_LINE = "Nov  3 20:11:15 dnsmasq[20998]: compile time options: IPv6 GNU-getopt " +
 			"DBus i18n IDN DHCP DHCPv6 no-Lua TFTP conntrack ipset auth DNSSEC loop-detect";
+	public static final String BAD_LOG_LINE_A = "Nov  4 18:47:39 dnsmasq[32597]: using nameserver 8.8.4.4#53";
 	private static final String QUERY_TYPE = "forwarded";
 	private static final String QUERY_DOMAIN = "e4478.a.akamaiedge.net";
 	private static final String QUERY_TARGET = "8.8.4.4";

@@ -26,10 +26,7 @@ public class JsonMapperTest {
 
 	@Test
 	public void should_convert_dhcp_to_json() throws ParseException {
-		String jsonFromLogLine = sut.jsonFromLogLine(LogParserTest.DHCP_LOG_LINE).get();
-
-		assertTrue(jsonFromLogLine.contains("\"queryType\":\"DHCPREQUEST(eth0)\"," +
-				"\"queryDomain\":\"34:12:98:77:5e:b3\",\"queryTarget\":\"192.168.0.214\"}"));
+		assertFalse(sut.jsonFromLogLine(LogParserTest.DHCP_LOG_LINE).isPresent());
 	}
 
 	@Test
@@ -43,6 +40,11 @@ public class JsonMapperTest {
 	@Test
 	public void should_skip_bad_line() throws ParseException {
 		assertFalse(sut.jsonFromLogLine(LogParserTest.BAD_LOG_LINE).isPresent());
+	}
+
+	@Test
+	public void should_skip_other_bad_line() throws ParseException {
+		assertFalse(sut.jsonFromLogLine(LogParserTest.BAD_LOG_LINE_A).isPresent());
 	}
 
 }
