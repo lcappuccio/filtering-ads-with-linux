@@ -17,8 +17,8 @@ case $1 in
         /bin/bash /home/pi/Programs/logtailer/stop_all.sh
     ;;
     restart)
-        /bin/bash /home/pi/Programs/logtailer/launch_all.sh
         /bin/bash /home/pi/Programs/logtailer/stop_all.sh
+        /bin/bash /home/pi/Programs/logtailer/launch_all.sh
     ;;
 esac
 exit 0
