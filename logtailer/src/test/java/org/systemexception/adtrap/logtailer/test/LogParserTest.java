@@ -19,6 +19,8 @@ public class LogParserTest {
 			"34:12:98:77:5e:b3";
 	public static final String DHCPACK_LOG_LINE = "Nov  3 19:30:57 dnsmasq-dhcp[1643]: DHCPACK(eth0) 192.168.0.214 " +
 			"34:12:98:77:5e:b3 SomeServer";
+	public static final String BAD_LOG_LINE = "Nov  3 20:11:15 dnsmasq[20998]: compile time options: IPv6 GNU-getopt " +
+			"DBus i18n IDN DHCP DHCPv6 no-Lua TFTP conntrack ipset auth DNSSEC loop-detect";
 	private static final String QUERY_TYPE = "forwarded";
 	private static final String QUERY_DOMAIN = "e4478.a.akamaiedge.net";
 	private static final String QUERY_TARGET = "8.8.4.4";

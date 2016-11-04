@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * @author leo
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class JsonMapper {
 
 	private final LogParser logParser = new LogParser();
+	private static final int DNSMASQ_STANDARD_LINE_SIZE = 7, DNSMASQ_DHCP_LINE_SIZE = 8;
 	private static final String DATE = "date";
 	private static final String QUERY_DOMAIN = "queryDomain";
 	private static final String QUERY_TARGET = "queryTarget";
@@ -24,17 +26,20 @@ public class JsonMapper {
 	 * @return
 	 * @throws ParseException
 	 */
-	public String jsonFromLogLine(final String logLine) throws ParseException {
+	public Optional<String> jsonFromLogLine(final String logLine) throws ParseException {
 		JsonObject jsonObject = new JsonObject();
 		ArrayList<String> logSplitted = logParser.splitLogLine(logLine);
+		if (logSplitted.size() != DNSMASQ_STANDARD_LINE_SIZE && logSplitted.size() != DNSMASQ_DHCP_LINE_SIZE) {
+			return Optional.empty();
+		}
 		jsonObject.addProperty(DATE, System.currentTimeMillis());
 		if (logLine.contains("dnsmasq-dhcp")) {
-			return jsonFromDhcpLogLine(logSplitted, jsonObject);
+			return Optional.of(jsonFromDhcpLogLine(logSplitted, jsonObject));
 		}
 		jsonObject.addProperty(QUERY_TYPE, logSplitted.get(LogParser.QUERY_TYPE));
 		jsonObject.addProperty(QUERY_DOMAIN, logSplitted.get(LogParser.DOMAIN));
 		jsonObject.addProperty(QUERY_TARGET, logSplitted.get(LogParser.TARGET));
-		return jsonObject.toString();
+		return Optional.of(jsonObject.toString());
 	}
 
 	/**

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -30,8 +31,12 @@ public class HttpConnector implements Runnable {
 		try {
 			while (true) {
 				String logLine = (String) blockingQueue.take();
-				postLine(logLine);
-				LOGGER.info("Sent " + logLine);
+				if (jsonMapper.jsonFromLogLine(logLine).isPresent()) {
+					postLine(jsonMapper.jsonFromLogLine(logLine).get());
+					LOGGER.info("Sent " + logLine);
+				} else {
+					LOGGER.error("Bad line caught, skipped: " + logLine, new InvalidParameterException());
+				}
 			}
 		} catch (InterruptedException | ClassCastException | ParseException e) {
 			LogTailerListener.logInterruptedException(e);
@@ -50,11 +55,10 @@ public class HttpConnector implements Runnable {
 			String encode = Base64.encode("admin:admin_pwd".getBytes());
 			urlConnection.setRequestProperty("Authorization", "Basic " + encode);
 			OutputStreamWriter osw = new OutputStreamWriter(urlConnection.getOutputStream());
-			String jsonFromLogLine = jsonMapper.jsonFromLogLine(logLine);
-			osw.write(jsonFromLogLine);
+			osw.write(logLine);
 			osw.flush();
 			osw.close();
-			LOGGER.info("Response: " + urlConnection.getResponseCode() + ", data: " + jsonFromLogLine);
+			LOGGER.info("Response: " + urlConnection.getResponseCode() + ", data: " + logLine);
 		} catch (IOException ex) {
 			LOGGER.error("Unreachable", ex);
 		}

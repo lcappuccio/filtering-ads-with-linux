@@ -26,7 +26,7 @@ public class HttpConnectorTest {
 	@Test
 	public void should_take() throws InterruptedException, IOException {
 		sut = new HttpConnector(BLOCKING_QUEUE);
-		String outString = "Test" + System.currentTimeMillis();
+		String outString = LogParserTest.LOG_LINE;
 		BLOCKING_QUEUE.put(outString);
 
 		Thread.sleep(LogTailerListenerTest.THREAD_SLEEP);
