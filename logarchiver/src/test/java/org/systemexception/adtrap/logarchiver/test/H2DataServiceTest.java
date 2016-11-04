@@ -25,7 +25,7 @@ public class H2DataServiceTest {
 	private H2DataService sut;
 	private DnsLogLineRepository dataRepository;
 	private DnsLogLine dnsLogLine;
-	private List<DnsLogLine> dnsLogLineList = new ArrayList<>();
+	private final List<DnsLogLine> dnsLogLineList = new ArrayList<>();
 	private static final Long LOG_ID = 1L;
 	private static final String QUERY_TYPE = "query[A]", QUERY_DOMAIN = "somedomain.org", QUERY_TARGET = "127.0.0.1";
 	private static final Date NOW_DATE = Date.from(Instant.now());

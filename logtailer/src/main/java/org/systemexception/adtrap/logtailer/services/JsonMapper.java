@@ -26,7 +26,7 @@ public class JsonMapper {
 	 * @return
 	 * @throws ParseException
 	 */
-	public Optional<String> jsonFromLogLine(final String logLine) throws ParseException {
+	public Optional<String> jsonFromLogLine(final String logLine) {
 		JsonObject jsonObject = new JsonObject();
 		ArrayList<String> logSplitted = logParser.splitLogLine(logLine);
 		if (logSplitted.size() != DNSMASQ_STANDARD_LINE_SIZE) {
