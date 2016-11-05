@@ -78,6 +78,46 @@ public class RestControllerTest {
 		verify(dataService).countAll();
 	}
 
+	@Test
+	public void should_count_by_type() throws Exception {
+		sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyquerytype")).andExpect(
+				status().is(HttpStatus.OK.value()));
+
+		verify(dataService).groupByQueryType();
+	}
+
+	@Test
+	public void should_count_by_domain() throws Exception {
+		sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyquerydomain")).andExpect(
+				status().is(HttpStatus.OK.value()));
+
+		verify(dataService).groupByQueryDomain();
+	}
+
+	@Test
+	public void should_count_by_target() throws Exception {
+		sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyquerytarget")).andExpect(
+				status().is(HttpStatus.OK.value()));
+
+		verify(dataService).groupByQueryTarget();
+	}
+
+	@Test
+	public void should_count_by_filtered_domain() throws Exception {
+		sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyfiltereddomains")).andExpect(
+				status().is(HttpStatus.OK.value()));
+
+		verify(dataService).groupByFilteredDomains();
+	}
+
+	@Test
+	public void should_count_all_filtered() throws Exception {
+		sut.perform(MockMvcRequestBuilders.get("/logarchiver/countallfiltered")).andExpect(
+				status().is(HttpStatus.OK.value()));
+
+		verify(dataService).countAllFiltered();
+	}
+
 	private String dataJson() {
 		return "{\"date\": \"" + DNS_DATE + "\"," +
 				"\"queryType\": \"" + DNS_QUERY_TYPE + "\"," +

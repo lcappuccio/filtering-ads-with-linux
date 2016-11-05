@@ -22,4 +22,7 @@ public interface DataService {
 
 	HashMap groupByQueryTarget();
 
+	HashMap groupByFilteredDomains();
+
+	int countAllFiltered();
 }

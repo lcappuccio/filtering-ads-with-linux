@@ -9,7 +9,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 
-import java.sql.SQLException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,15 +19,17 @@ import java.util.Map;
  * @date 05/11/2016 14:42
  */
 @Component
-public class H2DataService implements DataService {
+public class MySqlDataService implements DataService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(H2DataService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MySqlDataService.class);
 	private final JdbcTemplate jdbcTemplate;
+	private final String ipAddress;
 
 	@Autowired
-	public H2DataService(JdbcTemplate jdbcTemplate) throws SQLException {
+	public MySqlDataService(JdbcTemplate jdbcTemplate) throws UnknownHostException {
 
 		this.jdbcTemplate = jdbcTemplate;
+		ipAddress = InetAddress.getLocalHost().getHostAddress();
 	}
 
 
@@ -46,52 +49,38 @@ public class H2DataService implements DataService {
 	@Override
 	public HashMap groupByQueryType() {
 		String query = "SELECT QUERY_TYPE, count(*) AS TOTAL FROM DNS_LOG_LINES GROUP BY QUERY_TYPE ORDER BY 2 DESC";
-
-		ResultSetExtractor mapExtractor = rs -> {
-			Map<String, Integer> mapOfKeys = new HashMap<>();
-			while (rs.next()) {
-				String key = rs.getString("QUERY_TYPE");
-				Integer count = rs.getInt("TOTAL");
-				mapOfKeys.put(key, count);
-			}
-			return mapOfKeys;
-		};
-
+		ResultSetExtractor mapExtractor = getResultSetExtractor("QUERY_TYPE");
 		return (HashMap) jdbcTemplate.query(query, mapExtractor);
 	}
 
 	@Override
 	public HashMap groupByQueryDomain() {
-		String query = "SELECT QUERY_DOMAIN, count(*) AS TOTAL FROM DNS_LOG_LINES GROUP BY QUERY_DOMAIN ORDER BY 2 DESC";
-
-		ResultSetExtractor mapExtractor = rs -> {
-			Map<String, Integer> mapOfKeys = new HashMap<>();
-			while (rs.next()) {
-				String key = rs.getString("QUERY_DOMAIN");
-				Integer count = rs.getInt("TOTAL");
-				mapOfKeys.put(key, count);
-			}
-			return mapOfKeys;
-		};
-
+		String query =
+				"SELECT QUERY_DOMAIN, count(*) AS TOTAL FROM DNS_LOG_LINES GROUP BY QUERY_DOMAIN ORDER BY 2 DESC";
+		ResultSetExtractor mapExtractor = getResultSetExtractor("QUERY_DOMAIN");
 		return (HashMap) jdbcTemplate.query(query, mapExtractor);
 	}
 
 	@Override
 	public HashMap groupByQueryTarget() {
-		String query = "SELECT QUERY_TARGET, count(*) AS TOTAL FROM DNS_LOG_LINES GROUP BY QUERY_TARGET ORDER BY 2 DESC";
-
-		ResultSetExtractor mapExtractor = rs -> {
-			Map<String, Integer> mapOfKeys = new HashMap<>();
-			while (rs.next()) {
-				String key = rs.getString("QUERY_TARGET");
-				Integer count = rs.getInt("TOTAL");
-				mapOfKeys.put(key, count);
-			}
-			return mapOfKeys;
-		};
-
+		String query =
+				"SELECT QUERY_TARGET, count(*) AS TOTAL FROM DNS_LOG_LINES GROUP BY QUERY_TARGET ORDER BY 2 DESC";
+		ResultSetExtractor mapExtractor = getResultSetExtractor("QUERY_TARGET");
 		return (HashMap) jdbcTemplate.query(query, mapExtractor);
+	}
+
+	@Override
+	public HashMap groupByFilteredDomains() {
+		String query = "SELECT QUERY_DOMAIN, count(*) AS TOTAL FROM DNS_LOG_LINES\n" +
+				"WHERE QUERY_TARGET = '" + ipAddress + "' GROUP BY QUERY_DOMAIN ORDER BY 2 DESC";
+		ResultSetExtractor mapExtractor = getResultSetExtractor("QUERY_DOMAIN");
+		return (HashMap) jdbcTemplate.query(query, mapExtractor);
+	}
+
+	@Override
+	public int countAllFiltered() {
+		return jdbcTemplate.queryForObject(
+				"SELECT count(*) FROM DNS_LOG_LINES where QUERY_TARGET = '" + ipAddress + "'", Integer.class);
 	}
 
 	/**
@@ -104,5 +93,22 @@ public class H2DataService implements DataService {
 		LOGGER.info("Scheduled database cleanup: " + deletedLines + " lines deleted");
 	}
 
+	/**
+	 * Builds a result set extractor for Map<String, Integer> types
+	 *
+	 * @param queryTarget
+	 * @return
+	 */
+	private ResultSetExtractor getResultSetExtractor(String queryTarget) {
+		return rs -> {
+			Map<String, Integer> mapOfKeys = new HashMap<>();
+			while (rs.next()) {
+				String key = rs.getString(queryTarget);
+				Integer count = rs.getInt("TOTAL");
+				mapOfKeys.put(key, count);
+			}
+			return mapOfKeys;
+		};
+	}
 
 }

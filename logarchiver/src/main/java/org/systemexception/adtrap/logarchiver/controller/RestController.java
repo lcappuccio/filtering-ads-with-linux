@@ -53,9 +53,8 @@ public class RestController {
 	public ResponseEntity<Integer> countAll() {
 
 		LOGGER.info("Counting all");
-		int countAll = dataService.countAll();
 
-		return new ResponseEntity<>(countAll, HttpStatus.OK);
+		return new ResponseEntity<>(dataService.countAll(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "groupbyquerytype", method = RequestMethod.GET,
@@ -86,5 +85,23 @@ public class RestController {
 		HashMap groupByQueryResult = dataService.groupByQueryTarget();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "groupbyfiltereddomains", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map> groupByFilteredDomains() {
+
+		LOGGER.info("Group by query filtered domains");
+		HashMap groupByQueryResult = dataService.groupByFilteredDomains();
+
+		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "countallfiltered", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Integer> countAllFiltered() {
+
+		LOGGER.info("Counting all filtered");
+
+		return new ResponseEntity<>(dataService.countAllFiltered(), HttpStatus.OK);
 	}
 }

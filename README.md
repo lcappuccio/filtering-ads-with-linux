@@ -15,6 +15,7 @@ To obtain this we will need:
 * a linux machine or a raspberry (I'm using a Pi3)
 * dnsmasq installed
 * a local webserver (I'm using lighttpd)
+* a running mysql database
 
 Nice to have:
 * dhcp on the same box
@@ -92,6 +93,10 @@ On the `lighttpd.conf` file remember to set:
 `index-file.names            = ( "1px.gif" )`
 
 This will forward requests to http://127.0.0.1 directly to our 1px gif.
+
+## Configure database
+
+`sudo apt-get install mysql-server`
 
 ## Create the lists
 
