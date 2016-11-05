@@ -147,73 +147,56 @@ So we are redirecting some stuff. :)
 
 ## Monitoring
 
-Connect to the h2-console with the correct JDBC URL (e.g. `jdbc:h2:./database`) in `application.properties`.
-Username and password are also the ones in `application.properties`.
-To open the console go to `http://server_ip:port/h2-console`.
+1. Spring actuators are included in the dependencies
+2. Connect to your database with IDE of choice and 
 
 Useful queries:
 
 ```
-select count(*)
-from dns_log_line;
-
 select *
-from dns_log_line 
-order by LOG_TImestamp desc;
+from DNS_LOG_LINES
+order by LOG_TIME desc
+go
 
-select query_type, count(*)
-from dns_log_line
-group by query_Type
-order by 2 desc;
+SELECT QUERY_TYPE, count(*) as TOTAL
+FROM DNS_LOG_LINES
+GROUP BY QUERY_TYPE
+ORDER BY 2 DESC
+go
 
-select domain, count(*)
-from dns_log_line
-group by domain
-order by 2 desc;
+SELECT QUERY_DOMAIN, count(*) as TOTAL
+FROM DNS_LOG_LINES
+GROUP BY QUERY_DOMAIN
+ORDER BY 2 DESC
+go
 
-select domain, count(*)
-from dns_log_line
-where target = 'ADTRAP_IP_ADDRESS'
-group by domain
-order by 2 desc;
+SELECT QUERY_TARGET, count(*) as TOTAL
+FROM DNS_LOG_LINES
+GROUP BY QUERY_TARGET
+ORDER BY 2 DESC
+go
 
-select count(*)
-from dns_log_line
-where target = 'ADTRAP_IP_ADDRESS';
+select QUERY_DOMAIN, count(*) as TOTAL
+FROM DNS_LOG_LINES
+group by QUERY_DOMAIN
+order by 2 desc
+go
+
+select QUERY_DOMAIN, count(*) as TOTAL
+from DNS_LOG_LINES
+where QUERY_TARGET = '?????'
+group by QUERY_DOMAIN
+order by 2 desc
+go
+
+select count(*) as TOTAL
+from DNS_LOG_LINES
+where QUERY_TARGET = '?????'
+go
 ```
 
 ## ToDo
 
 * Investigate this: `cat /var/log/dnsmasq.log | awk '{print $4 $5 $6 $7 $8}'`
 * Statistics Analysis Facility
-* Decide database to use on `statsviewer`. Best candidate: embedded H2. I WILL NOT code on java the aggregations to 
-be performed if using a key value store. If there is a value in data relation then the database needs to be 
-relational. Use a KV only if you do not really care or are interested in what you're saving. **If you expect a 
-formatted JSON then your data and the relation in it has a value**
 * How to handle HTTPS requests
-* How to handle DHCP logs
-```
-Nov  3 06:35:07 dnsmasq[27711]: DHCP 192.168.0.214 is xxxx.home
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 available DHCP range: 192.168.0.20 -- 192.168.0.254
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 vendor class: udhcp
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 client provides name: xxxx
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 DHCPREQUEST(eth0) 192.168.0.208 b0:e8:92:6f:a2:df 
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 tags: eth0
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 DHCPACK(eth0) 192.168.0.208 b0:e8:92:6f:a2:df xxxx
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 requested options: 1:netmask, 3:router, 6:dns-server, 12:hostname, 
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 requested options: 15:domain-name, 17:root-path, 28:broadcast, 
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 requested options: 40:nis-domain, 41:nis-server, 42:ntp-server
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 next server: 192.168.0.4
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  1 option: 53 message-type  5
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option: 54 server-identifier  192.168.0.4
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option: 51 lease-time  8h
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option: 58 T1  3h44m54s
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option: 59 T2  6h44m54s
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option:  1 netmask  255.255.255.0
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option: 28 broadcast  192.168.0.255
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option:  6 dns-server  192.168.0.4
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option: 15 domain-name  home
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size: 11 option: 12 hostname  xxxx
-Nov  3 06:35:46 dnsmasq-dhcp[27711]: 1306210624 sent size:  4 option:  3 router  192.168.0.1
-Nov  3 06:36:35 dnsmasq[27711]: query[A] checkip.synology.com from 192.168.0.1
-```
