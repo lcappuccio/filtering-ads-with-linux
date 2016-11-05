@@ -51,7 +51,7 @@ public class RestController {
 	@RequestMapping(value = "countall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<DnsTotalRequests> countAll() {
 
-		LOGGER.info("Received count all");
+		LOGGER.info("Counting all");
 		int countAll = dataService.countAll();
 
 		DnsTotalRequests dnsTotalRequests = new DnsTotalRequests();
