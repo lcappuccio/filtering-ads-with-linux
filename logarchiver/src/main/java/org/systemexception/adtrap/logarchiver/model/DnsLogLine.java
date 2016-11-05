@@ -1,41 +1,18 @@
 package org.systemexception.adtrap.logarchiver.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
 /**
  * @author leo
  * @date 07/10/2016 17:15
  */
-@Entity
 public class DnsLogLine {
 
-	@Id
-	@GeneratedValue
-	@Column(name = "LOG_ID", unique = true, nullable = false)
-	private long logId;
-
-	@Column(name = "LOG_TIMESTAMP")
 	private long date;
 
-	@Column(name = "QUERY_TYPE")
 	private String queryType;
 
-	@Column(name = "DOMAIN")
 	private String queryDomain;
 
-	@Column(name = "TARGET")
 	private String queryTarget;
-
-	public long getLogId() {
-		return logId;
-	}
-
-	public void setLogId(long logId) {
-		this.logId = logId;
-	}
 
 	public long getDate() {
 		return date;
@@ -76,7 +53,6 @@ public class DnsLogLine {
 
 		DnsLogLine that = (DnsLogLine) o;
 
-		if (logId != that.logId) return false;
 		if (date != that.date) return false;
 		if (queryType != null ? !queryType.equals(that.queryType) : that.queryType != null) return false;
 		if (queryDomain != null ? !queryDomain.equals(that.queryDomain) : that.queryDomain != null) return false;
@@ -86,8 +62,7 @@ public class DnsLogLine {
 
 	@Override
 	public int hashCode() {
-		int result = (int) (logId ^ (logId >>> 32));
-		result = 31 * result + (int) (date ^ (date >>> 32));
+		int result = (int) (date ^ (date >>> 32));
 		result = 31 * result + (queryType != null ? queryType.hashCode() : 0);
 		result = 31 * result + (queryDomain != null ? queryDomain.hashCode() : 0);
 		result = 31 * result + (queryTarget != null ? queryTarget.hashCode() : 0);

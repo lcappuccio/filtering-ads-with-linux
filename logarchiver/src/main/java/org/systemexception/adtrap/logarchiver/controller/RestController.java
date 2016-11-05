@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.systemexception.adtrap.logarchiver.Application;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
-import org.systemexception.adtrap.logarchiver.model.DnsTotalRequests;
-import org.systemexception.adtrap.logarchiver.model.GroupingResult;
 import org.systemexception.adtrap.logarchiver.service.DataService;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -51,26 +50,41 @@ public class RestController {
 	}
 
 	@RequestMapping(value = "countall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<DnsTotalRequests> countAll() {
+	public ResponseEntity<Integer> countAll() {
 
 		LOGGER.info("Counting all");
 		int countAll = dataService.countAll();
 
-		DnsTotalRequests dnsTotalRequests = new DnsTotalRequests();
-		dnsTotalRequests.setTotalCount(countAll);
-
-		return new ResponseEntity<>(dnsTotalRequests, HttpStatus.OK);
+		return new ResponseEntity<>(countAll, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "groupbyquerytype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<GroupingResult> groupByQueryType() {
+	@RequestMapping(value = "groupbyquerytype", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map> groupByQueryType() {
 
 		LOGGER.info("Group by query type");
-		Map<String, Integer> groupByQueryResult = dataService.groupByQueryType();
+		HashMap groupByQueryResult = dataService.groupByQueryType();
 
-		GroupingResult groupingResult = new GroupingResult();
-		groupingResult.setGroupingResult(groupByQueryResult);
+		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
+	}
 
-		return new ResponseEntity<>(groupingResult, HttpStatus.OK);
+	@RequestMapping(value = "groupbyquerydomain", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map> groupByQueryDomain() {
+
+		LOGGER.info("Group by query domain");
+		HashMap groupByQueryResult = dataService.groupByQueryDomain();
+
+		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "groupbyquerytarget", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map> groupByQueryTarget() {
+
+		LOGGER.info("Group by query target");
+		HashMap groupByQueryResult = dataService.groupByQueryTarget();
+
+		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
 	}
 }
