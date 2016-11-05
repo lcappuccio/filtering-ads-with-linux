@@ -2,6 +2,7 @@ package org.systemexception.adtrap.logarchiver.service;
 
 import org.springframework.stereotype.Service;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
+import org.systemexception.adtrap.logarchiver.model.DnsTotalRequests;
 
 /**
  * @author leo
@@ -12,6 +13,6 @@ public interface DataService {
 
 	DnsLogLine save(DnsLogLine dnsLogLine);
 
-	int countAll();
+	DnsTotalRequests countAll();
 
 }

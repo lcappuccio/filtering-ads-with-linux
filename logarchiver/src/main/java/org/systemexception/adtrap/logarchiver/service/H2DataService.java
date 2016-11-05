@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
+import org.systemexception.adtrap.logarchiver.model.DnsTotalRequests;
 import org.systemexception.adtrap.logarchiver.repositories.DnsLogLineRepository;
 
 /**
@@ -32,7 +33,7 @@ public class H2DataService implements DataService {
 	}
 
 	@Override
-	public int countAll() {
+	public DnsTotalRequests countAll() {
 		return dataRepository.countAll();
 	}
 

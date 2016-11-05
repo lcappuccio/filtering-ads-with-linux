@@ -6,9 +6,7 @@ import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 import org.systemexception.adtrap.logarchiver.repositories.DnsLogLineRepository;
 import org.systemexception.adtrap.logarchiver.service.H2DataService;
 
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -26,7 +24,6 @@ public class H2DataServiceTest {
 	private final List<DnsLogLine> dnsLogLineList = new ArrayList<>();
 	private static final Long LOG_ID = 1L;
 	private static final String QUERY_TYPE = "query[A]", QUERY_DOMAIN = "somedomain.org", QUERY_TARGET = "127.0.0.1";
-	private static final Date NOW_DATE = Date.from(Instant.now());
 
 	@Before
 	public void setUp() {

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.systemexception.adtrap.logarchiver.Application;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
+import org.systemexception.adtrap.logarchiver.model.DnsTotalRequests;
 import org.systemexception.adtrap.logarchiver.service.DataService;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -48,10 +49,10 @@ public class RestController {
 	}
 
 	@RequestMapping(value = "countall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Integer> countAll() {
+	public ResponseEntity<DnsTotalRequests> countAll() {
 
 		LOGGER.info("Received count all");
-		int dnsLogLinesSaved = dataService.countAll();
+		DnsTotalRequests dnsLogLinesSaved = dataService.countAll();
 
 		return new ResponseEntity<>(dnsLogLinesSaved, HttpStatus.OK);
 	}
