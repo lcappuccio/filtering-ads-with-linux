@@ -6,9 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
-import org.systemexception.adtrap.logarchiver.model.DnsTotalRequests;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author leo
@@ -25,8 +24,21 @@ public interface DnsLogLineRepository extends JpaRepository<DnsLogLine, Long> {
 	 */
 	DnsLogLine save(DnsLogLine dnsLogLine);
 
+	/**
+	 * Count all saved records
+	 *
+	 * @return
+	 */
 	@Query(value = "select count(dns) from DnsLogLine dns")
 	int countAll();
+
+	/**
+	 * Group and count by query type
+	 *
+	 * @return
+	 */
+	@Query(value = "select DISTINCT dns.queryType, count(dns.queryType) from DnsLogLine dns group by dns.queryType")
+	Map<String, Integer> groupByQueryType();
 
 	/**
 	 * Clean up database

@@ -7,8 +7,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
-import org.systemexception.adtrap.logarchiver.model.DnsTotalRequests;
 import org.systemexception.adtrap.logarchiver.repositories.DnsLogLineRepository;
+
+import java.util.Map;
 
 /**
  * @author leo
@@ -28,13 +29,17 @@ public class H2DataService implements DataService {
 
 	@Override
 	public DnsLogLine save(DnsLogLine dnsLogLine) {
-		logger.info("Save data: " + dnsLogLine.toString());
 		return dataRepository.save(dnsLogLine);
 	}
 
 	@Override
 	public int countAll() {
 		return dataRepository.countAll();
+	}
+
+	@Override
+	public Map<String, Integer> groupByQueryType() {
+		return dataRepository.groupByQueryType();
 	}
 
 	/**

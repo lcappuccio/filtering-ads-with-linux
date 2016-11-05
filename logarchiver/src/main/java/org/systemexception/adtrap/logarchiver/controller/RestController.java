@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.systemexception.adtrap.logarchiver.Application;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 import org.systemexception.adtrap.logarchiver.model.DnsTotalRequests;
+import org.systemexception.adtrap.logarchiver.model.GroupingResult;
 import org.systemexception.adtrap.logarchiver.service.DataService;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.util.Map;
 
 /**
  * @author leo
@@ -58,5 +60,17 @@ public class RestController {
 		dnsTotalRequests.setTotalCount(countAll);
 
 		return new ResponseEntity<>(dnsTotalRequests, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "groupbyquerytype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<GroupingResult> groupByQueryType() {
+
+		LOGGER.info("Group by query type");
+		Map<String, Integer> groupByQueryResult = dataService.groupByQueryType();
+
+		GroupingResult groupingResult = new GroupingResult();
+		groupingResult.setGroupingResult(groupByQueryResult);
+
+		return new ResponseEntity<>(groupingResult, HttpStatus.OK);
 	}
 }
