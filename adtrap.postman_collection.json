@@ -1,0 +1,129 @@
+{
+	"variables": [],
+	"info": {
+		"name": "adtrap",
+		"_postman_id": "54b8d789-2e15-9f6f-618f-5a5e7e85ae30",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Count All",
+			"request": {
+				"url": "http://{{ip}}:{{port}}/logarchiver/countall",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Count All Filtered",
+			"request": {
+				"url": "http://{{ip}}:{{port}}/logarchiver/countallfiltered",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Group By Filtered Domain",
+			"request": {
+				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyfiltereddomains",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Group By Query Domain",
+			"request": {
+				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyquerydomain",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Group By Query Target",
+			"request": {
+				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyquerytarget",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Group By Query Type",
+			"request": {
+				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyquerytype",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "LogLine - Add",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "admin_pwd",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/logarchiver/save",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW5fcHdk",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\": \"1234567\",\n\t\"queryType\": \"123\",\n\t\"queryDomain\": \"www.test.org\",\n\t\"queryTarget\": \"8.8.8.8\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
