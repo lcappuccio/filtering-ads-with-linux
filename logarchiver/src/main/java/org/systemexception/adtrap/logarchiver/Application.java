@@ -16,6 +16,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableScheduling
 public class Application {
 
+	public static final String CONTEXT = "logarchiver";
+
 	public static void main(String[] args) {
 
 		SpringApplication.run(Application.class, args);

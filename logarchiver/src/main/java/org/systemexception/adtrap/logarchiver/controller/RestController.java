@@ -11,21 +11,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.systemexception.adtrap.logarchiver.Application;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
+import org.systemexception.adtrap.logarchiver.model.DnsTotalRequests;
+import org.systemexception.adtrap.logarchiver.model.GroupingResult;
 import org.systemexception.adtrap.logarchiver.service.DataService;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.util.Map;
 
 /**
  * @author leo
  * @date 02/11/2016 21:36
  */
 @Controller
-@RequestMapping(value = "logarchiver")
+@RequestMapping(value = Application.CONTEXT)
 @EnableSwagger2
-@Api(basePath = "logarchiver", value = "Data", description = "Data REST API")
+@Api(basePath = Application.CONTEXT, value = "Data", description = "Data REST API")
 public class RestController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RestController.class);
@@ -44,5 +48,29 @@ public class RestController {
 		DnsLogLine dnsLogLineSaved = dataService.save(dnsLogLine);
 
 		return new ResponseEntity<>(dnsLogLineSaved, HttpStatus.CREATED);
+	}
+
+	@RequestMapping(value = "countall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<DnsTotalRequests> countAll() {
+
+		LOGGER.info("Counting all");
+		int countAll = dataService.countAll();
+
+		DnsTotalRequests dnsTotalRequests = new DnsTotalRequests();
+		dnsTotalRequests.setTotalCount(countAll);
+
+		return new ResponseEntity<>(dnsTotalRequests, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "groupbyquerytype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<GroupingResult> groupByQueryType() {
+
+		LOGGER.info("Group by query type");
+		Map<String, Integer> groupByQueryResult = dataService.groupByQueryType();
+
+		GroupingResult groupingResult = new GroupingResult();
+		groupingResult.setGroupingResult(groupByQueryResult);
+
+		return new ResponseEntity<>(groupingResult, HttpStatus.OK);
 	}
 }

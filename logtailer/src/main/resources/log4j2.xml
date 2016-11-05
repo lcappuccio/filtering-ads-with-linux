@@ -7,8 +7,7 @@
 				<Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}|%level|%c|%msg%n</Pattern>
 			</PatternLayout>
 			<Policies>
-				<TimeBasedTriggeringPolicy/>
-				<SizeBasedTriggeringPolicy size="q0 MB"/>
+				<SizeBasedTriggeringPolicy size="10 MB"/>
 			</Policies>
 			<DefaultRolloverStrategy max="5"/>
 		</RollingFile>
@@ -18,7 +17,6 @@
 				<Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}|%level|%c|%msg%n</Pattern>
 			</PatternLayout>
 			<Policies>
-				<TimeBasedTriggeringPolicy/>
 				<SizeBasedTriggeringPolicy size="10 MB"/>
 			</Policies>
 			<DefaultRolloverStrategy max="5"/>
@@ -29,7 +27,6 @@
 				<Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}|%level|%c|%msg%n</Pattern>
 			</PatternLayout>
 			<Policies>
-				<TimeBasedTriggeringPolicy/>
 				<SizeBasedTriggeringPolicy size="10 MB"/>
 			</Policies>
 			<DefaultRolloverStrategy max="5"/>

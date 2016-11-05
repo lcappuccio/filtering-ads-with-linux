@@ -31,7 +31,6 @@ public class HttpConnector implements Runnable {
 				String logLine = (String) blockingQueue.take();
 				if (jsonMapper.jsonFromLogLine(logLine).isPresent()) {
 					postLine(jsonMapper.jsonFromLogLine(logLine).get());
-					LOGGER.info("Sent " + logLine);
 				} else {
 					LOGGER.info("Bad line caught, skipped: " + logLine);
 				}
@@ -42,6 +41,7 @@ public class HttpConnector implements Runnable {
 	}
 
 	private void postLine(final String logLine) {
+		LOGGER.info("Sending: " + logLine);
 		try {
 			URL url = new URL("http://localhost:8080/logarchiver/save");
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -56,7 +56,7 @@ public class HttpConnector implements Runnable {
 			osw.write(logLine);
 			osw.flush();
 			osw.close();
-			LOGGER.info("Response: " + urlConnection.getResponseCode() + ", data: " + logLine);
+			LOGGER.info("Response: " + urlConnection.getResponseCode());
 		} catch (IOException ex) {
 			LOGGER.error("Unreachable", ex);
 		}

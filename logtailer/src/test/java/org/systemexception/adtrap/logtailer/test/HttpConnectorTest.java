@@ -33,7 +33,7 @@ public class HttpConnectorTest {
 		String logFileToString = FileUtils.readFileToString(LogTailerListenerTest.INFO_LOG_FILE,
 				Charset.defaultCharset());
 
-		assertTrue("Not logged " + outString, logFileToString.contains(outString));
+		assertTrue("Not logged " + outString, logFileToString.contains("e4478.a.akamaiedge.net"));
 	}
 
 	@Test
