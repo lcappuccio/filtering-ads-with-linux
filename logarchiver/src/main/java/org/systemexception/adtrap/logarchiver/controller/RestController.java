@@ -52,8 +52,11 @@ public class RestController {
 	public ResponseEntity<DnsTotalRequests> countAll() {
 
 		LOGGER.info("Received count all");
-		DnsTotalRequests dnsLogLinesSaved = dataService.countAll();
+		int countAll = dataService.countAll();
 
-		return new ResponseEntity<>(dnsLogLinesSaved, HttpStatus.OK);
+		DnsTotalRequests dnsTotalRequests = new DnsTotalRequests();
+		dnsTotalRequests.setTotalCount(countAll);
+
+		return new ResponseEntity<>(dnsTotalRequests, HttpStatus.OK);
 	}
 }

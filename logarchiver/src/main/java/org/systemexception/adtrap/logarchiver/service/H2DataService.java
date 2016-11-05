@@ -33,7 +33,7 @@ public class H2DataService implements DataService {
 	}
 
 	@Override
-	public DnsTotalRequests countAll() {
+	public int countAll() {
 		return dataRepository.countAll();
 	}
 

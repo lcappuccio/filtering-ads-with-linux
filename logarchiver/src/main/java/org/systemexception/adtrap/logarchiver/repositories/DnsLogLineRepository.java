@@ -26,7 +26,7 @@ public interface DnsLogLineRepository extends JpaRepository<DnsLogLine, Long> {
 	DnsLogLine save(DnsLogLine dnsLogLine);
 
 	@Query(value = "select count(dns) from DnsLogLine dns")
-	DnsTotalRequests countAll();
+	int countAll();
 
 	/**
 	 * Clean up database
