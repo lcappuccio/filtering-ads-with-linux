@@ -137,6 +137,14 @@ public class RestControllerTest {
 		verify(dataService).groupByFilteredDomains();
 	}
 
+	@Test
+	public void should_list_dhcp_leases() throws Exception {
+		sut.perform(MockMvcRequestBuilders.get("/logarchiver/listdhcpleases")).andExpect(
+				status().is(HttpStatus.OK.value()));
+
+		verify(dhcpLeasesReader).getDhcpLeases();
+	}
+
 	private String dataJson() {
 		return "{\"date\": \"" + DNS_DATE + "\"," +
 				"\"queryType\": \"" + DNS_QUERY_TYPE + "\"," +
