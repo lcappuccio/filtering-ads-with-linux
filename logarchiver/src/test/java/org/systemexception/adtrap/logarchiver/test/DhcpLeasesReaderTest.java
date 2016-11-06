@@ -5,8 +5,10 @@ import org.junit.Test;
 import org.systemexception.adtrap.logarchiver.model.DhcpLease;
 import org.systemexception.adtrap.logarchiver.service.DhcpLeasesReader;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
@@ -23,7 +25,9 @@ public class DhcpLeasesReaderTest {
 
 	@Before
 	public void setUp() throws IOException, URISyntaxException {
-		sut = new DhcpLeasesReader("sample.leases");
+		URL systemResource = ClassLoader.getSystemResource("sample.leases");
+		File file = new File(systemResource.toURI());
+		sut = new DhcpLeasesReader(file.getAbsolutePath());
 		dhcpLeases = sut.getDhcpLeases();
 	}
 

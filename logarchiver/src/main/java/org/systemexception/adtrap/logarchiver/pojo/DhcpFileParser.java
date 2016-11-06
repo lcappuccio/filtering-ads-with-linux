@@ -13,7 +13,7 @@ public class DhcpFileParser {
 
 	private final static String RECORD_SEPARATOR = " ";
 	private final static int DATE_POSITION = 0;
-	private final static int HOSTNAME_POSITION = 0;
+	private final static int HOSTNAME_POSITION = 3;
 	private final static int IP_ADDRESS_POSITION = 2;
 	private final static int MAC_ADDRESS_POSITION = 1;
 

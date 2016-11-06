@@ -14,8 +14,8 @@ public class DhcpLease {
 	private String ipAddress;
 	private String hostname;
 
-	public long getLeaseExpireDate() {
-		return leaseExpireDate;
+	public String getLeaseExpireDate() {
+		return leaseTimeToDateString();
 	}
 
 	public void setLeaseExpireDate(long leaseExpireDate) {
@@ -71,11 +71,11 @@ public class DhcpLease {
 
 	@Override
 	public String toString() {
-		return leaseTimeToDate() + " " + macAddress + " " + ipAddress + " " + hostname;
+		return leaseTimeToDateString() + " " + macAddress + " " + ipAddress + " " + hostname;
 	}
 
-	private String leaseTimeToDate() {
+	private String leaseTimeToDateString() {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		return simpleDateFormat.format(new Date(leaseExpireDate));
+		return simpleDateFormat.format(new Date(leaseExpireDate * 1000L));
 	}
 }

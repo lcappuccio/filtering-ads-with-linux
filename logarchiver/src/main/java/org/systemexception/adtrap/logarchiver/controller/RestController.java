@@ -19,7 +19,6 @@ import org.systemexception.adtrap.logarchiver.service.DhcpLeasesReader;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -132,7 +131,7 @@ public class RestController {
 
 	@RequestMapping(value = "listdhcpleases", method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<DhcpLease>> listDhcpLeases() throws IOException {
+	public ResponseEntity<List<DhcpLease>> listDhcpLeases() {
 
 		LOGGER.info("List DHCP leases");
 		List<DhcpLease> dhcpLeases = dhcpLeasesReader.getDhcpLeases();
