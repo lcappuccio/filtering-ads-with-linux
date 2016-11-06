@@ -1,9 +1,14 @@
 package org.systemexception.adtrap.logarchiver;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.systemexception.adtrap.logarchiver.service.DataService;
+import org.systemexception.adtrap.logarchiver.service.MySqlDataService;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -16,11 +21,20 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableScheduling
 public class Application {
 
+	@Value("${adtrap.ipaddress}")
+	private String ipAddress;
 	public static final String CONTEXT = "logarchiver";
+	@Autowired
+	JdbcTemplate jdbcTemplate;
 
 	public static void main(String[] args) {
 
 		SpringApplication.run(Application.class, args);
+	}
+
+	@Bean
+	public DataService dataService() {
+		return new MySqlDataService(jdbcTemplate, ipAddress);
 	}
 
 	@Bean
