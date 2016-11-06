@@ -43,6 +43,14 @@ public class MySqlDataService implements DataService {
 	}
 
 	@Override
+	public HashMap countTopClients() {
+		String query = "SELECT QUERY_TARGET, count(*) AS TOTAL FROM DNS_LOG_LINES WHERE QUERY_TYPE = ?\n" +
+				"GROUP BY QUERY_TARGET ORDER BY 2 DESC";
+		ResultSetExtractor mapExtractor = getResultSetExtractor("QUERY_TARGET");
+		return (HashMap) jdbcTemplate.query(query, new Object[]{"query[A]"}, mapExtractor);
+	}
+
+	@Override
 	public HashMap countTopRequests() {
 		String query = "SELECT QUERY_DOMAIN, count(*) AS TOTAL FROM DNS_LOG_LINES WHERE QUERY_TYPE = ?\n" +
 				"GROUP BY QUERY_DOMAIN ORDER BY 2 DESC";

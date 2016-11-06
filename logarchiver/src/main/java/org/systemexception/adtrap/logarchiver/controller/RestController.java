@@ -57,6 +57,16 @@ public class RestController {
 		return new ResponseEntity<>(dataService.countAll(), HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "counttopclients", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map> countTopClients() {
+
+		LOGGER.info("Count top clients");
+		HashMap countTopRequests = dataService.countTopClients();
+
+		return new ResponseEntity<>(countTopRequests, HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "counttoprequests", method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map> countTopRequests() {

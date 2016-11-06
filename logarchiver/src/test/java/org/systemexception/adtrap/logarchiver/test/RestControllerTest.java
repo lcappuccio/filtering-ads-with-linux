@@ -79,6 +79,14 @@ public class RestControllerTest {
 	}
 
 	@Test
+	public void should_count_top_clients() throws Exception {
+		sut.perform(MockMvcRequestBuilders.get("/logarchiver/counttopclients")).andExpect(
+				status().is(HttpStatus.OK.value()));
+
+		verify(dataService).countTopClients();
+	}
+
+	@Test
 	public void should_count_top_requests() throws Exception {
 		sut.perform(MockMvcRequestBuilders.get("/logarchiver/counttoprequests")).andExpect(
 				status().is(HttpStatus.OK.value()));

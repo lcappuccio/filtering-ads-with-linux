@@ -16,6 +16,8 @@ public interface DataService {
 
 	int countAll();
 
+	HashMap countTopClients();
+
 	HashMap countTopRequests();
 
 	HashMap groupByQueryType();
@@ -27,4 +29,5 @@ public interface DataService {
 	HashMap groupByFilteredDomains();
 
 	int countAllFiltered();
+
 }
