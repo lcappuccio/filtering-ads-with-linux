@@ -22,6 +22,20 @@
 			"response": []
 		},
 		{
+			"name": "Count Top Requests",
+			"request": {
+				"url": "http://{{ip}}:{{port}}/logarchiver/counttoprequests",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "Count All Filtered",
 			"request": {
 				"url": "http://{{ip}}:{{port}}/logarchiver/countallfiltered",
