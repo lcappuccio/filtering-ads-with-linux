@@ -25,7 +25,7 @@ public class Application {
 	private String ipAddress;
 	public static final String CONTEXT = "logarchiver";
 	@Autowired
-	JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 
 	public static void main(String[] args) {
 
