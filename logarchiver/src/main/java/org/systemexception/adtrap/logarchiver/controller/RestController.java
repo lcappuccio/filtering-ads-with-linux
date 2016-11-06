@@ -52,9 +52,19 @@ public class RestController {
 	@RequestMapping(value = "countall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> countAll() {
 
-		LOGGER.info("Counting all");
+		LOGGER.info("Count all");
 
 		return new ResponseEntity<>(dataService.countAll(), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "counttoprequests", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map> countTopRequests() {
+
+		LOGGER.info("Count top requests");
+		HashMap countTopRequests = dataService.countTopRequests();
+
+		return new ResponseEntity<>(countTopRequests, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "groupbyquerytype", method = RequestMethod.GET,
@@ -100,7 +110,7 @@ public class RestController {
 	@RequestMapping(value = "countallfiltered", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> countAllFiltered() {
 
-		LOGGER.info("Counting all filtered");
+		LOGGER.info("Count all filtered");
 
 		return new ResponseEntity<>(dataService.countAllFiltered(), HttpStatus.OK);
 	}
