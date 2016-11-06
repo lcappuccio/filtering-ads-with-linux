@@ -6,11 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +15,6 @@ import java.util.Map;
  * @author leo
  * @date 05/11/2016 14:42
  */
-@Component
 public class MySqlDataService implements DataService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MySqlDataService.class);
@@ -26,10 +22,10 @@ public class MySqlDataService implements DataService {
 	private final String ipAddress;
 
 	@Autowired
-	public MySqlDataService(JdbcTemplate jdbcTemplate) throws UnknownHostException {
-
+	public MySqlDataService(JdbcTemplate jdbcTemplate, String ipAddress) {
 		this.jdbcTemplate = jdbcTemplate;
-		ipAddress = InetAddress.getLocalHost().getHostAddress();
+		this.ipAddress = ipAddress;
+		LOGGER.info("Starting DB service on " + ipAddress);
 	}
 
 
@@ -48,10 +44,10 @@ public class MySqlDataService implements DataService {
 
 	@Override
 	public HashMap countTopRequests() {
-		String query = "SELECT QUERY_DOMAIN, count(*) AS TOTAL FROM DNS_LOG_LINES WHERE QUERY_TYPE = 'query[A]'\n" +
+		String query = "SELECT QUERY_DOMAIN, count(*) AS TOTAL FROM DNS_LOG_LINES WHERE QUERY_TYPE = ?\n" +
 				"GROUP BY QUERY_DOMAIN ORDER BY 2 DESC";
 		ResultSetExtractor mapExtractor = getResultSetExtractor("QUERY_DOMAIN");
-		return (HashMap) jdbcTemplate.query(query, mapExtractor);
+		return (HashMap) jdbcTemplate.query(query, new Object[]{"query[A]"}, mapExtractor);
 	}
 
 	@Override
@@ -80,15 +76,15 @@ public class MySqlDataService implements DataService {
 	@Override
 	public HashMap groupByFilteredDomains() {
 		String query = "SELECT QUERY_DOMAIN, count(*) AS TOTAL FROM DNS_LOG_LINES\n" +
-				"WHERE QUERY_TARGET = '" + ipAddress + "' GROUP BY QUERY_DOMAIN ORDER BY 2 DESC";
+				"WHERE QUERY_TARGET = ? GROUP BY QUERY_DOMAIN ORDER BY 2 DESC";
 		ResultSetExtractor mapExtractor = getResultSetExtractor("QUERY_DOMAIN");
-		return (HashMap) jdbcTemplate.query(query, mapExtractor);
+		return (HashMap) jdbcTemplate.query(query, new Object[]{ipAddress}, mapExtractor);
 	}
 
 	@Override
 	public int countAllFiltered() {
-		return jdbcTemplate.queryForObject(
-				"SELECT count(*) FROM DNS_LOG_LINES where QUERY_TARGET = '" + ipAddress + "'", Integer.class);
+		return jdbcTemplate.queryForObject("SELECT count(*) FROM DNS_LOG_LINES WHERE QUERY_TARGET = ?",
+				new Object[]{ipAddress}, Integer.class);
 	}
 
 	/**
