@@ -79,6 +79,14 @@ public class RestControllerTest {
 	}
 
 	@Test
+	public void should_count_all_filtered() throws Exception {
+		sut.perform(MockMvcRequestBuilders.get("/logarchiver/countallfiltered")).andExpect(
+				status().is(HttpStatus.OK.value()));
+
+		verify(dataService).countAllFiltered();
+	}
+
+	@Test
 	public void should_count_top_clients() throws Exception {
 		sut.perform(MockMvcRequestBuilders.get("/logarchiver/counttopclients")).andExpect(
 				status().is(HttpStatus.OK.value()));
@@ -124,14 +132,6 @@ public class RestControllerTest {
 				status().is(HttpStatus.OK.value()));
 
 		verify(dataService).groupByFilteredDomains();
-	}
-
-	@Test
-	public void should_count_all_filtered() throws Exception {
-		sut.perform(MockMvcRequestBuilders.get("/logarchiver/countallfiltered")).andExpect(
-				status().is(HttpStatus.OK.value()));
-
-		verify(dataService).countAllFiltered();
 	}
 
 	private String dataJson() {

@@ -3,7 +3,8 @@ package org.systemexception.adtrap.logarchiver.service;
 import org.springframework.stereotype.Service;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author leo
@@ -16,18 +17,18 @@ public interface DataService {
 
 	int countAll();
 
-	HashMap countTopClients();
-
-	HashMap countTopRequests();
-
-	HashMap groupByQueryType();
-
-	HashMap groupByQueryDomain();
-
-	HashMap groupByQueryTarget();
-
-	HashMap groupByFilteredDomains();
-
 	int countAllFiltered();
+
+	List<Map<String, Object>> countTopClients();
+
+	List<Map<String, Object>> countTopRequests();
+
+	List<Map<String, Object>> groupByQueryType();
+
+	List<Map<String, Object>> groupByQueryDomain();
+
+	List<Map<String, Object>> groupByQueryTarget();
+
+	List<Map<String, Object>> groupByFilteredDomains();
 
 }

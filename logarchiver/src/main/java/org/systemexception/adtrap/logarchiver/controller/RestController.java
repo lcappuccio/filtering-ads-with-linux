@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
 import java.text.ParseException;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -57,71 +57,71 @@ public class RestController {
 		return new ResponseEntity<>(dataService.countAll(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "counttopclients", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map> countTopClients() {
-
-		LOGGER.info("Count top clients");
-		HashMap countTopRequests = dataService.countTopClients();
-
-		return new ResponseEntity<>(countTopRequests, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "counttoprequests", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map> countTopRequests() {
-
-		LOGGER.info("Count top requests");
-		HashMap countTopRequests = dataService.countTopRequests();
-
-		return new ResponseEntity<>(countTopRequests, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "groupbyquerytype", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map> groupByQueryType() {
-
-		LOGGER.info("Group by query type");
-		HashMap groupByQueryResult = dataService.groupByQueryType();
-
-		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "groupbyquerydomain", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map> groupByQueryDomain() {
-
-		LOGGER.info("Group by query domain");
-		HashMap groupByQueryResult = dataService.groupByQueryDomain();
-
-		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "groupbyquerytarget", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map> groupByQueryTarget() {
-
-		LOGGER.info("Group by query target");
-		HashMap groupByQueryResult = dataService.groupByQueryTarget();
-
-		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "groupbyfiltereddomains", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map> groupByFilteredDomains() {
-
-		LOGGER.info("Group by query filtered domains");
-		HashMap groupByQueryResult = dataService.groupByFilteredDomains();
-
-		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
-	}
-
 	@RequestMapping(value = "countallfiltered", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> countAllFiltered() {
 
 		LOGGER.info("Count all filtered");
 
 		return new ResponseEntity<>(dataService.countAllFiltered(), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "counttopclients", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map>> countTopClients() {
+
+		LOGGER.info("Count top clients");
+		List countTopRequests = dataService.countTopClients();
+
+		return new ResponseEntity<>(countTopRequests, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "counttoprequests", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map>> countTopRequests() {
+
+		LOGGER.info("Count top requests");
+		List countTopRequests = dataService.countTopRequests();
+
+		return new ResponseEntity<>(countTopRequests, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "groupbyquerytype", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map>> groupByQueryType() {
+
+		LOGGER.info("Group by query type");
+		List groupByQueryResult = dataService.groupByQueryType();
+
+		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "groupbyquerydomain", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map>> groupByQueryDomain() {
+
+		LOGGER.info("Group by query domain");
+		List groupByQueryResult = dataService.groupByQueryDomain();
+
+		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "groupbyquerytarget", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map>> groupByQueryTarget() {
+
+		LOGGER.info("Group by query target");
+		List groupByQueryResult = dataService.groupByQueryTarget();
+
+		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "groupbyfiltereddomains", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map>> groupByFilteredDomains() {
+
+		LOGGER.info("Group by query filtered domains");
+		List groupByQueryResult = dataService.groupByFilteredDomains();
+
+		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
 	}
 }

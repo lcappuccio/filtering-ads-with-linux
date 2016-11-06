@@ -3,7 +3,7 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
 	var jsonData = $.ajax({
-		url: "logarchiver/counttopclients",
+		url: "logarchiver/groupbyfiltereddomains",
 		dataType: "json",
 		async: false
 	}).responseText;
@@ -11,7 +11,7 @@ function drawChart() {
 	var jsonLines = JSON.parse(jsonData);
 
 	var jsonArray = [];
-	jsonArray.push(['Client', 'TOTAL']);
+	jsonArray.push(['Advertiser', 'TOTAL']);
 
 	$.each(jsonLines, function (key, value) {
 		var array = []
@@ -24,15 +24,15 @@ function drawChart() {
 	var data = new google.visualization.arrayToDataTable(jsonArray);
 
 	var options = {
-		title: 'Top Clients',
-		width: 500,
-		height: 320,
+		title: 'Top Advertisers',
+		width: 800,
+		height: 480,
 		sliceVisibilityThreshold: .04
 	};
 
-	var pieChart = new google.visualization.PieChart(document.getElementById('top_clients_pie'));
+	var pieChart = new google.visualization.PieChart(document.getElementById('top_filtered_pie'));
 	pieChart.draw(data, options);
 
-	var barChart = new google.visualization.BarChart(document.getElementById("top_clients_bar"));
+	var barChart = new google.visualization.BarChart(document.getElementById("top_filtered_bar"));
 	barChart.draw(data, options);
 }

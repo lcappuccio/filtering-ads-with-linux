@@ -1,5 +1,7 @@
 package org.systemexception.adtrap.logarchiver;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -23,9 +25,11 @@ public class Application {
 
 	@Value("${adtrap.ipaddress}")
 	private String ipAddress;
-	public static final String CONTEXT = "logarchiver";
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+
+	public static final String CONTEXT = "logarchiver";
 
 	public static void main(String[] args) {
 
@@ -45,8 +49,8 @@ public class Application {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfo(
-				"Log Analyzer",
-				"Log Analyzer with embedded H2",
+				"Adtrap",
+				"Adtrap statistics viewer",
 				null,
 				null,
 				"https://github.com/lcappuccio/filtering-ads-with-linux/",
