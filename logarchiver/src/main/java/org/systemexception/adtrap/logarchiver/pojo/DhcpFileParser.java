@@ -1,5 +1,6 @@
 package org.systemexception.adtrap.logarchiver.pojo;
 
+import org.springframework.web.client.RestTemplate;
 import org.systemexception.adtrap.logarchiver.model.DhcpLease;
 
 import java.util.ArrayList;
@@ -26,8 +27,15 @@ public class DhcpFileParser {
 			dhcpLease.setMacAddress(split[MAC_ADDRESS_POSITION]);
 			dhcpLease.setIpAddress(split[IP_ADDRESS_POSITION]);
 			dhcpLease.setHostname(split[HOSTNAME_POSITION]);
+			dhcpLease.setVendor(getVendor(split[MAC_ADDRESS_POSITION]));
 			dhcpLeases.add(dhcpLease);
 		}
 		return dhcpLeases;
+	}
+
+	private static String getVendor(String macAddress) {
+		RestTemplate restTemplate = new RestTemplate();
+		String vendor = restTemplate.getForObject("http://api.macvendors.com/" + macAddress, String.class);
+		return vendor;
 	}
 }

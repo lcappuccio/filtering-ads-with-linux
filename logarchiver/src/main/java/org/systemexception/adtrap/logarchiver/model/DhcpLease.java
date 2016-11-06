@@ -13,6 +13,7 @@ public class DhcpLease {
 	private String macAddress;
 	private String ipAddress;
 	private String hostname;
+	private String vendor;
 
 	public String getLeaseExpireDate() {
 		return leaseTimeToDateString();
@@ -44,6 +45,14 @@ public class DhcpLease {
 
 	public void setHostname(String hostname) {
 		this.hostname = hostname;
+	}
+
+	public void setVendor(String vendor) {
+		this.vendor = vendor;
+	}
+
+	public String getVendor() {
+		return vendor;
 	}
 
 	@Override

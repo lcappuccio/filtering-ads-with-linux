@@ -35,6 +35,18 @@ public class DhcpLeasesReaderTest {
 	public void should_read_file() {
 
 		assertNotNull(dhcpLeases);
-		assertEquals(6, dhcpLeases.size());
+		assertEquals(1, dhcpLeases.size());
+	}
+
+	@Test
+	public void should_have_valid_values() {
+
+		DhcpLease dhcpLease = dhcpLeases.get(0);
+
+		assertEquals("07/11/2016 01:52",dhcpLease.getLeaseExpireDate());
+		assertEquals("00:50:56:31:51:28", dhcpLease.getMacAddress());
+		assertEquals("192.168.0.101", dhcpLease.getIpAddress());
+		assertEquals("host1", dhcpLease.getHostname());
+		assertEquals("VMWARE, INC.", dhcpLease.getVendor());
 	}
 }
