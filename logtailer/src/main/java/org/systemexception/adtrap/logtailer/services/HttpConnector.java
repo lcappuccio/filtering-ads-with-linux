@@ -58,6 +58,7 @@ public class HttpConnector implements Runnable {
 			osw.flush();
 			osw.close();
 			LOGGER.info("Response: " + urlConnection.getResponseCode());
+			urlConnection.disconnect();
 		} catch (IOException ex) {
 			LOGGER.error("Unreachable", ex);
 		}
