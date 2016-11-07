@@ -7,6 +7,7 @@ import org.systemexception.adtrap.logtailer.services.LogParser;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
@@ -62,7 +63,7 @@ public class JsonMapperTest {
 	private String timeToPreviousDate() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MINUTE, -10);
-		SimpleDateFormat dateParser = new SimpleDateFormat("MMM d HH:mm:ss");
+		SimpleDateFormat dateParser = new SimpleDateFormat("MMM d HH:mm:ss", Locale.getDefault());
 		return dateParser.format(cal.getTime());
 	}
 

@@ -6,6 +6,7 @@ import org.systemexception.adtrap.logtailer.services.LogParser;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
@@ -60,7 +61,7 @@ public class LogParserTest {
 
 	public static String timeToDate() {
 		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat dateParser = new SimpleDateFormat("MMM d HH:mm:ss");
+		SimpleDateFormat dateParser = new SimpleDateFormat("MMM d HH:mm:ss", Locale.getDefault());
 		return dateParser.format(cal.getTime());
 	}
 }
