@@ -23,16 +23,14 @@ function drawChart() {
 
 	var data = new google.visualization.arrayToDataTable(jsonArray);
 
-	var options = {
-		title: 'Top Advertisers',
+	var optionsBar = {
+		title: 'Top 20 Advertisers',
 		width: 800,
-		height: 480,
+		height: 600,
+		fontSize: 12,
 		sliceVisibilityThreshold: .04
 	};
 
-	var pieChart = new google.visualization.PieChart(document.getElementById('top_filtered_pie'));
-	pieChart.draw(data, options);
-
 	var barChart = new google.visualization.BarChart(document.getElementById("top_filtered_bar"));
-	barChart.draw(data, options);
+	barChart.draw(data, optionsBar);
 }

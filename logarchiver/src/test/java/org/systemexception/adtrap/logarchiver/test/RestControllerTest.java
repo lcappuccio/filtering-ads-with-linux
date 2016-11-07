@@ -22,6 +22,7 @@ import org.systemexception.adtrap.logarchiver.SecurityConfig;
 import org.systemexception.adtrap.logarchiver.controller.RestController;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 import org.systemexception.adtrap.logarchiver.service.DataService;
+import org.systemexception.adtrap.logarchiver.service.DhcpLeasesReader;
 
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,6 +41,8 @@ public class RestControllerTest {
 	private FilterChainProxy springSecurityFilterChain;
 	@MockBean
 	private DataService dataService;
+	@MockBean
+	private DhcpLeasesReader dhcpLeasesReader;
 	@Autowired
 	private RestController restController;
 	private MockMvc sut;
@@ -132,6 +135,14 @@ public class RestControllerTest {
 				status().is(HttpStatus.OK.value()));
 
 		verify(dataService).groupByFilteredDomains();
+	}
+
+	@Test
+	public void should_list_dhcp_leases() throws Exception {
+		sut.perform(MockMvcRequestBuilders.get("/logarchiver/listdhcpleases")).andExpect(
+				status().is(HttpStatus.OK.value()));
+
+		verify(dhcpLeasesReader).getDhcpLeases();
 	}
 
 	private String dataJson() {

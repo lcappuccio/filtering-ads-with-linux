@@ -10,10 +10,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.systemexception.adtrap.logarchiver.service.DataService;
+import org.systemexception.adtrap.logarchiver.service.DhcpLeasesReader;
 import org.systemexception.adtrap.logarchiver.service.MySqlDataService;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+
+import java.net.URISyntaxException;
 
 /**
  * @author leo
@@ -25,6 +28,9 @@ public class Application {
 
 	@Value("${adtrap.ipaddress}")
 	private String ipAddress;
+
+	@Value("${dnsmasq.dhcp.leases.file}")
+	private String dnmasqDhcpLeasesFilePath;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -39,6 +45,11 @@ public class Application {
 	@Bean
 	public DataService dataService() {
 		return new MySqlDataService(jdbcTemplate, ipAddress);
+	}
+
+	@Bean
+	public DhcpLeasesReader dhcpLeasesReader() throws URISyntaxException {
+		return new DhcpLeasesReader(dnmasqDhcpLeasesFilePath);
 	}
 
 	@Bean

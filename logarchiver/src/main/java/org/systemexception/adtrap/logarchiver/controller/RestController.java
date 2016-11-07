@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.systemexception.adtrap.logarchiver.Application;
+import org.systemexception.adtrap.logarchiver.model.DhcpLease;
 import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 import org.systemexception.adtrap.logarchiver.service.DataService;
+import org.systemexception.adtrap.logarchiver.service.DhcpLeasesReader;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
@@ -33,10 +35,12 @@ public class RestController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RestController.class);
 	private final DataService dataService;
+	private final DhcpLeasesReader dhcpLeasesReader;
 
 	@Autowired
-	public RestController(DataService dataService) {
+	public RestController(DataService dataService, DhcpLeasesReader dhcpLeasesReader) {
 		this.dataService = dataService;
+		this.dhcpLeasesReader = dhcpLeasesReader;
 	}
 
 	@RequestMapping(value = "save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -123,5 +127,15 @@ public class RestController {
 		List groupByQueryResult = dataService.groupByFilteredDomains();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "listdhcpleases", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<DhcpLease>> listDhcpLeases() {
+
+		LOGGER.info("List DHCP leases");
+		List<DhcpLease> dhcpLeases = dhcpLeasesReader.getDhcpLeases();
+
+		return new ResponseEntity<>(dhcpLeases, HttpStatus.OK);
 	}
 }

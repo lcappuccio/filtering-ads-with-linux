@@ -19,6 +19,7 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author leo
@@ -40,6 +41,7 @@ public class MySqlDataServiceTest {
 
 	@Before
 	public void setUp() {
+		assertNotNull(jdbcTemplate);
 		dnsLogLine = new DnsLogLine();
 		dnsLogLine.setDate(System.currentTimeMillis());
 		dnsLogLine.setQueryDomain("TestQueryDomain");
@@ -57,8 +59,6 @@ public class MySqlDataServiceTest {
 
 	@Test
 	public void should_count_all() {
-		DnsLogLine save = sut.save(dnsLogLine);
-
 		int countAll = sut.countAll();
 
 		assertTrue("No records in table", countAll > 0);
