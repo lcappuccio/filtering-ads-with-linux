@@ -8,13 +8,14 @@ import java.util.ArrayList;
  */
 public class LogParser {
 
-	public static final String LOG_LINE_SEPARATOR = " ", EMTPY_STRING = "";
+	public static final String LOG_LINE_SEPARATOR = " ";
 	public static final int QUERY_MONTH = 0;
 	public static final int QUERY_DAY = 1;
 	public static final int QUERY_TIME = 2;
 	public static final int QUERY_TYPE = 4;
 	public static final int DOMAIN = 5;
 	public static final int TARGET = 7;
+	private static final String EMTPY_STRING = "";
 
 	public ArrayList<String> splitLogLine(final String logLine) {
 

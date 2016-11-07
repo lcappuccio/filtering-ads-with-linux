@@ -47,7 +47,6 @@ public class DhcpFileParser {
 
 	private static String getVendor(String macAddress) {
 		RestTemplate restTemplate = new RestTemplate();
-		String vendor = restTemplate.getForObject("http://api.macvendors.com/" + macAddress, String.class);
-		return vendor;
+		return restTemplate.getForObject("http://api.macvendors.com/" + macAddress, String.class);
 	}
 }
