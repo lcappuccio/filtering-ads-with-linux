@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.Assert.assertEquals;
 
@@ -43,7 +44,8 @@ public class DhcpLeasesReaderTest {
 
 		DhcpLease dhcpLease = dhcpLeases.get(0);
 
-		assertEquals("07/11/2016 01:52",dhcpLease.getLeaseExpireDate());
+		assertTrue(dhcpLease.getLeaseExpireDate().contains("07/11/2016") &&
+				dhcpLease.getLeaseExpireDate().contains(":52"));
 		assertEquals("00:50:56:31:51:28", dhcpLease.getMacAddress());
 		assertEquals("192.168.0.101", dhcpLease.getIpAddress());
 		assertEquals("host1", dhcpLease.getHostname());
