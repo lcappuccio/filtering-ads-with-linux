@@ -15,6 +15,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.systemexception.adtrap.logarchiver.Application;
@@ -24,6 +25,7 @@ import org.systemexception.adtrap.logarchiver.model.DnsLogLine;
 import org.systemexception.adtrap.logarchiver.service.DataService;
 import org.systemexception.adtrap.logarchiver.service.DhcpLeasesReader;
 
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -68,97 +70,110 @@ public class RestControllerTest {
 	@WithMockUser(username = SecurityConfig.ADMIN_USER, password = SecurityConfig.ADMIN_PASSWORD,
 			roles = {SecurityConfig.ADMIN_ROLE})
 	public void should_save_data() throws Exception {
-		sut.perform(MockMvcRequestBuilders.post("/logarchiver/save").contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(dataJson().getBytes())).andExpect(status().is(HttpStatus.CREATED.value()));
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.post("/logarchiver/save")
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(dataJson().getBytes()))
+				.andExpect(status().is(HttpStatus.CREATED.value()));
 
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dataService).save(dnsLogLine);
 	}
 
 	@Test
 	public void should_count_all() throws Exception {
-		sut.perform(MockMvcRequestBuilders.get("/logarchiver/countall")).andExpect(
-				status().is(HttpStatus.OK.value()));
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/countall"))
+				.andExpect(status().is(HttpStatus.OK.value()));
 
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dataService).countAll();
 	}
 
 	@Test
 	public void should_count_all_filtered() throws Exception {
-		sut.perform(MockMvcRequestBuilders.get("/logarchiver/countallfiltered")).andExpect(
-				status().is(HttpStatus.OK.value()));
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/countallfiltered"))
+				.andExpect(status().is(HttpStatus.OK.value()));
 
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dataService).countAllFiltered();
 	}
 
 	@Test
 	public void should_count_top_clients() throws Exception {
-		sut.perform(MockMvcRequestBuilders.get("/logarchiver/counttopclients")).andExpect(
-				status().is(HttpStatus.OK.value()));
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/counttopclients"))
+				.andExpect(status().is(HttpStatus.OK.value()));
 
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dataService).countTopClients();
 	}
 
 	@Test
 	public void should_count_top_requests() throws Exception {
-		sut.perform(MockMvcRequestBuilders.get("/logarchiver/counttoprequests")).andExpect(
-				status().is(HttpStatus.OK.value()));
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/counttoprequests"))
+				.andExpect(status().is(HttpStatus.OK.value()));
 
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dataService).countTopRequests();
 	}
 
 	@Test
 	public void should_count_by_type() throws Exception {
-		sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyquerytype")).andExpect(
-				status().is(HttpStatus.OK.value()));
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyquerytype"))
+				.andExpect(status().is(HttpStatus.OK.value()));
 
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dataService).groupByQueryType();
 	}
 
 	@Test
 	public void should_count_by_domain() throws Exception {
-		sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyquerydomain")).andExpect(
-				status().is(HttpStatus.OK.value()));
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyquerydomain"))
+				.andExpect(status().is(HttpStatus.OK.value()));
 
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dataService).groupByQueryDomain();
 	}
 
 	@Test
 	public void should_count_by_target() throws Exception {
-		sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyquerytarget")).andExpect(
-				status().is(HttpStatus.OK.value()));
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyquerytarget"))
+				.andExpect(status().is(HttpStatus.OK.value()));
 
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dataService).groupByQueryTarget();
 	}
 
 	@Test
 	public void should_count_by_filtered_domain() throws Exception {
-		sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyfiltereddomains")).andExpect(
-				status().is(HttpStatus.OK.value()));
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyfiltereddomains"))
+				.andExpect(status().is(HttpStatus.OK.value()));
 
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dataService).groupByFilteredDomains();
 	}
 
 	@Test
 	public void should_list_hourly_statistics() throws Exception {
-		sut.perform(MockMvcRequestBuilders.get("/logarchiver/dailybyhour")).andExpect(
-				status().is(HttpStatus.OK.value()));
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/dailybyhour"))
+				.andExpect(status().is(HttpStatus.OK.value()));
 
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dataService).dailyByHour();
 	}
 
 	@Test
 	public void should_list_daily_statistics() throws Exception {
-		sut.perform(MockMvcRequestBuilders.get("/logarchiver/monthlybyday")).andExpect(
-				status().is(HttpStatus.OK.value()));
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/monthlybyday"))
+				.andExpect(status().is(HttpStatus.OK.value()));
 
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dataService).monthlyByDay();
 	}
 
 	@Test
 	public void should_list_dhcp_leases() throws Exception {
-		sut.perform(MockMvcRequestBuilders.get("/logarchiver/listdhcpleases")).andExpect(
-				status().is(HttpStatus.OK.value()));
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/listdhcpleases"))
+				.andExpect(status().is(HttpStatus.OK.value()));
 
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dhcpLeasesReader).getDhcpLeases();
 	}
 
