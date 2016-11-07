@@ -33,6 +33,8 @@ public class MySqlDataServiceTest {
 
 	@Value("${adtrap.ipaddress}")
 	private String ipAddress;
+	@Value("${home.domain}")
+	private String homeDomain;
 	@Autowired
 	private MySqlDataService sut;
 	@Autowired

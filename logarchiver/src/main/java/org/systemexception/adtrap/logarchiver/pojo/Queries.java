@@ -1,0 +1,34 @@
+package org.systemexception.adtrap.logarchiver.pojo;
+
+/**
+ * @author leo
+ * @date 07/11/2016 12:59
+ */
+public class Queries {
+
+	// SAVE
+	public static final String SAVE_QUERY = "INSERT INTO DNS_LOG_LINES " +
+			"(LOG_TIME, QUERY_TYPE, QUERY_DOMAIN, QUERY_TARGET) VALUES (?, ?, ? ,?)";
+
+	// COUNT
+	public static final String COUNT_ALL = "SELECT count(*) FROM DNS_LOG_LINES";
+	public static final String COUNT_ALL_FILTERED = "SELECT count(*) FROM DNS_LOG_LINES WHERE QUERY_TARGET = ?";
+	public static final String COUNT_TOP_CLIENTS = "SELECT QUERY_TARGET, count(*) AS TOTAL FROM DNS_LOG_LINES " +
+			"WHERE QUERY_TYPE = ? GROUP BY QUERY_TARGET ORDER BY 2 DESC  LIMIT 20";
+	public static final String COUNT_TOP_REQUESTS = "SELECT QUERY_DOMAIN, count(*) AS TOTAL FROM DNS_LOG_LINES " +
+			"WHERE QUERY_TYPE = ? AND QUERY_DOMAIN NOT LIKE ? GROUP BY QUERY_DOMAIN ORDER BY 2 " +
+			"DESC LIMIT 20";
+
+	// GROUP BY
+	public static final String GROUP_BY_QUERY_TYPE = "SELECT QUERY_TYPE, count(*) AS TOTAL FROM DNS_LOG_LINES " +
+			"GROUP BY QUERY_TYPE ORDER BY 2 DESC LIMIT 20";
+	public static final String GROUP_BY_QUERY_DOMAIN = "SELECT QUERY_DOMAIN, count(*) AS TOTAL FROM DNS_LOG_LINES " +
+			"GROUP BY QUERY_DOMAIN ORDER BY 2 DESC LIMIT 20";
+	public static final String GROUP_BY_QUERY_TARGET = "SELECT QUERY_TARGET, count(*) AS TOTAL FROM DNS_LOG_LINES " +
+			"GROUP BY QUERY_TARGET ORDER BY 2 DESC LIMIT 20";
+	public static final String GROUP_BY_FILTERED_DOMAINS = "SELECT QUERY_DOMAIN, count(*) AS TOTAL " +
+			"FROM DNS_LOG_LINES WHERE QUERY_TARGET = ? GROUP BY QUERY_DOMAIN ORDER BY 2 DESC LIMIT 20";
+
+	// CLEANUP
+	public static final String CLEANUP = "DELETE FROM DNS_LOG_LINES WHERE LOG_TIME < ?";
+}
