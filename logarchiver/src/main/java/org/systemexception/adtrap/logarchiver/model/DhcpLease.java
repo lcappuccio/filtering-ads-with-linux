@@ -56,34 +56,6 @@ public class DhcpLease {
 		return vendor;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		DhcpLease dhcpLease = (DhcpLease) o;
-
-		if (leaseExpireDate != dhcpLease.leaseExpireDate) return false;
-		if (macAddress != null ? !macAddress.equals(dhcpLease.macAddress) : dhcpLease.macAddress != null) return false;
-		if (ipAddress != null ? !ipAddress.equals(dhcpLease.ipAddress) : dhcpLease.ipAddress != null) return false;
-		return hostname != null ? hostname.equals(dhcpLease.hostname) : dhcpLease.hostname == null;
-
-	}
-
-	@Override
-	public int hashCode() {
-		int result = (int) (leaseExpireDate ^ (leaseExpireDate >>> 32));
-		result = 31 * result + (macAddress != null ? macAddress.hashCode() : 0);
-		result = 31 * result + (ipAddress != null ? ipAddress.hashCode() : 0);
-		result = 31 * result + (hostname != null ? hostname.hashCode() : 0);
-		return result;
-	}
-
-	@Override
-	public String toString() {
-		return leaseTimeToDateString() + " " + macAddress + " " + ipAddress + " " + hostname;
-	}
-
 	private String leaseTimeToDateString() {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
 		return simpleDateFormat.format(new Date(leaseExpireDate * 1000L));
