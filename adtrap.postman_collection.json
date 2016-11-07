@@ -120,6 +120,20 @@
 			"response": []
 		},
 		{
+			"name": "List DHCP Leases",
+			"request": {
+				"url": "http://{{ip}}:{{port}}/logarchiver/listdhcpleases",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "LogLine - Add",
 			"request": {
 				"auth": {
