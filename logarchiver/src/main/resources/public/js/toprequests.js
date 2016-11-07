@@ -1,4 +1,4 @@
-google.charts.load('current', {'packages': ['corechart']});
+google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
@@ -11,7 +11,7 @@ function drawChart() {
 	var jsonLines = JSON.parse(jsonData);
 
 	var jsonArray = [];
-	jsonArray.push(['Requests', 'TOTAL']);
+	jsonArray.push(["Requests", "TOTAL"]);
 
 	$.each(jsonLines, function (key, value) {
 		var array = []
@@ -24,7 +24,7 @@ function drawChart() {
 	var data = new google.visualization.arrayToDataTable(jsonArray);
 
 	var options = {
-		title: 'Top 20 Requests',
+		title: "Top 20 Requests",
 		width: 800,
 		height: 600,
 		fontSize: 12,

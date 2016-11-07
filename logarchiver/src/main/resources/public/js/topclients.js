@@ -1,4 +1,4 @@
-google.charts.load('current', {'packages': ['corechart']});
+google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
@@ -11,7 +11,7 @@ function drawChart() {
 	var jsonLines = JSON.parse(jsonData);
 
 	var jsonArray = [];
-	jsonArray.push(['Client', 'TOTAL']);
+	jsonArray.push(["Client", "TOTAL"]);
 
 	$.each(jsonLines, function (key, value) {
 		var array = []
@@ -24,7 +24,7 @@ function drawChart() {
 	var data = new google.visualization.arrayToDataTable(jsonArray);
 
 	var optionsPie = {
-		title: 'Top Clients',
+		title: "Top Clients",
 		width: 600,
 		height: 600,
 		fontSize: 12,
@@ -38,7 +38,7 @@ function drawChart() {
 		sliceVisibilityThreshold: .04
 	};
 
-	var pieChart = new google.visualization.PieChart(document.getElementById('top_clients_pie'));
+	var pieChart = new google.visualization.PieChart(document.getElementById("top_clients_pie"));
 	pieChart.draw(data, optionsPie);
 
 	var barChart = new google.visualization.BarChart(document.getElementById("top_clients_bar"));

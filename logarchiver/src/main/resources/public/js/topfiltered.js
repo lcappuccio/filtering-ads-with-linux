@@ -1,4 +1,4 @@
-google.charts.load('current', {'packages': ['corechart']});
+google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
@@ -11,7 +11,7 @@ function drawChart() {
 	var jsonLines = JSON.parse(jsonData);
 
 	var jsonArray = [];
-	jsonArray.push(['Advertiser', 'TOTAL']);
+	jsonArray.push(["Advertiser", "TOTAL"]);
 
 	$.each(jsonLines, function (key, value) {
 		var array = []
@@ -24,7 +24,7 @@ function drawChart() {
 	var data = new google.visualization.arrayToDataTable(jsonArray);
 
 	var optionsBar = {
-		title: 'Top 20 Advertisers',
+		title: "Top 20 Advertisers",
 		width: 800,
 		height: 600,
 		fontSize: 12,

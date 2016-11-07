@@ -16,7 +16,7 @@ function drawTable(data) {
 }
 
 $(document).ready(function () {
-	$.get('logarchiver/listdhcpleases', function (data) {
+	$.get("logarchiver/listdhcpleases", function (data) {
 		drawTable(data);
 	});
 });
