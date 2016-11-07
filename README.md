@@ -206,7 +206,26 @@ Use `launch_all.sh` and `stop_all.sh` in your `adtrap` folder.
 
 ![System Monitoring Information](/images/system_monitor.png?raw=true)
 
-## Database monitoring
+## System Monitoring
+
+Spring actuators are deployed, see the included postman collection to extend the current system monitoring interface.
+
+## REST endpoints
+
+See the included postman collection, additional endpoints can be added by:
+
+1. Extend `org.systemexception.adtrap.logarchiver.service.DataService`
+2. Implement method in `org.systemexception.adtrap.logarchiver.service.MySqlDataService`
+3. Add REST endpoint in `org.systemexception.adtrap.logarchiver.controller.RestController`
+4. Extend tests accordingly
+
+To transform new endpoints to fancy charts:
+
+1. Create a new javascript class
+2. Create a new webpage
+3. Extend the menu to include your new page
+
+## Database queries
 
 Connect to your database with IDE of choice and see queries: 
 
