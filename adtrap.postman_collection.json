@@ -166,6 +166,34 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "Stats Daily By Houy",
+			"request": {
+				"url": "http://{{ip}}:{{port}}/logarchiver/dailybyhour",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Stats Monthly By Day",
+			"request": {
+				"url": "http://{{ip}}:{{port}}/logarchiver/monthlybyday",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }
