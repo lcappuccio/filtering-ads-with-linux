@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -35,7 +36,7 @@ public class HttpConnector implements Runnable {
 					LOGGER.info("Bad line caught, skipped: " + logLine);
 				}
 			}
-		} catch (InterruptedException | ClassCastException e) {
+		} catch (InterruptedException | ClassCastException | ParseException e) {
 			LogTailerListener.logInterruptedException(e);
 		}
 	}
