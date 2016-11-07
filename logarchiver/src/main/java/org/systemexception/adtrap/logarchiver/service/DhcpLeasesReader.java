@@ -4,18 +4,14 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.systemexception.adtrap.logarchiver.model.DhcpLease;
 import org.systemexception.adtrap.logarchiver.pojo.DhcpFileParser;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.Charset;
-import java.security.InvalidParameterException;
 import java.util.List;
 
 /**

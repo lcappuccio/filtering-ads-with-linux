@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class DhcpLeasesReaderTest {
 
-	DhcpLeasesReader sut;
+	private DhcpLeasesReader sut;
 	private List<DhcpLease> dhcpLeases;
 
 	@Before
