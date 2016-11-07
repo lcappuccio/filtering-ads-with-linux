@@ -1,40 +1,6 @@
 google.charts.load("current", {"packages": ["gauge"]});
 google.charts.setOnLoadCallback(drawChart);
 
-function drawChart() {
-
-	var data = google.visualization.arrayToDataTable([
-		["Label", "Value"],
-		["Memory", getMemPercentUsed()],
-		["Heap", getHeapPercentUsed()],
-		["Load", getLoadPercentAverage()]
-	]);
-
-	var options = {
-		width: 400, height: 120,
-		redFrom: 90, redTo: 100,
-		yellowFrom:75, yellowTo: 90,
-		minorTicks: 5
-	};
-
-	var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
-	chart.draw(data, options);
-
-	setInterval(function() {
-		data.setValue(0, 1, getMemPercentUsed());
-		chart.draw(data, options);
-	}, 1000);
-	setInterval(function() {
-		data.setValue(1, 1, getHeapPercentUsed());
-		chart.draw(data, options);
-	}, 1000);
-	setInterval(function() {
-		data.setValue(2, 1, getLoadPercentAverage());
-		chart.draw(data, options);
-	}, 1000);
-
-}
-
 function getJsonData() {
 
 	var jsonData = $.ajax({
@@ -77,4 +43,38 @@ function getLoadPercentAverage() {
 	var systemLoadPercentage = (systemLoadAverage / 4) * 100;
 
 	return systemLoadPercentage;
+}
+
+function drawChart() {
+
+	var data = google.visualization.arrayToDataTable([
+		["Label", "Value"],
+		["Memory", getMemPercentUsed()],
+		["Heap", getHeapPercentUsed()],
+		["Load", getLoadPercentAverage()]
+	]);
+
+	var options = {
+		width: 400, height: 120,
+		redFrom: 90, redTo: 100,
+		yellowFrom:75, yellowTo: 90,
+		minorTicks: 5
+	};
+
+	var chart = new google.visualization.Gauge(document.getElementById("chart_div"));
+	chart.draw(data, options);
+
+	setInterval(function() {
+		data.setValue(0, 1, getMemPercentUsed());
+		chart.draw(data, options);
+	}, 1000);
+	setInterval(function() {
+		data.setValue(1, 1, getHeapPercentUsed());
+		chart.draw(data, options);
+	}, 1000);
+	setInterval(function() {
+		data.setValue(2, 1, getLoadPercentAverage());
+		chart.draw(data, options);
+	}, 1000);
+
 }
