@@ -14,8 +14,7 @@
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"
 	        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 	<!-- adtrap JS -->
-	<script type="text/javascript" src="js/dhcpleases.js"></script>
-	<script type="text/javascript" src="js/topclients.js"></script>
+	<script type="text/javascript" src="js/systemmonitor.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -50,25 +49,7 @@
 				</ul>
 			</div>
 		</nav>
-		<h2>DHCP Leases</h2>
-		<div class="jumbotron">
-			<table id="dhcp_leases_table" class="table table-striped">
-				<thead>
-				<th>Hostname</th>
-				<th>Vendor</th>
-				<th>Ip Address</th>
-				<th>Mac Address</th>
-				<th>Expires</th>
-				</thead>
-			</table>
-		</div>
-		<h2>Top Clients</h2>
-		<div class="row">
-			<div id="top_clients_pie" class="col-md-5"></div>
-			<div id="top_clients_bar" class="col-md-6"></div>
-		</div>
-		<div id="dhcp_leases"></div>
-		<div id="top_filtered_bar"></div>
+		<div id="chart_div"></div>
 	</div>
 </div>
 </body>

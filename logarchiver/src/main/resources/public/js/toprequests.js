@@ -24,11 +24,20 @@ function drawChart() {
 	var data = new google.visualization.arrayToDataTable(jsonArray);
 
 	var options = {
-		title: "Top 20 Requests",
 		width: 800,
 		height: 600,
 		fontSize: 12,
-		sliceVisibilityThreshold: .04
+		chartArea : {
+			top: 5
+		},
+		legend: {
+			position: 'none'
+		},
+		animation:{
+			startup: true,
+			duration: 1000,
+			easing: 'out'
+		}
 	};
 
 	var barChart = new google.visualization.BarChart(document.getElementById("top_requests_bar"));

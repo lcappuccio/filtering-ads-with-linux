@@ -31,4 +31,8 @@ public interface DataService {
 
 	List<Map<String, Object>> groupByFilteredDomains();
 
+	List<Map<String, Object>> dailyByHour();
+
+	List<Map<String, Object>> monthlyByDay();
+
 }

@@ -139,6 +139,22 @@ public class RestControllerTest {
 	}
 
 	@Test
+	public void should_list_hourly_statistics() throws Exception {
+		sut.perform(MockMvcRequestBuilders.get("/logarchiver/dailybyhour")).andExpect(
+				status().is(HttpStatus.OK.value()));
+
+		verify(dataService).dailyByHour();
+	}
+
+	@Test
+	public void should_list_daily_statistics() throws Exception {
+		sut.perform(MockMvcRequestBuilders.get("/logarchiver/monthlybyday")).andExpect(
+				status().is(HttpStatus.OK.value()));
+
+		verify(dataService).monthlyByDay();
+	}
+
+	@Test
 	public void should_list_dhcp_leases() throws Exception {
 		sut.perform(MockMvcRequestBuilders.get("/logarchiver/listdhcpleases")).andExpect(
 				status().is(HttpStatus.OK.value()));

@@ -8,6 +8,12 @@ function drawChart() {
 		async: false
 	}).responseText;
 
+	var totalFiltered = $.ajax({
+		url: "logarchiver/countallfiltered",
+		dataType: "text",
+		async: false
+	}).responseText;
+
 	var jsonLines = JSON.parse(jsonData);
 
 	var jsonArray = [];
@@ -24,13 +30,23 @@ function drawChart() {
 	var data = new google.visualization.arrayToDataTable(jsonArray);
 
 	var optionsBar = {
-		title: "Top 20 Advertisers",
 		width: 800,
 		height: 600,
 		fontSize: 12,
-		sliceVisibilityThreshold: .04
+		chartArea : {
+			top: 5
+		},
+		legend: {
+			position: 'none'
+		},
+		animation:{
+			startup: true,
+			duration: 1000,
+			easing: 'out'
+		}
 	};
 
+	$("#total_advertisers").text(totalFiltered);
 	var barChart = new google.visualization.BarChart(document.getElementById("top_filtered_bar"));
 	barChart.draw(data, optionsBar);
 }
