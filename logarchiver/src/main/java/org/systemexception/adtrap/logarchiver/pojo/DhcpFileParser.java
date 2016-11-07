@@ -4,6 +4,7 @@ import org.springframework.web.client.RestTemplate;
 import org.systemexception.adtrap.logarchiver.model.DhcpLease;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,6 +31,7 @@ public class DhcpFileParser {
 			dhcpLease.setVendor(getVendor(split[MAC_ADDRESS_POSITION]));
 			dhcpLeases.add(dhcpLease);
 		}
+		Collections.sort(dhcpLeases, (o1, o2) -> o1.getHostname().compareToIgnoreCase(o2.getHostname()));
 		return dhcpLeases;
 	}
 
