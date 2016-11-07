@@ -2,6 +2,7 @@ package org.systemexception.adtrap.logarchiver.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * @author leo
@@ -84,7 +85,7 @@ public class DhcpLease {
 	}
 
 	private String leaseTimeToDateString() {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
 		return simpleDateFormat.format(new Date(leaseExpireDate * 1000L));
 	}
 }
