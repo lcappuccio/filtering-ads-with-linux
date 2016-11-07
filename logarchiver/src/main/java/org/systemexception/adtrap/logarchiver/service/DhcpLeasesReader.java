@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +45,7 @@ public class DhcpLeasesReader {
 	 * @throws IOException
 	 */
 	public List<DhcpLease> getDhcpLeases() {
-		List<String> dhcpLeaseFileLines = null;
+		List<String> dhcpLeaseFileLines = new ArrayList<>();
 		try {
 			dhcpLeaseFileLines = FileUtils.readLines(dhcpLeaseFile, Charset.defaultCharset());
 		} catch (IOException e) {
