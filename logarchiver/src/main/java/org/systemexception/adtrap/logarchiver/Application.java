@@ -32,6 +32,9 @@ public class Application {
 	@Value("${dnsmasq.dhcp.leases.file}")
 	private String dnmasqDhcpLeasesFilePath;
 
+	@Value("${home.domain}")
+	private String homeDomain;
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -44,7 +47,7 @@ public class Application {
 
 	@Bean
 	public DataService dataService() {
-		return new MySqlDataService(jdbcTemplate, ipAddress);
+		return new MySqlDataService(jdbcTemplate, ipAddress, homeDomain);
 	}
 
 	@Bean
