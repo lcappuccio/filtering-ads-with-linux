@@ -24,10 +24,12 @@ function drawChart() {
 	var data = new google.visualization.arrayToDataTable(jsonArray);
 
 	var optionsPie = {
-		title: "Top Clients",
 		width: 600,
 		height: 600,
 		fontSize: 12,
+		chartArea : {
+			top: 5
+		},
 		sliceVisibilityThreshold: .04
 	};
 
@@ -35,7 +37,14 @@ function drawChart() {
 		width: 800,
 		height: 600,
 		fontSize: 12,
-		sliceVisibilityThreshold: .04
+		chartArea : {
+			top: 5
+		},
+		animation:{
+			startup: true,
+			duration: 1000,
+			easing: 'out'
+		}
 	};
 
 	var pieChart = new google.visualization.PieChart(document.getElementById("top_clients_pie"));
