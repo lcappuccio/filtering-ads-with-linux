@@ -40,7 +40,8 @@ function getLoadPercentAverage() {
 	var jsonData = getJsonData();
 	var jsonLines = $.parseJSON(jsonData);
 	var systemLoadAverage = jsonLines["systemload.average"];
-	var systemLoadPercentage = (systemLoadAverage / 4) * 100;
+	var systemProcessors = jsonLines["processors"];
+	var systemLoadPercentage = (systemLoadAverage / parseInt(systemProcessors)) * 100;
 
 	return systemLoadPercentage;
 }
