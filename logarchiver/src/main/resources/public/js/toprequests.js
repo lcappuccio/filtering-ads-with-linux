@@ -1,10 +1,10 @@
 google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
-function getJsonData(url) {
+function getJsonData(restUrl) {
 
 	var jsonData = $.ajax({
-		url: url,
+		url: restUrl,
 		dataType: "json",
 		async: false
 	}).responseText;
@@ -66,6 +66,6 @@ function drawChart() {
 	var requestTypesPie = new google.visualization.PieChart(document.getElementById("query_types_pie"));
 	var topRequestsBar = new google.visualization.BarChart(document.getElementById("top_requests_bar"));
 
-	requestTypesPie.draw(jsonHourData, optionsPie)
+	requestTypesPie.draw(jsonHourData, optionsPie);
 	topRequestsBar.draw(jsonDayData, optionsBar);
 }

@@ -1,10 +1,10 @@
 google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
-function getJsonData(url) {
+function getJsonData(restUrl) {
 
 	var jsonData = $.ajax({
-		url: url,
+		url: restUrl,
 		dataType: "json",
 		async: false
 	}).responseText;
