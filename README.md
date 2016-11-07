@@ -256,3 +256,4 @@ go
 ## ToDo
 
 * How to handle HTTPS requests
+* Integrate logtailer in logarchiver and deploy as single application(?)
