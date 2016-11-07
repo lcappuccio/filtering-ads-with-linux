@@ -8,6 +8,12 @@ function drawChart() {
 		async: false
 	}).responseText;
 
+	var totalFiltered = $.ajax({
+		url: "logarchiver/countallfiltered",
+		dataType: "text",
+		async: false
+	}).responseText;
+
 	var jsonLines = JSON.parse(jsonData);
 
 	var jsonArray = [];
@@ -37,6 +43,7 @@ function drawChart() {
 		}
 	};
 
+	$("#total_advertisers").text(totalFiltered);
 	var barChart = new google.visualization.BarChart(document.getElementById("top_filtered_bar"));
 	barChart.draw(data, optionsBar);
 }
