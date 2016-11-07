@@ -49,12 +49,12 @@ public class MySqlDataService implements DataService {
 
 	@Override
 	public List<Map<String, Object>> countTopClients() {
-		return jdbcTemplate.queryForList(Queries.COUNT_TOP_CLIENTS, new Object[]{"query[A]"});
+		return jdbcTemplate.queryForList(Queries.COUNT_TOP_CLIENTS, "query[A]");
 	}
 
 	@Override
 	public List<Map<String, Object>> countTopRequests() {
-		return jdbcTemplate.queryForList(Queries.COUNT_TOP_REQUESTS, new Object[]{"query[A]", "%" + homeDomain + "%"});
+		return jdbcTemplate.queryForList(Queries.COUNT_TOP_REQUESTS, "query[A]", "%" + homeDomain + "%");
 	}
 
 	@Override
@@ -74,17 +74,17 @@ public class MySqlDataService implements DataService {
 
 	@Override
 	public List<Map<String, Object>> groupByFilteredDomains() {
-		return jdbcTemplate.queryForList(Queries.GROUP_BY_FILTERED_DOMAINS, new Object[]{ipAddress});
+		return jdbcTemplate.queryForList(Queries.GROUP_BY_FILTERED_DOMAINS, ipAddress);
 	}
 
 	@Override
 	public List<Map<String, Object>> dailyByHour() {
-		return jdbcTemplate.queryForList(Queries.WEEKLY_BY_HOUR, new Object[]{ipAddress});
+		return jdbcTemplate.queryForList(Queries.WEEKLY_BY_HOUR, ipAddress);
 	}
 
 	@Override
 	public List<Map<String, Object>> monthlyByDay() {
-		return jdbcTemplate.queryForList(Queries.MONTHLY_BY_DAY, new Object[]{ipAddress});
+		return jdbcTemplate.queryForList(Queries.MONTHLY_BY_DAY, ipAddress);
 	}
 
 	/**
