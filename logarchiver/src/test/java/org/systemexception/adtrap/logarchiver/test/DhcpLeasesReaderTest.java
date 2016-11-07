@@ -46,7 +46,7 @@ public class DhcpLeasesReaderTest {
 		assertTrue(dhcpLease.getLeaseExpireDate().contains("07/11/2016") &&
 				dhcpLease.getLeaseExpireDate().contains(":52"));
 		assertEquals("00:50:56:31:51:28", dhcpLease.getMacAddress());
-		assertEquals("192.168.0.101", dhcpLease.getIpAddress());
+		assertEquals("192.168.0.102", dhcpLease.getIpAddress());
 		assertEquals("host1", dhcpLease.getHostname());
 		assertEquals("VMWARE, INC.", dhcpLease.getVendor());
 	}
