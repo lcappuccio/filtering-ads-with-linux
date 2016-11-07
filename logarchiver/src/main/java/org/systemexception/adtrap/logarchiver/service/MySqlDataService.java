@@ -77,6 +77,16 @@ public class MySqlDataService implements DataService {
 		return jdbcTemplate.queryForList(Queries.GROUP_BY_FILTERED_DOMAINS, new Object[]{ipAddress});
 	}
 
+	@Override
+	public List<Map<String, Object>> dailyByHour() {
+		return jdbcTemplate.queryForList(Queries.WEEKLY_BY_HOUR, new Object[]{ipAddress});
+	}
+
+	@Override
+	public List<Map<String, Object>> monthlyByDay() {
+		return jdbcTemplate.queryForList(Queries.MONTHLY_BY_DAY, new Object[]{ipAddress});
+	}
+
 	/**
 	 * Clean database every day of all events older than 1 month, uses cron schedule
 	 */

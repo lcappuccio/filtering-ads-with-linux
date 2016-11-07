@@ -47,7 +47,7 @@ public class MySqlDataServiceTest {
 		dnsLogLine = new DnsLogLine();
 		dnsLogLine.setDate(System.currentTimeMillis());
 		dnsLogLine.setQueryDomain("TestQueryDomain");
-		dnsLogLine.setQueryTarget("TestQueryTarget");
+		dnsLogLine.setQueryTarget("127.0.0.1");
 		dnsLogLine.setQueryType("query[A]");
 		sut.save(dnsLogLine);
 	}
@@ -118,6 +118,20 @@ public class MySqlDataServiceTest {
 	@Test
 	public void should_group_by_filtered_domains() {
 		List<Map<String, Object>> maps = sut.groupByFilteredDomains();
+
+		assertTrue(maps.size() > 0);
+	}
+
+	@Test
+	public void should_count_hourly_stats() {
+		List<Map<String, Object>> maps = sut.dailyByHour();
+
+		assertTrue(maps.size() > 0);
+	}
+
+	@Test
+	public void should_count_monthly_stats() {
+		List<Map<String, Object>> maps = sut.monthlyByDay();
 
 		assertTrue(maps.size() > 0);
 	}

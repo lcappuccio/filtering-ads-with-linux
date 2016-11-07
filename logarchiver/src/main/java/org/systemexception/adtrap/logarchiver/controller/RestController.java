@@ -129,6 +129,26 @@ public class RestController {
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "dailybyhour", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map>> dailyByHour() {
+
+		LOGGER.info("Get statistics by hour");
+		List groupByQueryResult = dataService.dailyByHour();
+
+		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "monthlybyday", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map>> monthlyByDay() {
+
+		LOGGER.info("Get statistics by day");
+		List groupByQueryResult = dataService.monthlyByDay();
+
+		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "listdhcpleases", method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DhcpLease>> listDhcpLeases() {
