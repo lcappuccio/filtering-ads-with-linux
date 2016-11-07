@@ -36,6 +36,9 @@ function drawChart() {
 		chartArea : {
 			top: 5
 		},
+		legend: {
+			position: 'none'
+		},
 		animation:{
 			startup: true,
 			duration: 1000,

@@ -33,11 +33,11 @@ public class Queries {
 	public static final String WEEKLY_BY_HOUR = "select FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y %H') as LOG_DATE, " +
 			"count(*) as TOTAL from DNS_LOG_LINES where QUERY_TARGET = ?\n" +
 			"and STR_TO_DATE(FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y'), '%d/%m/%Y') > CURRENT_DATE - INTERVAL 7 DAY\n" +
-			"group by FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y %H') order by 1 desc";
+			"group by FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y %H') order by 1 asc";
 	public static final String MONTHLY_BY_DAY = "select FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y') as LOG_DATE, count(*)" +
 			" as TOTAL from DNS_LOG_LINES where QUERY_TARGET = ?\n" +
 			"and STR_TO_DATE(FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y'), '%d/%m/%Y') > CURRENT_DATE - INTERVAL 30 DAY\n" +
-			"group by FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y') order by 1 desc";
+			"group by FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y') order by 1 asc";
 
 	// CLEANUP
 	public static final String CLEANUP = "DELETE FROM DNS_LOG_LINES WHERE LOG_TIME < ?";

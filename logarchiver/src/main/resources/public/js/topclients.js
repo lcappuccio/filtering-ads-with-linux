@@ -27,7 +27,7 @@ function drawChart() {
 		width: 600,
 		height: 600,
 		fontSize: 12,
-		chartArea : {
+		chartArea: {
 			top: 5
 		},
 		sliceVisibilityThreshold: .04
@@ -37,10 +37,13 @@ function drawChart() {
 		width: 800,
 		height: 600,
 		fontSize: 12,
-		chartArea : {
+		chartArea: {
 			top: 5
 		},
-		animation:{
+		legend: {
+			position: 'none'
+		},
+		animation: {
 			startup: true,
 			duration: 1000,
 			easing: 'out'
