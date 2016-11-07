@@ -37,12 +37,12 @@ function drawChart() {
 			top: 5
 		},
 		legend: {
-			position: 'none'
+			position: "none"
 		},
 		animation:{
 			startup: true,
 			duration: 1000,
-			easing: 'out'
+			easing: "out"
 		}
 	};
 
