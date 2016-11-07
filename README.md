@@ -141,16 +141,33 @@ So we are redirecting some stuff. :)
 
 ## init, launch and stop scripts
 
-1. Copy script `adtrap` to /etc/init.d
-2. Copy `launch_all.sh` and `stop_all.sh` to the paths in `adtrap`
-3. `sudo update-rc.d adtrap defaults` will register the service at boot and stop
+Use `launch_all.sh` and `stop_all.sh` in your `adtrap` folder.
 
-## Monitoring
+## Web Console
 
-1. Spring actuators are included in the dependencies
-2. Connect to your database with IDE of choice and 
+### DHCP Information / Top Clients
 
-Useful queries:
+![DHCP Information / Top Clients](/images/dhcp_clients.png?raw=true)
+
+### Top Requests
+
+![Top Requests](/images/request_statistics.png?raw=true)
+
+### Top Advertisers
+
+![Top Advertisers](/images/advertisers_trapped.png?raw=true)
+
+### Statistics
+
+![Statistics](/images/advertisers_statistics.png?raw=true)
+
+### System Monitoring Information
+
+![System Monitoring Information](/images/system_monitor.png?raw=true)
+
+## Database monitoring
+
+Connect to your database with IDE of choice and see queries: 
 
 ```
 select *
@@ -197,6 +214,4 @@ go
 
 ## ToDo
 
-* Investigate this: `cat /var/log/dnsmasq.log | awk '{print $4 $5 $6 $7 $8}'`
-* Statistics Analysis Facility
 * How to handle HTTPS requests
