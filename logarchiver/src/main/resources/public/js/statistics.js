@@ -1,18 +1,36 @@
 google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
-function drawChart() {
-	var jsonDataByHour = $.ajax({
-		url: "logarchiver/dailybyhour",
+function getJsonData(url) {
+
+	var jsonData = $.ajax({
+		url: url,
 		dataType: "json",
 		async: false
 	}).responseText;
 
-	var jsonDataByDay = $.ajax({
-		url: "logarchiver/monthlybyday",
-		dataType: "json",
-		async: false
-	}).responseText;
+	return jsonData;
+}
+
+function textResponseToArray(responseText, columnName) {
+
+	var jsonData = JSON.parse(responseText);
+	var jsonArray = [];
+	jsonArray.push([columnName, "TOTAL"]);
+
+	$.each(jsonData, function (key, value) {
+		var array = [];
+		$.each(value, function (key2, value2) {
+			array.push(value2);
+		});
+		jsonArray.push(array);
+	});
+	return new google.visualization.arrayToDataTable(jsonArray);
+}
+
+function drawChart() {
+	var jsonDataByHour = getJsonData("logarchiver/dailybyhour");
+	var jsonDataByDay = getJsonData("logarchiver/monthlybyday");
 
 	var jsonHourData = textResponseToArray(jsonDataByHour, "Hour");
 	var jsonDayData = textResponseToArray(jsonDataByDay, "Day");
@@ -38,20 +56,4 @@ function drawChart() {
 
 	chartByHour.draw(jsonHourData, options);
 	chartByDay.draw(jsonDayData,options);
-}
-
-function textResponseToArray(responseText, columnName) {
-
-	var jsonData = JSON.parse(responseText);
-	var jsonArray = [];
-	jsonArray.push([columnName, "TOTAL"]);
-
-	$.each(jsonData, function (key, value) {
-		var array = [];
-		$.each(value, function (key2, value2) {
-			array.push(value2);
-		});
-		jsonArray.push(array);
-	});
-	return new google.visualization.arrayToDataTable(jsonArray);
 }
