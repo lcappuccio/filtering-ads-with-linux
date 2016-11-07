@@ -14,7 +14,7 @@ function drawChart() {
 	jsonArray.push(["Advertiser", "TOTAL"]);
 
 	$.each(jsonLines, function (key, value) {
-		var array = []
+		var array = [];
 		$.each(value, function (key2, value2) {
 			array.push(value2);
 		});
