@@ -1,43 +1,15 @@
 google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
-function drawChart() {
-	var jsonDataByHour = $.ajax({
-		url: "logarchiver/dailybyhour",
+function getJsonData(url) {
+
+	var jsonData = $.ajax({
+		url: url,
 		dataType: "json",
 		async: false
 	}).responseText;
 
-	var jsonDataByDay = $.ajax({
-		url: "logarchiver/monthlybyday",
-		dataType: "json",
-		async: false
-	}).responseText;
-
-	var jsonHourData = textResponseToArray(jsonDataByHour, "Hour");
-	var jsonDayData = textResponseToArray(jsonDataByDay, "Day");
-
-	var options = {
-		height: 600,
-		fontSize: 12,
-		chartArea : {
-			top: 80
-		},
-		legend: {
-			position: 'none'
-		},
-		animation:{
-			startup: true,
-			duration: 1000,
-			easing: 'out'
-		}
-	};
-
-	var chartByHour = new google.visualization.LineChart(document.getElementById('advertisers_by_hour'));
-	var chartByDay = new google.visualization.LineChart(document.getElementById('advertisers_by_day'));
-
-	chartByHour.draw(jsonHourData, options);
-	chartByDay.draw(jsonDayData,options);
+	return jsonData;
 }
 
 function textResponseToArray(responseText, columnName) {
@@ -54,4 +26,34 @@ function textResponseToArray(responseText, columnName) {
 		jsonArray.push(array);
 	});
 	return new google.visualization.arrayToDataTable(jsonArray);
+}
+
+function drawChart() {
+	var jsonDataByHour = getJsonData("logarchiver/dailybyhour");
+	var jsonDataByDay = getJsonData("logarchiver/monthlybyday");
+
+	var jsonHourData = textResponseToArray(jsonDataByHour, "Hour");
+	var jsonDayData = textResponseToArray(jsonDataByDay, "Day");
+
+	var options = {
+		height: 600,
+		fontSize: 12,
+		chartArea : {
+			top: 80
+		},
+		legend: {
+			position: "none"
+		},
+		animation:{
+			startup: true,
+			duration: 1000,
+			easing: "out"
+		}
+	};
+
+	var chartByHour = new google.visualization.LineChart(document.getElementById("advertisers_by_hour"));
+	var chartByDay = new google.visualization.LineChart(document.getElementById("advertisers_by_day"));
+
+	chartByHour.draw(jsonHourData, options);
+	chartByDay.draw(jsonDayData,options);
 }

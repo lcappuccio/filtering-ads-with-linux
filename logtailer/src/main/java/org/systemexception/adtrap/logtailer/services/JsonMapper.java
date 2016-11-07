@@ -4,10 +4,7 @@ import com.google.gson.JsonObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author leo
@@ -70,19 +67,14 @@ public class JsonMapper {
 		String year = String.valueOf(calendar.get(Calendar.YEAR));
 
 		String dateString = dayOfMonth + "/" + monthText + "/" + year + LogParser.LOG_LINE_SEPARATOR + hhmmss;
-		SimpleDateFormat dateParser = new SimpleDateFormat("d/MMM/yyyy HH:mm:ss");
+		SimpleDateFormat dateParser = new SimpleDateFormat("d/MMM/yyyy HH:mm:ss", Locale.getDefault());
 		Date parsedDate = dateParser.parse(dateString);
 
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		calendar.add(Calendar.MINUTE, -1);
 		Date time1MinutAgo = calendar.getTime();
 
-		if(parsedDate.before(time1MinutAgo)) {
-			return false;
-		} else {
-			return true;
-		}
+		return parsedDate.after(time1MinutAgo);
 
 	}
-
 }

@@ -14,13 +14,8 @@ The idea is very simple and very well documented on the 'net:
 To obtain this we will need:
 * a linux machine or a raspberry (I'm using a Pi3)
 * dnsmasq installed
-* a local webserver (I'm using lighttpd)
+* a local webserver (I'm using apache)
 * a running mysql database
-
-Nice to have:
-* dhcp on the same box
-* some reporting or statistics
-* logging
 
 ## Installing dnsmasq
 
@@ -57,7 +52,7 @@ expand-hosts
 # adds my localdomain to each dhcp host
 domain=home
 # my private dhcp range + subnetmask + 14d lease time
-dhcp-range=192.168.0.20,192.168.0.254,255.255.255.0,8h
+dhcp-range=192.168.0.100,192.168.0.254,255.255.255.0,8h
 # set route to my local network router
 dhcp-option=option:router,192.168.0.1
 #windows 7 float fix
@@ -86,17 +81,50 @@ On my home modem/router I had to set the new dnsmasq machine as DNS. Remember to
 
 Will not get much into detail here, simply install lighttpd, apache, pixelserv or whatever other web server of your choice. Personally I'm using lighttpd.
 
-On the `lighttpd.conf` file remember to set:
+In `/etc/apache2/sites-enabled/000-default.conf` file:
 
-`server.error-handler-404    = "/1px.gif"`
+```
+<VirtualHost *:80>
+ 	# The ServerName directive sets the request scheme, hostname and port that
+ 	# the server uses to identify itself. This is used when creating
+ 	# redirection URLs. In the context of virtual hosts, the ServerName
+ 	# specifies what hostname must appear in the request's Host: header to
+ 	# match this virtual host. For the default virtual host (this file) this
+ 	# value is not decisive as it is used as a last resort host regardless.
+ 	# However, you must set it for any further virtual host explicitly.
+ 	#ServerName www.example.com
+ 
+ 	ServerAdmin webmaster@localhost
+ 	DirectoryIndex 1px.gif
+ 	DocumentRoot /var/www/html
+ 
+ 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+ 	# error, crit, alert, emerg.
+ 	# It is also possible to configure the loglevel for particular
+ 	# modules, e.g.
+ 	#LogLevel info ssl:warn
+ 
+ 	ErrorLog ${APACHE_LOG_DIR}/error.log
+ 	CustomLog ${APACHE_LOG_DIR}/access.log combined
+ 
+ 	# For most configuration files from conf-available/, which are
+ 	# enabled or disabled at a global level, it is possible to
+ 	# include a line for only one particular virtual host. For example the
+ 	# following line enables the CGI configuration for this host only
+ 	# after it has been globally disabled with "a2disconf".
+ 	#Include conf-available/serve-cgi-bin.conf
+ </VirtualHost>
+```
 
-`index-file.names            = ( "1px.gif" )`
-
-This will forward requests to http://127.0.0.1 directly to our 1px gif.
+This will forward requests to `http://adtrap_ip_address` directly to our 1px gif.
 
 ## Configure database
 
-`sudo apt-get install mysql-server`
+`sudo apt-get install mysql-server` and creating the adtrap schema and user.
+
+In order to make things easier I suggest:
+
+`sudo apt-get install phpmyadmin`
 
 ## Create the lists
 
@@ -107,7 +135,8 @@ Now for the fun part. Actually I'm not creating anything, just putting together 
 
 The entrypoint is `manual_easylist.sh`. This bash script will download the lists in `lists.lst`, parse them and put them into another file.
 
-If lighttpd is not running on your local machine I replace the `127.0.0.1` on the end of the script with the ip of my ad trap system.
+If no web server is running on your local machine replace the `127.0.0.1` on the end of the script with the ip 
+of your ad trap web server 1px gif image.
 
 On this same file I'm appending some other hosts found on [URLBlacklist](http://www.urlblacklist.com). After all this parsing and appending the script will sort and remove duplicates.
 
@@ -126,31 +155,60 @@ So we are redirecting some stuff. :)
 
 ## Extras
 
-* If using DHCP I've prepared a php page listing all leases
-* Bandwidthd monitor (`sudo apt-get install bandwidthd`)
+* If using DHCP I've prepared a php page listing all leases (if you don't want to deploy the java components)
+* Bandwidthd monitor (`sudo apt-get install bandwidthd`), useful if using the same box as LAN gateway
 
 # Software
+
+There are two java components:
+
+1. logtailer: tails the dnsmasq log file and send all new lines to a REST backend
+2. logarchiver: receives requests from logtailer and stores the lines to a database
 
 ## Compile logtailer
 
 `mvn clean compile assembly:single`
 
+Requires two parameters:
+
+1. `-f` the path of the dnsmasq log file
+2. `-s` the sleep timer of the tail operation
+
 ## Compile logarchiver
 
 `mvn clean package spring-boot:repackage`
 
+A java Springboot REST backend with a monitoring console using Google Charts. See `application.properties` to configure.
+
 ## init, launch and stop scripts
 
-1. Copy script `adtrap` to /etc/init.d
-2. Copy `launch_all.sh` and `stop_all.sh` to the paths in `adtrap`
-3. `sudo update-rc.d adtrap defaults` will register the service at boot and stop
+Use `launch_all.sh` and `stop_all.sh` in your `adtrap` folder.
 
-## Monitoring
+## Web Console
 
-1. Spring actuators are included in the dependencies
-2. Connect to your database with IDE of choice and 
+### DHCP Information / Top Clients
 
-Useful queries:
+![DHCP Information / Top Clients](/images/dhcp_clients.png?raw=true)
+
+### Top Requests
+
+![Top Requests](/images/request_statistics.png?raw=true)
+
+### Top Advertisers
+
+![Top Advertisers](/images/advertisers_trapped.png?raw=true)
+
+### Statistics
+
+![Statistics](/images/advertisers_statistics.png?raw=true)
+
+### System Monitoring Information
+
+![System Monitoring Information](/images/system_monitor.png?raw=true)
+
+## Database monitoring
+
+Connect to your database with IDE of choice and see queries: 
 
 ```
 select *
@@ -197,6 +255,4 @@ go
 
 ## ToDo
 
-* Investigate this: `cat /var/log/dnsmasq.log | awk '{print $4 $5 $6 $7 $8}'`
-* Statistics Analysis Facility
 * How to handle HTTPS requests
