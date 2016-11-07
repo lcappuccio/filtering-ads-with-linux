@@ -35,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = {Application.class})
 @WebAppConfiguration
 @TestPropertySource(locations = "classpath:application.properties")
+// TODO add mocks and tests with asserts here
 public class RestControllerTest {
 
 	@Autowired
