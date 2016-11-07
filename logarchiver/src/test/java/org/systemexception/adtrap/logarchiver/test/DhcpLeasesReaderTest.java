@@ -35,7 +35,7 @@ public class DhcpLeasesReaderTest {
 	public void should_read_file() {
 
 		assertNotNull(dhcpLeases);
-		assertEquals(1, dhcpLeases.size());
+		assertEquals(3, dhcpLeases.size());
 	}
 
 	@Test

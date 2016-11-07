@@ -5,6 +5,7 @@ import org.systemexception.adtrap.logarchiver.model.DhcpLease;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -31,7 +32,16 @@ public class DhcpFileParser {
 			dhcpLease.setVendor(getVendor(split[MAC_ADDRESS_POSITION]));
 			dhcpLeases.add(dhcpLease);
 		}
-		Collections.sort(dhcpLeases, (o1, o2) -> o1.getHostname().compareToIgnoreCase(o2.getHostname()));
+		Collections.sort(dhcpLeases, new Comparator<DhcpLease>() {
+			@Override
+			public int compare(DhcpLease o1, DhcpLease o2) {
+				if (!o1.getHostname().equals(o2.getHostname())) {
+					return o1.getHostname().compareToIgnoreCase(o2.getHostname());
+				} else {
+					return o1.getIpAddress().compareTo(o2.getIpAddress());
+				}
+			}
+		});
 		return dhcpLeases;
 	}
 
