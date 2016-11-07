@@ -21,14 +21,13 @@ import static org.junit.Assert.assertEquals;
  */
 public class DhcpLeasesReaderTest {
 
-	private DhcpLeasesReader sut;
 	private List<DhcpLease> dhcpLeases;
 
 	@Before
 	public void setUp() throws IOException, URISyntaxException {
 		URL systemResource = ClassLoader.getSystemResource("sample.leases");
 		File file = new File(systemResource.toURI());
-		sut = new DhcpLeasesReader(file.getAbsolutePath());
+		DhcpLeasesReader sut = new DhcpLeasesReader(file.getAbsolutePath());
 		dhcpLeases = sut.getDhcpLeases();
 	}
 
