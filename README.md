@@ -120,7 +120,7 @@ This will forward requests to `http://adtrap_ip_address` directly to our 1px gif
 
 ## Configure database
 
-`sudo apt-get install mysql-server` and creating the adtrap schema and user.
+`sudo apt-get install mysql-server` and create the adtrap schema and user.
 
 In order to make things easier I suggest:
 
