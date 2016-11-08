@@ -69,6 +69,23 @@ log-async
 log-queries
 ```
 
+Logrotate needs to set the correct permission on the dnsmasq log file when rotating:
+
+```
+/var/log/dnsmasq.log
+ {
+         monthly
+         missingok
+         notifempty
+         delaycompress
+         sharedscripts
+         postrotate
+                 [ ! -f /var/run/dnsmasq/dnsmasq.pid ] || kill -USR2 `cat /var/run/dnsmasq/dnsmasq.pid`
+         endscript
+         create 0644 dnsmasq root
+ }
+ ```
+
 Everything is on domain `home`. After installing and configuring:
 
 `sudo service dnsmasq restart`
