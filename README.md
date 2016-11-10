@@ -244,50 +244,79 @@ To transform new endpoints to fancy charts:
 
 ## Database queries
 
-Connect to your database with IDE of choice and see queries: 
+Connect to your database with IDE of choice and see queries : 
 
 ```
-select *
+-- Total
+select count(*)
 from DNS_LOG_LINES
 order by LOG_TIME desc
 go
 
+-- Group by query type
 SELECT QUERY_TYPE, count(*) as TOTAL
 FROM DNS_LOG_LINES
 GROUP BY QUERY_TYPE
 ORDER BY 2 DESC
 go
 
+-- Check top requesters
+select QUERY_TARGET, count(*) as TOTAL
+from DNS_LOG_LINES
+where QUERY_TYPE = 'query[A]'
+group by QUERY_TARGET
+order by 2 desc
+go
+
+-- Check top requested domains
 SELECT QUERY_DOMAIN, count(*) as TOTAL
 FROM DNS_LOG_LINES
 GROUP BY QUERY_DOMAIN
 ORDER BY 2 DESC
 go
 
-SELECT QUERY_TARGET, count(*) as TOTAL
-FROM DNS_LOG_LINES
-GROUP BY QUERY_TARGET
-ORDER BY 2 DESC
-go
-
-select QUERY_DOMAIN, count(*) as TOTAL
-FROM DNS_LOG_LINES
-group by QUERY_DOMAIN
-order by 2 desc
-go
-
+-- Check top advertisers filtered
 select QUERY_DOMAIN, count(*) as TOTAL
 from DNS_LOG_LINES
-where QUERY_TARGET = '?????'
+where QUERY_TARGET = '192.168.0.4'
 group by QUERY_DOMAIN
 order by 2 desc
+//limit 20
 go
 
+-- Count advertisers
 select count(*) as TOTAL
 from DNS_LOG_LINES
-where QUERY_TARGET = '?????'
+where QUERY_TARGET = '192.168.0.4'
+go
+
+-- Count advertisers per hour
+select FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y %H') as LOG_DATE, count(*) as TOTAL
+from DNS_LOG_LINES
+where QUERY_TARGET = '192.168.0.4'
+and STR_TO_DATE(FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y'), '%d/%m/%Y') > CURRENT_DATE - INTERVAL 24 hour
+group by FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y %H')
+order by 1 desc
+go
+
+-- Count advertisers per day
+select FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y') as LOG_DATE, count(*) as TOTAL
+from DNS_LOG_LINES
+where QUERY_TARGET = '192.168.0.4'
+and STR_TO_DATE(FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y'), '%d/%m/%Y') > CURRENT_DATE - INTERVAL 30 DAY
+group by FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y')
+order by 1 desc
+go
+
+-- Table size
+SELECT 
+table_name AS `Table`, round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB` 
+FROM INFORMATION_SCHEMA.TABLES 
+WHERE table_schema = "adtrap"
 go
 ```
+
+Application queries in: `org.systemexception.adtrap.logarchiver.pojo.Queries`
 
 ## ToDo
 
