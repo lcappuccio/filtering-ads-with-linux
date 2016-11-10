@@ -12,7 +12,6 @@ import java.util.*;
  */
 public class JsonMapper {
 
-	private final LogParser logParser = new LogParser();
 	private static final int DNSMASQ_STANDARD_LINE_SIZE = 8;
 	private static final String DATE = "date";
 	private static final String QUERY_DOMAIN = "queryDomain";
@@ -28,7 +27,7 @@ public class JsonMapper {
 	 */
 	public Optional<String> jsonFromLogLine(final String logLine) throws ParseException {
 		JsonObject jsonObject = new JsonObject();
-		ArrayList<String> logSplitted = logParser.splitLogLine(logLine);
+		ArrayList<String> logSplitted = LogParser.splitLogLine(logLine);
 		if (logSplitted.size() != DNSMASQ_STANDARD_LINE_SIZE || !isValidDate(logLine)) {
 			return Optional.empty();
 		}
@@ -59,7 +58,7 @@ public class JsonMapper {
 	private boolean isValidDate(final String logLine)
 			throws ParseException {
 
-		ArrayList<String> logSplitted = logParser.splitLogLine(logLine);
+		ArrayList<String> logSplitted = LogParser.splitLogLine(logLine);
 		String monthText = logSplitted.get(LogParser.QUERY_MONTH);
 		String dayOfMonth = logSplitted.get(LogParser.QUERY_DAY);
 		String hhmmss = logSplitted.get(LogParser.QUERY_TIME);
