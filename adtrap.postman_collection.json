@@ -148,40 +148,6 @@
 			"response": []
 		},
 		{
-			"name": "LogLine - Add",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": {
-						"username": "admin",
-						"password": "admin_pwd",
-						"saveHelperData": true,
-						"showPassword": false
-					}
-				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/save",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "Authorization",
-						"value": "Basic YWRtaW46YWRtaW5fcHdk",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"date\": \"1234567\",\n\t\"queryType\": \"123\",\n\t\"queryDomain\": \"www.test.org\",\n\t\"queryTarget\": \"8.8.8.8\"\n}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
 			"name": "Stats Daily By Houy",
 			"request": {
 				"url": "http://{{ip}}:{{port}}/logarchiver/dailybyhour",
