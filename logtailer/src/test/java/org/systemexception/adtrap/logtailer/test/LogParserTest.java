@@ -26,11 +26,10 @@ public class LogParserTest {
 	private static final String QUERY_TYPE = "forwarded";
 	private static final String QUERY_DOMAIN = "e4478.a.akamaiedge.net";
 	private static final String QUERY_TARGET = "8.8.4.4";
-	private final LogParser sut = new LogParser();
 
 	@Test
 	public void should_split_log_line() {
-		ArrayList<String> splitLog = sut.splitLogLine(timeToDate() + LogParser.LOG_LINE_SEPARATOR + LOG_LINE);
+		ArrayList<String> splitLog = LogParser.splitLogLine(timeToDate() + LogParser.LOG_LINE_SEPARATOR + LOG_LINE);
 
 		assertEquals("dnsmasq[27711]:", splitLog.get(3));
 		assertEquals(QUERY_TYPE, splitLog.get(4));
@@ -41,7 +40,7 @@ public class LogParserTest {
 
 	@Test
 	public void should_split_dhcp_log_line() {
-		ArrayList<String> splitLog = sut.splitLogLine(timeToDate() + LogParser.LOG_LINE_SEPARATOR + DHCP_LOG_LINE);
+		ArrayList<String> splitLog = LogParser.splitLogLine(timeToDate() + LogParser.LOG_LINE_SEPARATOR + DHCP_LOG_LINE);
 
 		assertEquals("dnsmasq-dhcp[1643]:", splitLog.get(3));
 		assertEquals("DHCPREQUEST(eth0)", splitLog.get(4));
@@ -51,7 +50,7 @@ public class LogParserTest {
 
 	@Test
 	public void should_split_dhcpack_log_line() {
-		ArrayList<String> splitLog = sut.splitLogLine(timeToDate() + LogParser.LOG_LINE_SEPARATOR + DHCPACK_LOG_LINE);
+		ArrayList<String> splitLog = LogParser.splitLogLine(timeToDate() + LogParser.LOG_LINE_SEPARATOR + DHCPACK_LOG_LINE);
 
 		assertEquals("dnsmasq-dhcp[1643]:", splitLog.get(3));
 		assertEquals("DHCPACK(eth0)", splitLog.get(4));

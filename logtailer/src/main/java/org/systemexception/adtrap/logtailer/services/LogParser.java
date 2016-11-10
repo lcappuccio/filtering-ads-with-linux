@@ -17,7 +17,7 @@ public class LogParser {
 	public static final int TARGET = 7;
 	private static final String EMTPY_STRING = "";
 
-	public ArrayList<String> splitLogLine(final String logLine) {
+	public static ArrayList<String> splitLogLine(final String logLine) {
 
 		String[] splitString = logLine.split(LOG_LINE_SEPARATOR);
 		ArrayList<String> result = new ArrayList<>();
