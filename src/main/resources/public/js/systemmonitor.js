@@ -62,7 +62,7 @@ function drawChart() {
 		minorTicks: 5
 	};
 
-	var chart = new google.visualization.Gauge(document.getElementById("chart_div"));
+	var chart = new google.visualization.Gauge(document.getElementById("gauges"));
 	chart.draw(data, options);
 
 	setInterval(function() {
