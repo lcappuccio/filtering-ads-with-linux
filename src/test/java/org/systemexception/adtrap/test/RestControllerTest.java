@@ -14,9 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.systemexception.adtrap.controller.RestController;
 import org.systemexception.adtrap.Application;
-import org.systemexception.adtrap.model.DnsLogLine;
+import org.systemexception.adtrap.controller.RestController;
 import org.systemexception.adtrap.service.DataService;
 import org.systemexception.adtrap.service.DhcpLeasesReader;
 
@@ -42,19 +41,9 @@ public class RestControllerTest {
 	@Autowired
 	private RestController restController;
 	private MockMvc sut;
-	private DnsLogLine dnsLogLine;
-	private static final long DNS_DATE = 1234567L;
-	private static final String DNS_QUERY_TYPE = "config";
-	private static final String DNS_QUERY_DOMAIN = "www.test.it";
-	private static final String DNS_QUERY_TARGET = "8.8.8.8";
 
 	@Before
 	public void setUp() {
-		dnsLogLine = new DnsLogLine();
-		dnsLogLine.setDate(DNS_DATE);
-		dnsLogLine.setQueryType(DNS_QUERY_TYPE);
-		dnsLogLine.setQueryDomain(DNS_QUERY_DOMAIN);
-		dnsLogLine.setQueryTarget(DNS_QUERY_TARGET);
 		sut = MockMvcBuilders.standaloneSetup(restController).build();
 	}
 
