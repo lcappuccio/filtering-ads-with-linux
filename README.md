@@ -206,7 +206,7 @@ Create a folder `config` and copy (with the opportune values) the `application.p
 
 ### Top Advertisers
 
-![Top Advertisers](goodies/images/advertisers.png?raw=true)
+![Top Advertisers](goodies/images/advertisers_trapped.png?raw=true)
 
 ### Statistics
 
