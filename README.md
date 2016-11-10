@@ -175,31 +175,24 @@ So we are redirecting some stuff. :)
 * If using DHCP I've prepared a php page listing all leases (if you don't want to deploy the java components)
 * Bandwidthd monitor (`sudo apt-get install bandwidthd`), useful if using the same box as LAN gateway
 
-# Software
+# Software (optional)
 
-There are two java components:
+The adtrap java application is used to listen the dnsmasq logfile and store events in a MySQL database. (should work 
+with MariaDb as well).
 
-1. logtailer: tails the dnsmasq log file and send all new lines to a REST backend
-2. logarchiver: receives requests from logtailer and stores the lines to a database
-
-## Compile logtailer
-
-`mvn clean compile assembly:single`
-
-Requires two parameters:
-
-1. `-f` the path of the dnsmasq log file
-2. `-s` the sleep timer of the tail operation
-
-## Compile logarchiver
+Compile with: 
 
 `mvn clean package spring-boot:repackage`
 
-A java Springboot REST backend with a monitoring console using Google Charts. See `application.properties` to configure.
+It is a java Springboot REST backend with a monitoring console using Google Charts. 
+
+See `application.properties` to configure.
 
 ## init, launch and stop scripts
 
-Use `launch_all.sh` and `stop_all.sh` in your `adtrap` folder.
+Use `launch.sh` and `stop.sh` in the folder where the jar was copied.
+
+Create a folder `config` and copy (with the opportune values) the `application.properties` configuration file.
 
 ## Web Console
 
@@ -231,9 +224,9 @@ Spring actuators are deployed, see the included postman collection to extend the
 
 See the included postman collection, additional endpoints can be added by:
 
-1. Extend `org.systemexception.adtrap.logarchiver.service.DataService`
-2. Implement method in `org.systemexception.adtrap.logarchiver.service.MySqlDataService`
-3. Add REST endpoint in `org.systemexception.adtrap.logarchiver.controller.RestController`
+1. Extend `org.systemexception.adtrap.service.DataService`
+2. Implement method in `org.systemexception.adtrap.service.MySqlDataService`
+3. Add REST endpoint in `org.systemexception.adtrap.controller.RestController`
 4. Extend tests accordingly
 
 To transform new endpoints to fancy charts:
@@ -316,7 +309,7 @@ WHERE table_schema = "adtrap"
 go
 ```
 
-Application queries in: `org.systemexception.adtrap.logarchiver.pojo.Queries`
+Application queries in: `org.systemexception.adtrap.pojo.Queries`
 
 ## ToDo
 
