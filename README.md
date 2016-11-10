@@ -315,3 +315,5 @@ Application queries in: `org.systemexception.adtrap.pojo.Queries`
 
 * How to handle HTTPS requests
 * Integrate logtailer in logarchiver and deploy as single application(?)
+* Installation script
+* list creation frontend
