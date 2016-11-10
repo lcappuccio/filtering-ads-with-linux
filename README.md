@@ -198,23 +198,23 @@ Create a folder `config` and copy (with the opportune values) the `application.p
 
 ### DHCP Information / Top Clients
 
-![DHCP Information / Top Clients](/images/dhcp_clients.png?raw=true)
+![DHCP Information / Top Clients](goodies/images/clients.png?raw=true)
 
 ### Top Requests
 
-![Top Requests](/images/request_statistics.png?raw=true)
+![Top Requests](goodies/images/domains.png?raw=true)
 
 ### Top Advertisers
 
-![Top Advertisers](/images/advertisers_trapped.png?raw=true)
+![Top Advertisers](goodies/images/advertisers.png?raw=true)
 
 ### Statistics
 
-![Statistics](/images/advertisers_statistics.png?raw=true)
+![Statistics](goodies/images/advertiser_statistics.png?raw=true)
 
 ### System Monitoring Information
 
-![System Monitoring Information](/images/system_monitor.png?raw=true)
+![System Monitoring Information](goodies/images/monitor.png?raw=true)
 
 ## System Monitoring
 
