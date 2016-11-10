@@ -74,8 +74,8 @@ function getDiskInfo() {
 	var jsonLines = $.parseJSON(jsonData);
 	var totalDisk = jsonLines["diskSpace"]["total"];
 	var freeDisk = jsonLines["diskSpace"]["free"];
-	var diskPercentage = (freeDisk / totalDisk) * 100;
-	var diskInfo = [diskPercentage, this.formatBytes(totalDisk, 1), formatBytes(freeDisk, 1), formatBytes(totalDisk, 1)];
+	var diskFreePercentage = 100 - ((freeDisk / totalDisk) * 100);
+	var diskInfo = [diskFreePercentage, this.formatBytes(totalDisk, 1), formatBytes(freeDisk, 1), formatBytes(totalDisk, 1)];
 
 	return diskInfo;
 }
@@ -141,9 +141,9 @@ function drawChart() {
 	]);
 
 	var options = {
-		width: 600, height: 120,
-		redFrom: 90, redTo: 100,
-		yellowFrom: 75, yellowTo: 90,
+		width: 800, height: 150,
+		redFrom: 85, redTo: 100,
+		yellowFrom: 70, yellowTo: 85,
 		minorTicks: 5
 	};
 
