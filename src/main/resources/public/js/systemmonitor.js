@@ -75,7 +75,7 @@ function getDiskInfo() {
 	var totalDisk = jsonLines["diskSpace"]["total"];
 	var freeDisk = jsonLines["diskSpace"]["free"];
 	var diskFreePercentage = 100 - ((freeDisk / totalDisk) * 100);
-	var diskInfo = [diskFreePercentage, this.formatBytes(totalDisk, 1), formatBytes(freeDisk, 1), formatBytes(totalDisk, 1)];
+	var diskInfo = [diskFreePercentage, formatBytes(totalDisk, 1), formatBytes(freeDisk, 1), formatBytes(totalDisk, 1)];
 
 	return diskInfo;
 }
@@ -87,15 +87,6 @@ function getDatabaseStatus() {
 	var databaseStatus = jsonLines["db"]["status"];
 
 	return ("UP" === databaseStatus);
-}
-
-function formatBytes(bytes, decimals) {
-	if (bytes == 0) return '0 Byte';
-	var k = 1000; // or 1024 for binary
-	var dm = decimals + 1 || 3;
-	var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-	var i = Math.floor(Math.log(bytes) / Math.log(k));
-	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
 function timeConversion(millisec) {
