@@ -2,7 +2,7 @@
 <head>
     <title>DHCP Leases</title>
     <!-- Favicon, very important -->
-    <link rel="icon" href="/favicon.png" type="image/png"/>
+    <link rel="icon" href="/favicon-32x32.png" type="image/png"/>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
