@@ -1,7 +1,11 @@
+/* global $, google */
+
 google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
+	"use strict";
+
 	var jsonData = $.ajax({
 		url: "logarchiver/counttopclients",
 		dataType: "json",
@@ -30,7 +34,7 @@ function drawChart() {
 		chartArea: {
 			top: 5
 		},
-		sliceVisibilityThreshold: .04
+		sliceVisibilityThreshold: 0.04
 	};
 
 	var optionsBar = {

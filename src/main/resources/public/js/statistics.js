@@ -1,18 +1,20 @@
+/* global $, google */
+
 google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
 function getJsonData(restUrl) {
+	"use strict";
 
-	var jsonData = $.ajax({
+	return $.ajax({
 		url: restUrl,
 		dataType: "json",
 		async: false
 	}).responseText;
-
-	return jsonData;
 }
 
 function textResponseToArray(responseText, columnName) {
+	"use strict";
 
 	var jsonData = JSON.parse(responseText);
 	var jsonArray = [];
@@ -29,6 +31,8 @@ function textResponseToArray(responseText, columnName) {
 }
 
 function drawChart() {
+	"use strict";
+
 	var jsonDataByHour = getJsonData("logarchiver/dailybyhour");
 	var jsonDataByDay = getJsonData("logarchiver/monthlybyday");
 
@@ -38,22 +42,26 @@ function drawChart() {
 	var options = {
 		height: 600,
 		fontSize: 12,
-		chartArea : {
+		chartArea: {
 			top: 80
 		},
 		legend: {
 			position: "none"
 		},
-		animation:{
+		animation: {
 			startup: true,
 			duration: 1000,
 			easing: "out"
-		}
+		},
+		vAxis: {
+			minValue: 0
+		},
+		pointSize: 5
 	};
 
 	var chartByHour = new google.visualization.LineChart(document.getElementById("advertisers_by_hour"));
 	var chartByDay = new google.visualization.LineChart(document.getElementById("advertisers_by_day"));
 
 	chartByHour.draw(jsonHourData, options);
-	chartByDay.draw(jsonDayData,options);
+	chartByDay.draw(jsonDayData, options);
 }

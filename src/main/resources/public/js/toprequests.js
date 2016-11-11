@@ -1,18 +1,20 @@
+/* global $, google */
+
 google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
 function getJsonData(restUrl) {
+	"use strict";
 
-	var jsonData = $.ajax({
+	return $.ajax({
 		url: restUrl,
 		dataType: "json",
 		async: false
 	}).responseText;
-
-	return jsonData;
 }
 
 function textResponseToArray(responseText, columnName) {
+	"use strict";
 
 	var jsonData = JSON.parse(responseText);
 	var jsonArray = [];
@@ -29,6 +31,7 @@ function textResponseToArray(responseText, columnName) {
 }
 
 function drawChart() {
+	"use strict";
 
 	var jsonRequestTypes = getJsonData("logarchiver/groupbyquerytype");
 	var jsonRequestDomains = getJsonData("logarchiver/counttoprequests");
