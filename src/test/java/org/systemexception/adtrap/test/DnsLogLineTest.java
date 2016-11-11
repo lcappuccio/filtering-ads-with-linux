@@ -12,14 +12,11 @@ import static org.junit.Assert.assertEquals;
  */
 public class DnsLogLineTest {
 
-	private DnsLogLine sut;
-
 	@Test
 	public void should_respect_string_format() {
 
 		Long creationTime = System.currentTimeMillis();
-
-		sut = new DnsLogLine();
+		DnsLogLine sut = new DnsLogLine();
 		sut.setDate(creationTime);
 		sut.setQueryDomain("www.test.it");
 		sut.setQueryType("query[A]");
@@ -29,5 +26,4 @@ public class DnsLogLineTest {
 				LogParser.LOG_LINE_SEPARATOR + "8.8.8.8",sut.toString());
 
 	}
-
 }
