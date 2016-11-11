@@ -1,7 +1,11 @@
+/* global $, google */
+
 google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
+	"use strict";
+
 	var jsonData = $.ajax({
 		url: "logarchiver/groupbyfiltereddomains",
 		dataType: "json",
@@ -33,13 +37,13 @@ function drawChart() {
 		width: 800,
 		height: 600,
 		fontSize: 12,
-		chartArea : {
+		chartArea: {
 			top: 5
 		},
 		legend: {
 			position: "none"
 		},
-		animation:{
+		animation: {
 			startup: true,
 			duration: 1000,
 			easing: "out"

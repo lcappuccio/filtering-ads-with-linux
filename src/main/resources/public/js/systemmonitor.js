@@ -1,74 +1,74 @@
+/* global $, google */
+
 google.charts.load("current", {"packages": ["gauge"]});
 google.charts.setOnLoadCallback(drawChart);
 
 function getMetricsJsonData() {
+	"use strict";
 
-	var jsonData = $.ajax({
+	return $.ajax({
 		url: "metrics",
 		dataType: "json",
 		async: false
 	}).responseText;
-
-	return jsonData;
 }
 
 function getHealthJsonData() {
+	"use strict";
 
-	var jsonData = $.ajax({
+	return $.ajax({
 		url: "health",
 		dataType: "json",
 		async: false
 	}).responseText;
-
-	return jsonData;
 }
 
 function getMemPercentUsed() {
+	"use strict";
 
 	var jsonData = getMetricsJsonData();
-
 	var jsonLines = $.parseJSON(jsonData);
 	var mem = jsonLines["mem"];
 	var memFree = jsonLines["mem.free"];
-	var memPercentUsed = (memFree / mem) * 100;
 
-	return memPercentUsed;
+	return (memFree / mem) * 100;
 }
 
 function getHeapPercentUsed() {
+	"use strict";
 
 	var jsonData = getMetricsJsonData();
 	var jsonLines = $.parseJSON(jsonData);
 	var heap = jsonLines["heap"];
 	var heapUsed = jsonLines["heap.used"];
-	var heapPercentUsed = (heapUsed / heap) * 100;
 
-	return heapPercentUsed;
+	return (heapUsed / heap) * 100;
 }
 
 function getLoadPercentAverage() {
+	"use strict";
 
 	var jsonData = getMetricsJsonData();
 	var jsonLines = $.parseJSON(jsonData);
 	var systemLoadAverage = jsonLines["systemload.average"];
 	var systemProcessors = jsonLines["processors"];
-	var systemLoadPercentage = (systemLoadAverage / parseInt(systemProcessors)) * 100;
 
-	return systemLoadPercentage;
+	return (systemLoadAverage / parseInt(systemProcessors)) * 100;
 }
 
 function getUptime() {
+	"use strict";
 
 	var jsonData = getMetricsJsonData();
 	var jsonLines = $.parseJSON(jsonData);
 	var uptime = jsonLines["instance.uptime"];
 	var uptimeDate = new Date(uptime);
 
-
 	return timeConversion(uptimeDate);
 }
 
 function getDiskInfo() {
+	"use strict";
 
 	var jsonData = getHealthJsonData();
 	var jsonLines = $.parseJSON(jsonData);
@@ -81,22 +81,21 @@ function getDiskInfo() {
 }
 
 function getDatabaseStatus() {
+	"use strict";
 
 	var jsonData = getHealthJsonData();
 	var jsonLines = $.parseJSON(jsonData);
-	var databaseStatus = jsonLines["db"]["status"];
+	var databaseStatus = jsonLines.db.status;
 
 	return ("UP" === databaseStatus);
 }
 
 function timeConversion(millisec) {
+	"use strict";
 
 	var seconds = (millisec / 1000).toFixed(1);
-
 	var minutes = (millisec / (1000 * 60)).toFixed(1);
-
 	var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
-
 	var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
 
 	if (seconds < 60) {
@@ -106,11 +105,13 @@ function timeConversion(millisec) {
 	} else if (hours < 24) {
 		return hours + " Hrs";
 	} else {
-		return days + " Days"
+		return days + " Days";
 	}
 }
 
 function formatBytes(bytes, decimals) {
+	"use strict";
+
 	if (bytes === 0) {
 		return "0 Byte";
 	}
@@ -118,10 +119,12 @@ function formatBytes(bytes, decimals) {
 	var dm = decimals + 1 || 3;
 	var sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 	var i = Math.floor(Math.log(bytes) / Math.log(k));
+
 	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 }
 
 function drawChart() {
+	"use strict";
 
 	var diskInfo = getDiskInfo();
 
