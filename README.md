@@ -86,17 +86,18 @@ Logrotate needs to set the correct permission on the dnsmasq log file when rotat
  }
  ```
 
-Everything is on domain `home`. After installing and configuring:
+In the above example everything is on domain `home`. After installing and configuring:
 
 `sudo service dnsmasq restart`
 
 ## Configure router
 
-On my home modem/router I had to set the new dnsmasq machine as DNS. Remember to disable also the DHCP server, otherwise disable the DHCP on the dnsmasq machine.
+On your home modem/router set the adtrap ipaddress as DNS. Remember to disable also the DHCP server, otherwise disable the DHCP service on the adtrap server.
 
 ## Configure local webserver
 
-Will not get much into detail here, simply install lighttpd, apache, pixelserv or whatever other web server of your choice. Personally I'm using lighttpd.
+Will not get much into detail here, simply install lighttpd, apache, pixelserv or whatever other web server of your 
+choice. Personally I'm using apache.
 
 In `/etc/apache2/sites-enabled/000-default.conf` file:
 
@@ -314,6 +315,5 @@ Application queries in: `org.systemexception.adtrap.pojo.Queries`
 ## ToDo
 
 * How to handle HTTPS requests
-* Integrate logtailer in logarchiver and deploy as single application(?)
 * Installation script
 * list creation frontend
