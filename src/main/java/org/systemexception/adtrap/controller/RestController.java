@@ -42,7 +42,7 @@ public class RestController {
 	@RequestMapping(value = "countall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> countAll() {
 
-		LOGGER.info("Count all");
+		LOGGER.info("RestController Count all");
 
 		return new ResponseEntity<>(dataService.countAll(), HttpStatus.OK);
 	}
@@ -50,7 +50,7 @@ public class RestController {
 	@RequestMapping(value = "countallfiltered", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> countAllFiltered() {
 
-		LOGGER.info("Count all filtered");
+		LOGGER.info("RestController Count all filtered");
 
 		return new ResponseEntity<>(dataService.countAllFiltered(), HttpStatus.OK);
 	}
@@ -59,7 +59,7 @@ public class RestController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Map>> countTopClients() {
 
-		LOGGER.info("Count top clients");
+		LOGGER.info("RestController Count top clients");
 		List countTopRequests = dataService.countTopClients();
 
 		return new ResponseEntity<>(countTopRequests, HttpStatus.OK);
@@ -69,7 +69,7 @@ public class RestController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Map>> countTopRequests() {
 
-		LOGGER.info("Count top requests");
+		LOGGER.info("RestController Count top requests");
 		List countTopRequests = dataService.countTopRequests();
 
 		return new ResponseEntity<>(countTopRequests, HttpStatus.OK);
@@ -79,7 +79,7 @@ public class RestController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Map>> groupByQueryType() {
 
-		LOGGER.info("Group by query type");
+		LOGGER.info("RestController Group by query type");
 		List groupByQueryResult = dataService.groupByQueryType();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
@@ -89,7 +89,7 @@ public class RestController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Map>> groupByQueryDomain() {
 
-		LOGGER.info("Group by query domain");
+		LOGGER.info("RestController Group by query domain");
 		List groupByQueryResult = dataService.groupByQueryDomain();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
@@ -99,7 +99,7 @@ public class RestController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Map>> groupByQueryTarget() {
 
-		LOGGER.info("Group by query target");
+		LOGGER.info("RestController Group by query target");
 		List groupByQueryResult = dataService.groupByQueryTarget();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
@@ -109,7 +109,7 @@ public class RestController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Map>> groupByFilteredDomains() {
 
-		LOGGER.info("Group by query filtered domains");
+		LOGGER.info("RestController Group by query filtered domains");
 		List groupByQueryResult = dataService.groupByFilteredDomains();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
@@ -119,7 +119,7 @@ public class RestController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Map>> dailyByHour() {
 
-		LOGGER.info("Get statistics by hour");
+		LOGGER.info("RestController Get statistics by hour");
 		List groupByQueryResult = dataService.dailyByHour();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
@@ -129,7 +129,7 @@ public class RestController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Map>> monthlyByDay() {
 
-		LOGGER.info("Get statistics by day");
+		LOGGER.info("RestController Get statistics by day");
 		List groupByQueryResult = dataService.monthlyByDay();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
@@ -139,7 +139,7 @@ public class RestController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DhcpLease>> listDhcpLeases() {
 
-		LOGGER.info("List DHCP leases");
+		LOGGER.info("RestController List DHCP leases");
 		List<DhcpLease> dhcpLeases = dhcpLeasesReader.getDhcpLeases();
 
 		return new ResponseEntity<>(dhcpLeases, HttpStatus.OK);
