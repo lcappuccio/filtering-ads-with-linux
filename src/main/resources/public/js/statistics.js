@@ -52,7 +52,11 @@ function drawChart() {
 			startup: true,
 			duration: 1000,
 			easing: "out"
-		}
+		},
+		vAxis: {
+			minValue: 0
+		},
+		pointSize: 5
 	};
 
 	var chartByHour = new google.visualization.LineChart(document.getElementById("advertisers_by_hour"));
