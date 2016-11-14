@@ -3,33 +3,29 @@
 google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
+function getRestResponse(urlRest, responseDataType) {
+	"use strict";
+
+	return $.ajax({
+		url: urlRest,
+		dataType: responseDataType,
+		async: false
+	}).responseText;
+}
+
 function drawChart() {
 	"use strict";
 
-	var jsonData = $.ajax({
-		url: "logarchiver/groupbyfiltereddomains",
-		dataType: "json",
-		async: false
-	}).responseText;
+	var jsonDataFilteredDomains = getRestResponse("logarchiver/groupbyfiltereddomains", "json");
+	var jsonDataFilteredDomainsLines = JSON.parse(jsonDataFilteredDomains);
 
-	var totalFiltered = $.ajax({
-		url: "logarchiver/countallfiltered",
-		dataType: "text",
-		async: false
-	}).responseText;
-
-	var distinctFiltered = $.ajax({
-		url: "logarchiver/countdistinctfiltered",
-		dataType: "text",
-		async: false
-	}).responseText;
-
-	var jsonLines = JSON.parse(jsonData);
+	var totalFiltered = getRestResponse("logarchiver/countallfiltered", "text");
+	var distinctFiltered = getRestResponse("logarchiver/countdistinctfiltered", "text");
 
 	var jsonArray = [];
 	jsonArray.push(["Advertiser", "TOTAL"]);
 
-	$.each(jsonLines, function (key, value) {
+	$.each(jsonDataFilteredDomainsLines, function (key, value) {
 		var array = [];
 		$.each(value, function (key2, value2) {
 			array.push(value2);
