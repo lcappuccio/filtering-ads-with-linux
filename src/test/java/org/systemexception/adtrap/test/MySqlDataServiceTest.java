@@ -83,6 +83,13 @@ public class MySqlDataServiceTest {
 	}
 
 	@Test
+	public void should_count_distinct_advertisers_filtered() {
+		int countAdvertisers = sut.countDistinctAdvertisersFiltered();
+
+		assertTrue("No records in table", countAdvertisers > 0);
+	}
+
+	@Test
 	public void should_count_top_clients() {
 		List<Map<String, Object>> maps = sut.countTopClients();
 

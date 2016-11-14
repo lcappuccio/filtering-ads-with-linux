@@ -51,6 +51,12 @@ public class MySqlDataService implements DataService {
 	}
 
 	@Override
+	public int countDistinctAdvertisersFiltered() {
+		LOGGER.info("Count distinct advertisers filtered");
+		return jdbcTemplate.queryForObject(Queries.COUNT_DISTINCT_ADVERTISERS, new Object[]{ipAddress}, Integer.class);
+	}
+
+	@Override
 	public List<Map<String, Object>> countTopClients() {
 		LOGGER.info("Count top clients");
 		return jdbcTemplate.queryForList(Queries.COUNT_TOP_CLIENTS, "query[A]");

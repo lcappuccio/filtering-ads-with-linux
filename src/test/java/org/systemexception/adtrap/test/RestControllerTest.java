@@ -66,6 +66,15 @@ public class RestControllerTest {
 	}
 
 	@Test
+	public void should_count_distinct_filtered() throws Exception {
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/countdistinctfiltered"))
+				.andExpect(status().is(HttpStatus.OK.value()));
+
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
+		verify(dataService).countDistinctAdvertisersFiltered();
+	}
+
+	@Test
 	public void should_count_top_clients() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/counttopclients"))
 				.andExpect(status().is(HttpStatus.OK.value()));

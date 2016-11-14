@@ -19,6 +19,8 @@ public interface DataService {
 
 	int countAllFiltered();
 
+	int countDistinctAdvertisersFiltered();
+
 	List<Map<String, Object>> countTopClients();
 
 	List<Map<String, Object>> countTopRequests();
