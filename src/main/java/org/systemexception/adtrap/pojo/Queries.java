@@ -32,7 +32,7 @@ public class Queries {
 			"FROM DNS_LOG_LINES WHERE QUERY_TARGET = ? GROUP BY QUERY_DOMAIN ORDER BY 2 DESC LIMIT 20";
 
 	// STATISTICS
-	public static final String WEEKLY_BY_HOUR = "select FROM_UNIXTIME(LOG_TIME/1000, '%a %H:00') as LOG_DATE, " +
+	public static final String WEEKLY_BY_HOUR = "select FROM_UNIXTIME(LOG_TIME/1000, '%a %H:59') as LOG_DATE, " +
 			"count(*) as TOTAL from DNS_LOG_LINES where QUERY_TARGET = ? " +
 			"and STR_TO_DATE(FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y %H'), '%d/%m/%Y %H') " +
 			"BETWEEN NOW() - INTERVAL 25 HOUR AND NOW() - INTERVAL 1 HOUR " +
