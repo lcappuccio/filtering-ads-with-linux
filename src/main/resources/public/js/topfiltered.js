@@ -18,6 +18,12 @@ function drawChart() {
 		async: false
 	}).responseText;
 
+	var distinctFiltered = $.ajax({
+		url: "logarchiver/countdistinctfiltered",
+		dataType: "text",
+		async: false
+	}).responseText;
+
 	var jsonLines = JSON.parse(jsonData);
 
 	var jsonArray = [];
@@ -51,6 +57,7 @@ function drawChart() {
 	};
 
 	$("#total_advertisers").text(totalFiltered);
+	$("#distinct_advertisers").text(distinctFiltered);
 	var barChart = new google.visualization.BarChart(document.getElementById("top_filtered_bar"));
 	barChart.draw(data, optionsBar);
 }
