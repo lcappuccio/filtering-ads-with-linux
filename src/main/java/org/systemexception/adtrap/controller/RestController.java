@@ -55,6 +55,15 @@ public class RestController {
 		return new ResponseEntity<>(dataService.countAllFiltered(), HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "countdistinctfiltered", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Integer> countDistinctFiltered() {
+
+		LOGGER.info("RestController Count distinct filtered");
+
+		return new ResponseEntity<>(dataService.countDistinctAdvertisersFiltered(), HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "counttopclients", method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Map>> countTopClients() {

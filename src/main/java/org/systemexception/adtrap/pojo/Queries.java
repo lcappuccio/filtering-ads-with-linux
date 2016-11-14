@@ -18,6 +18,8 @@ public class Queries {
 	public static final String COUNT_TOP_REQUESTS = "SELECT QUERY_DOMAIN, count(*) AS TOTAL FROM DNS_LOG_LINES " +
 			"WHERE QUERY_TYPE = ? AND QUERY_DOMAIN NOT LIKE ? GROUP BY QUERY_DOMAIN ORDER BY 2 " +
 			"DESC LIMIT 20";
+	public static final String COUNT_DISTINCT_ADVERTISERS = "select count(distinct(QUERY_DOMAIN)) as TOTAL " +
+			"from DNS_LOG_LINES where QUERY_TARGET = ?";
 
 	// GROUP BY
 	public static final String GROUP_BY_QUERY_TYPE = "SELECT QUERY_TYPE, count(*) AS TOTAL FROM DNS_LOG_LINES " +
