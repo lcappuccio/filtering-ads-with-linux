@@ -36,6 +36,20 @@
 			"response": []
 		},
 		{
+			"name": "Count Distinct Filtered",
+			"request": {
+				"url": "http://{{ip}}:{{port}}/logarchiver/countdistinctfiltered",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "Count Top Clients",
 			"request": {
 				"url": "http://{{ip}}:{{port}}/logarchiver/counttopclients",
