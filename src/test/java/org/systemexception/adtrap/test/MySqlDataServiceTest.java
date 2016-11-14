@@ -46,7 +46,8 @@ public class MySqlDataServiceTest {
 		assertNotNull(jdbcTemplate);
 		assertNotNull(homeDomain);
 		dnsLogLine = new DnsLogLine();
-		dnsLogLine.setDate(System.currentTimeMillis());
+		long oneDayInMillis = 1000 * 60 * 60 * 24;
+		dnsLogLine.setDate(System.currentTimeMillis() - oneDayInMillis);
 		dnsLogLine.setQueryDomain("TestQueryDomain");
 		dnsLogLine.setQueryTarget("127.0.0.1");
 		dnsLogLine.setQueryType("query[A]");
