@@ -56,6 +56,10 @@ function drawChart() {
 		vAxis: {
 			minValue: 0
 		},
+		hAxis: {
+			slantedText: true,
+			slantedTextAngle: 45
+		},
 		pointSize: 5
 	};
 
