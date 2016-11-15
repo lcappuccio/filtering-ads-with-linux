@@ -7,7 +7,6 @@ function drawChart() {
 	"use strict";
 
 	var jsonData = commons.getRestResponse("logarchiver/counttopclients", "json");
-
 	var jsonLines = JSON.parse(jsonData);
 
 	var jsonArray = [];
