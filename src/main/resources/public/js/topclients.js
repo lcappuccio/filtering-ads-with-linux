@@ -7,20 +7,7 @@ function drawChart() {
 	"use strict";
 
 	var jsonData = commons.getRestResponse("logarchiver/counttopclients", "json");
-	var jsonLines = JSON.parse(jsonData);
-
-	var jsonArray = [];
-	jsonArray.push(["Client", "TOTAL"]);
-
-	$.each(jsonLines, function (key, value) {
-		var array = [];
-		$.each(value, function (key2, value2) {
-			array.push(value2);
-		});
-		jsonArray.push(array);
-	});
-
-	var data = new google.visualization.arrayToDataTable(jsonArray);
+	var data = commons.textResponseToArray(jsonData, "Client");
 
 	var pieChart = new google.visualization.PieChart(document.getElementById("top_clients_pie"));
 	pieChart.draw(data, commons.optionsPieChart);
