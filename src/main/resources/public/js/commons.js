@@ -26,3 +26,30 @@ commons.getRestResponse = function(restUrl, restResponseType) {
 		async: false
 	}).responseText;
 };
+
+commons.optionsBarChart = {
+	width: 800,
+	height: 600,
+	fontSize: 12,
+	chartArea: {
+		top: 5
+	},
+	legend: {
+		position: "none"
+	},
+	animation: {
+		startup: true,
+		duration: 1000,
+		easing: "out"
+	}
+};
+
+commons.optionsPieChart = {
+	width: 600,
+	height: 600,
+	fontSize: 12,
+	chartArea: {
+		top: 5
+	},
+	sliceVisibilityThreshold: 0.04
+};

@@ -25,25 +25,8 @@ function drawChart() {
 
 	var data = new google.visualization.arrayToDataTable(jsonArray);
 
-	var optionsBar = {
-		width: 800,
-		height: 600,
-		fontSize: 12,
-		chartArea: {
-			top: 5
-		},
-		legend: {
-			position: "none"
-		},
-		animation: {
-			startup: true,
-			duration: 1000,
-			easing: "out"
-		}
-	};
-
 	$("#total_advertisers").text(totalFiltered);
 	$("#distinct_advertisers").text(distinctFiltered);
 	var barChart = new google.visualization.BarChart(document.getElementById("top_filtered_bar"));
-	barChart.draw(data, optionsBar);
+	barChart.draw(data, commons.optionsBarChart);
 }
