@@ -3,24 +3,14 @@
 google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
-function getRestResponse(urlRest, responseDataType) {
-	"use strict";
-
-	return $.ajax({
-		url: urlRest,
-		dataType: responseDataType,
-		async: false
-	}).responseText;
-}
-
 function drawChart() {
 	"use strict";
 
-	var jsonDataFilteredDomains = getRestResponse("logarchiver/groupbyfiltereddomains", "json");
+	var jsonDataFilteredDomains = commons.getRestResponse("logarchiver/groupbyfiltereddomains", "json");
 	var jsonDataFilteredDomainsLines = JSON.parse(jsonDataFilteredDomains);
 
-	var totalFiltered = getRestResponse("logarchiver/countallfiltered", "text");
-	var distinctFiltered = getRestResponse("logarchiver/countdistinctfiltered", "text");
+	var totalFiltered = commons.getRestResponse("logarchiver/countallfiltered", "text");
+	var distinctFiltered = commons.getRestResponse("logarchiver/countdistinctfiltered", "text");
 
 	var jsonArray = [];
 	jsonArray.push(["Advertiser", "TOTAL"]);

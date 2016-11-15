@@ -3,41 +3,14 @@
 google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
-function getJsonData(restUrl) {
-	"use strict";
-
-	return $.ajax({
-		url: restUrl,
-		dataType: "json",
-		async: false
-	}).responseText;
-}
-
-function textResponseToArray(responseText, columnName) {
-	"use strict";
-
-	var jsonData = JSON.parse(responseText);
-	var jsonArray = [];
-	jsonArray.push([columnName, "TOTAL"]);
-
-	$.each(jsonData, function (key, value) {
-		var array = [];
-		$.each(value, function (key2, value2) {
-			array.push(value2);
-		});
-		jsonArray.push(array);
-	});
-	return new google.visualization.arrayToDataTable(jsonArray);
-}
-
 function drawChart() {
 	"use strict";
 
-	var jsonRequestTypes = getJsonData("logarchiver/groupbyquerytype");
-	var jsonRequestDomains = getJsonData("logarchiver/counttoprequests");
+	var jsonRequestTypes = commons.getRestResponse("logarchiver/groupbyquerytype", "json");
+	var jsonRequestDomains = commons.getRestResponse("logarchiver/counttoprequests", "json");
 
-	var jsonHourData = textResponseToArray(jsonRequestTypes, "QUERY_TYPE");
-	var jsonDayData = textResponseToArray(jsonRequestDomains, "QUERY_DOMAIN");
+	var jsonHourData = commons.textResponseToArray(jsonRequestTypes, "QUERY_TYPE");
+	var jsonDayData = commons.textResponseToArray(jsonRequestDomains, "QUERY_DOMAIN");
 
 	var optionsPie = {
 		width: 600,

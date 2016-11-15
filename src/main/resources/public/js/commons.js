@@ -17,12 +17,12 @@ commons.textResponseToArray = function(responseText, columnName) {
 	return new google.visualization.arrayToDataTable(jsonArray);
 };
 
-commons.getJsonData = function(restUrl) {
+commons.getRestResponse = function(restUrl, restResponseType) {
 	"use strict";
 
 	return $.ajax({
 		url: restUrl,
-		dataType: "json",
+		dataType: restResponseType,
 		async: false
 	}).responseText;
 };

@@ -6,11 +6,7 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 	"use strict";
 
-	var jsonData = $.ajax({
-		url: "logarchiver/counttopclients",
-		dataType: "json",
-		async: false
-	}).responseText;
+	var jsonData = commons.getRestResponse("logarchiver/counttopclients", "json");
 
 	var jsonLines = JSON.parse(jsonData);
 
