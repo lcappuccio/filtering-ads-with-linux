@@ -17,6 +17,30 @@ commons.optionsBarChart = {
 	}
 };
 
+commons.optionsLineChart = {
+	height: 600,
+	fontSize: 12,
+	chartArea: {
+		top: 80
+	},
+	legend: {
+		position: "none"
+	},
+	animation: {
+		startup: true,
+		duration: 1000,
+		easing: "out"
+	},
+	vAxis: {
+		minValue: 0
+	},
+	hAxis: {
+		slantedText: true,
+		slantedTextAngle: 45
+	},
+	pointSize: 5
+};
+
 commons.optionsPieChart = {
 	width: 600,
 	height: 600,
