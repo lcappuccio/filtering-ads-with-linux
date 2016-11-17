@@ -1,9 +1,6 @@
 /*eslint no-undef: "error"*/
 /* global google, commons */
 
-google.charts.load("current", {"packages": ["corechart"]});
-google.charts.setOnLoadCallback(drawChart);
-
 function drawChart() {
 	"use strict";
 
@@ -19,3 +16,6 @@ function drawChart() {
 	requestTypesPie.draw(jsonHourData, commons.optionsPieChart);
 	topRequestsBar.draw(jsonDayData, commons.optionsBarChart);
 }
+
+google.charts.load("current", {"packages": ["corechart"]});
+google.charts.setOnLoadCallback(drawChart);

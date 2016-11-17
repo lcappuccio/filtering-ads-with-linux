@@ -1,9 +1,6 @@
 /*eslint no-undef: "error"*/
 /* global google, commons */
 
-google.charts.load("current", {"packages": ["corechart"]});
-google.charts.setOnLoadCallback(drawChart);
-
 function drawChart() {
 	"use strict";
 
@@ -16,3 +13,6 @@ function drawChart() {
 	var barChart = new google.visualization.BarChart(document.getElementById("top_clients_bar"));
 	barChart.draw(data, commons.optionsBarChart);
 }
+
+google.charts.load("current", {"packages": ["corechart"]});
+google.charts.setOnLoadCallback(drawChart);

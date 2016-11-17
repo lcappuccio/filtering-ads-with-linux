@@ -1,9 +1,6 @@
 /*eslint no-undef: "error"*/
 /* global $, google, commons */
 
-google.charts.load("current", {"packages": ["gauge"]});
-google.charts.setOnLoadCallback(drawChart);
-
 function timeConversion(millisec) {
 	"use strict";
 
@@ -162,3 +159,6 @@ function drawChart() {
 	setRefreshForGauges(chart, gaugesData, options, 1000);
 
 }
+
+google.charts.load("current", {"packages": ["gauge"]});
+google.charts.setOnLoadCallback(drawChart);
