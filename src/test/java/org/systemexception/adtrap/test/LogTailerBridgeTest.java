@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class})
@@ -35,6 +36,7 @@ public class LogTailerBridgeTest {
 				Charset.defaultCharset());
 
 		assertTrue("Not logged " + outString, logFileToString.contains("e4478.a.akamaiedge.net"));
+		assertEquals(0, logQueue.size());
 	}
 
 	@Test
@@ -46,6 +48,7 @@ public class LogTailerBridgeTest {
 
 		assertTrue(ClassCastException.class.getName() + " not logged",
 				logFileToString.contains(ClassCastException.class.getName()));
+		assertEquals(0, logQueue.size());
 	}
 
 }
