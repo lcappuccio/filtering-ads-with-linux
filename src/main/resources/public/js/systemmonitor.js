@@ -118,10 +118,14 @@ function drawChart() {
 	]);
 
 	var options = {
-		width: 800, height: 150,
-		redFrom: 85, redTo: 100,
-		yellowFrom: 70, yellowTo: 85,
-		minorTicks: 5
+		width: 800,
+		height: 150,
+		yellowFrom: 80,
+		yellowTo: 90,
+		redFrom: 90,
+		redTo: 100,
+		minorTicks: 3,
+		majorTicks: ["0", "20", "40", "60", "80", "100"]
 	};
 
 	$("#uptime").text(getUptime());
@@ -135,11 +139,11 @@ function drawChart() {
 	var chart = new google.visualization.Gauge(document.getElementById("gauges"));
 	chart.draw(gaugesData, options);
 
-	setRefreshForGauges(gaugesData, 1000);
+	setRefreshForGauges(chart, gaugesData, options, 1000);
 
 }
 
-function setRefreshForGauges(gaugesData, refreshInMillis) {
+function setRefreshForGauges(chart, gaugesData, options, refreshInMillis) {
 	"use strict";
 
 	setInterval(function () {
