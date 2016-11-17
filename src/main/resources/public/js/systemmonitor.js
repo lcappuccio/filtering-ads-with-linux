@@ -4,6 +4,25 @@
 google.charts.load("current", {"packages": ["gauge"]});
 google.charts.setOnLoadCallback(drawChart);
 
+function timeConversion(millisec) {
+	"use strict";
+
+	var seconds = (millisec / 1000).toFixed(1);
+	var minutes = (millisec / (1000 * 60)).toFixed(1);
+	var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
+	var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
+
+	if (seconds < 60) {
+		return seconds + " Sec";
+	} else if (minutes < 60) {
+		return minutes + " Min";
+	} else if (hours < 24) {
+		return hours + " Hrs";
+	} else {
+		return days + " Days";
+	}
+}
+
 function formatBytes(bytes, decimals) {
 	"use strict";
 
@@ -85,23 +104,25 @@ function getUptime() {
 	return timeConversion(uptimeDate);
 }
 
-function timeConversion(millisec) {
+function setRefreshForGauges(chart, gaugesData, options, refreshInMillis) {
 	"use strict";
 
-	var seconds = (millisec / 1000).toFixed(1);
-	var minutes = (millisec / (1000 * 60)).toFixed(1);
-	var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
-	var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
-
-	if (seconds < 60) {
-		return seconds + " Sec";
-	} else if (minutes < 60) {
-		return minutes + " Min";
-	} else if (hours < 24) {
-		return hours + " Hrs";
-	} else {
-		return days + " Days";
-	}
+	setInterval(function () {
+		gaugesData.setValue(0, 1, getDiskInfo()[0]);
+		chart.draw(gaugesData, options);
+	}, refreshInMillis);
+	setInterval(function () {
+		gaugesData.setValue(1, 1, getMemPercentUsed());
+		chart.draw(gaugesData, options);
+	}, refreshInMillis);
+	setInterval(function () {
+		gaugesData.setValue(2, 1, getHeapPercentUsed());
+		chart.draw(gaugesData, options);
+	}, refreshInMillis);
+	setInterval(function () {
+		gaugesData.setValue(3, 1, getLoadPercentAverage());
+		chart.draw(gaugesData, options);
+	}, refreshInMillis);
 }
 
 function drawChart() {
@@ -141,25 +162,4 @@ function drawChart() {
 
 	setRefreshForGauges(chart, gaugesData, options, 1000);
 
-}
-
-function setRefreshForGauges(chart, gaugesData, options, refreshInMillis) {
-	"use strict";
-
-	setInterval(function () {
-		gaugesData.setValue(0, 1, getDiskInfo()[0]);
-		chart.draw(gaugesData, options);
-	}, refreshInMillis);
-	setInterval(function () {
-		gaugesData.setValue(1, 1, getMemPercentUsed());
-		chart.draw(gaugesData, options);
-	}, refreshInMillis);
-	setInterval(function () {
-		gaugesData.setValue(2, 1, getHeapPercentUsed());
-		chart.draw(gaugesData, options);
-	}, refreshInMillis);
-	setInterval(function () {
-		gaugesData.setValue(3, 1, getLoadPercentAverage());
-		chart.draw(gaugesData, options);
-	}, refreshInMillis);
 }
