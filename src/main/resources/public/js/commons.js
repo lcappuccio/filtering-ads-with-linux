@@ -1,4 +1,5 @@
 /*eslint no-undef: "error"*/
+/* global $, google */
 
 commons = {};
 
