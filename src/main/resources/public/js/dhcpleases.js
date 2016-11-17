@@ -1,5 +1,5 @@
 /*eslint no-undef: "error"*/
-/* global commons */
+/* global $, commons */
 
 function drawRow(rowData) {
 	var row = $("<tr>");

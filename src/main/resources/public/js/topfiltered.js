@@ -1,5 +1,5 @@
 /*eslint no-undef: "error"*/
-/* global google, commons */
+/* global $, google, commons */
 
 google.charts.load("current", {"packages": ["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
