@@ -33,7 +33,7 @@ public class LogTailerBridge {
 	 * Posts data taken from the queue
 	 */
 	@Scheduled(cron = "* * * * * *")
-	public void postData() throws ParseException, InterruptedException {
+	private void postData() throws ParseException, InterruptedException {
 		int queueSize = logQueue.size();
 		for (int i = 0; i < queueSize; i++) {
 			String queueItem = (String) logQueue.take();

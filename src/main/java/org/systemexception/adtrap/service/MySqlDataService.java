@@ -108,7 +108,7 @@ public class MySqlDataService implements DataService {
 	 * Clean database every day of all events older than 1 month, uses cron schedule
 	 */
 	@Scheduled(cron = "0 0 * * * *")
-	public void cleanUpDatabase() {
+	private void cleanUpDatabase() {
 		long monthInMillis = System.currentTimeMillis() - (1000L * 60L * 60L * 24L * 30L);
 		int deletedLines = jdbcTemplate.update(Queries.CLEANUP, monthInMillis);
 		LOGGER.info("Scheduled database cleanup: " + deletedLines + " lines deleted");
