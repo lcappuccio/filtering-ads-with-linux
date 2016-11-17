@@ -1,4 +1,5 @@
-commons = {};
+/*eslint no-undef: "error"*/
+/* global commons */
 
 commons.context = "logarchiver/";
 

@@ -1,26 +1,8 @@
-/* global $, google */
+/*eslint no-undef: "error"*/
+/* global $, google, commons */
 
 google.charts.load("current", {"packages": ["gauge"]});
 google.charts.setOnLoadCallback(drawChart);
-
-function timeConversion(millisec) {
-	"use strict";
-
-	var seconds = (millisec / 1000).toFixed(1);
-	var minutes = (millisec / (1000 * 60)).toFixed(1);
-	var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
-	var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
-
-	if (seconds < 60) {
-		return seconds + " Sec";
-	} else if (minutes < 60) {
-		return minutes + " Min";
-	} else if (hours < 24) {
-		return hours + " Hrs";
-	} else {
-		return days + " Days";
-	}
-}
 
 function formatBytes(bytes, decimals) {
 	"use strict";
@@ -36,15 +18,27 @@ function formatBytes(bytes, decimals) {
 	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 }
 
-function getMemPercentUsed() {
+function getDatabaseStatus() {
 	"use strict";
 
-	var jsonData = commons.getRestResponse("metrics", commons.jsonDataType);
+	var jsonData = commons.getRestResponse("health", commons.jsonDataType);
 	var jsonLines = $.parseJSON(jsonData);
-	var mem = jsonLines["mem"];
-	var memFree = jsonLines["mem.free"];
+	var databaseStatus = jsonLines.db.status;
 
-	return (memFree / mem) * 100;
+	return ("UP" === databaseStatus);
+}
+
+function getDiskInfo() {
+	"use strict";
+
+	var jsonData = commons.getRestResponse("health", commons.jsonDataType);
+	var jsonLines = $.parseJSON(jsonData);
+	var totalDisk = jsonLines["diskSpace"]["total"];
+	var freeDisk = jsonLines["diskSpace"]["free"];
+	var diskFreePercentage = 100 - ((freeDisk / totalDisk) * 100);
+	var diskInfo = [diskFreePercentage, formatBytes(totalDisk, 1), formatBytes(freeDisk, 1), formatBytes(totalDisk, 1)];
+
+	return diskInfo;
 }
 
 function getHeapPercentUsed() {
@@ -69,6 +63,17 @@ function getLoadPercentAverage() {
 	return (systemLoadAverage / parseInt(systemProcessors)) * 100;
 }
 
+function getMemPercentUsed() {
+	"use strict";
+
+	var jsonData = commons.getRestResponse("metrics", commons.jsonDataType);
+	var jsonLines = $.parseJSON(jsonData);
+	var mem = jsonLines["mem"];
+	var memFree = jsonLines["mem.free"];
+
+	return (memFree / mem) * 100;
+}
+
 function getUptime() {
 	"use strict";
 
@@ -80,27 +85,23 @@ function getUptime() {
 	return timeConversion(uptimeDate);
 }
 
-function getDiskInfo() {
+function timeConversion(millisec) {
 	"use strict";
 
-	var jsonData = commons.getRestResponse("health", commons.jsonDataType);
-	var jsonLines = $.parseJSON(jsonData);
-	var totalDisk = jsonLines["diskSpace"]["total"];
-	var freeDisk = jsonLines["diskSpace"]["free"];
-	var diskFreePercentage = 100 - ((freeDisk / totalDisk) * 100);
-	var diskInfo = [diskFreePercentage, formatBytes(totalDisk, 1), formatBytes(freeDisk, 1), formatBytes(totalDisk, 1)];
+	var seconds = (millisec / 1000).toFixed(1);
+	var minutes = (millisec / (1000 * 60)).toFixed(1);
+	var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
+	var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
 
-	return diskInfo;
-}
-
-function getDatabaseStatus() {
-	"use strict";
-
-	var jsonData = commons.getRestResponse("health", commons.jsonDataType);
-	var jsonLines = $.parseJSON(jsonData);
-	var databaseStatus = jsonLines.db.status;
-
-	return ("UP" === databaseStatus);
+	if (seconds < 60) {
+		return seconds + " Sec";
+	} else if (minutes < 60) {
+		return minutes + " Min";
+	} else if (hours < 24) {
+		return hours + " Hrs";
+	} else {
+		return days + " Days";
+	}
 }
 
 function drawChart() {
@@ -134,21 +135,27 @@ function drawChart() {
 	var chart = new google.visualization.Gauge(document.getElementById("gauges"));
 	chart.draw(gaugesData, options);
 
+	setRefreshForGauges(1000);
+
+}
+
+function setRefreshForGauges(refreshInMillis) {
+	"use strict";
+
 	setInterval(function () {
 		gaugesData.setValue(0, 1, getDiskInfo()[0]);
 		chart.draw(gaugesData, options);
-	}, 1000);
+	}, refreshInMillis);
 	setInterval(function () {
 		gaugesData.setValue(1, 1, getMemPercentUsed());
 		chart.draw(gaugesData, options);
-	}, 1000);
+	}, refreshInMillis);
 	setInterval(function () {
 		gaugesData.setValue(2, 1, getHeapPercentUsed());
 		chart.draw(gaugesData, options);
-	}, 1000);
+	}, refreshInMillis);
 	setInterval(function () {
 		gaugesData.setValue(3, 1, getLoadPercentAverage());
 		chart.draw(gaugesData, options);
-	}, 1000);
-
+	}, refreshInMillis);
 }
