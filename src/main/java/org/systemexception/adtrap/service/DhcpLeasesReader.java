@@ -41,8 +41,6 @@ public class DhcpLeasesReader {
 	 * Get a list of dhcp leases from a dnsmasq standard formatted file
 	 *
 	 * @return
-	 * @throws URISyntaxException
-	 * @throws IOException
 	 */
 	public List<DhcpLease> getDhcpLeases() {
 		List<String> dhcpLeaseFileLines = new ArrayList<>();

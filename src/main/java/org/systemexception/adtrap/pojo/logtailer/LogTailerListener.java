@@ -55,7 +55,7 @@ public class LogTailerListener implements TailerListener {
 		LOGGER.error("Exception", ex);
 	}
 
-	public static void logInterruptedException(Exception e) {
+	private static void logInterruptedException(Exception e) {
 		LOGGER.error(e.getMessage(), e);
 	}
 }
