@@ -1,7 +1,7 @@
 /* eslint no-undef: "error" */
 /* global $, google */
 
-commons = {};
+var commons = {};
 
 commons.context = "logarchiver/";
 
