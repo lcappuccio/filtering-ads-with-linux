@@ -55,9 +55,8 @@ function getDiskInfo() {
 	var totalDisk = jsonLines["diskSpace"]["total"];
 	var freeDisk = jsonLines["diskSpace"]["free"];
 	var diskFreePercentage = 100 - ((freeDisk / totalDisk) * 100);
-	var diskInfo = [diskFreePercentage, formatBytes(totalDisk, 1), formatBytes(freeDisk, 1), formatBytes(totalDisk, 1)];
 
-	return diskInfo;
+	return [diskFreePercentage, formatBytes(totalDisk, 1), formatBytes(freeDisk, 1), formatBytes(totalDisk, 1)];
 }
 
 function getHeapPercentUsed() {
