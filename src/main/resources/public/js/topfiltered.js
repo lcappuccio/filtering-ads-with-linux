@@ -1,4 +1,4 @@
-/*eslint no-undef: "error"*/
+/* eslint no-undef: "error" */
 /* global $, google, commons */
 
 function drawChart() {
