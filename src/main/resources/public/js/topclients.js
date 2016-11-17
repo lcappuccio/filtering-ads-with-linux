@@ -6,7 +6,7 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 	"use strict";
 
-	var jsonData = commons.getRestResponse("logarchiver/counttopclients", "json");
+	var jsonData = commons.getRestResponse(commons.context + "counttopclients", commons.jsonDataType);
 	var data = commons.textResponseToArray(jsonData, "Client");
 
 	var pieChart = new google.visualization.PieChart(document.getElementById("top_clients_pie"));

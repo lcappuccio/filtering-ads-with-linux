@@ -39,7 +39,7 @@ function formatBytes(bytes, decimals) {
 function getMemPercentUsed() {
 	"use strict";
 
-	var jsonData = commons.getRestResponse("metrics", "json");
+	var jsonData = commons.getRestResponse("metrics", commons.jsonDataType);
 	var jsonLines = $.parseJSON(jsonData);
 	var mem = jsonLines["mem"];
 	var memFree = jsonLines["mem.free"];
@@ -50,7 +50,7 @@ function getMemPercentUsed() {
 function getHeapPercentUsed() {
 	"use strict";
 
-	var jsonData = commons.getRestResponse("metrics", "json");
+	var jsonData = commons.getRestResponse("metrics", commons.jsonDataType);
 	var jsonLines = $.parseJSON(jsonData);
 	var heap = jsonLines["heap"];
 	var heapUsed = jsonLines["heap.used"];
@@ -61,7 +61,7 @@ function getHeapPercentUsed() {
 function getLoadPercentAverage() {
 	"use strict";
 
-	var jsonData = commons.getRestResponse("metrics", "json");
+	var jsonData = commons.getRestResponse("metrics", commons.jsonDataType);
 	var jsonLines = $.parseJSON(jsonData);
 	var systemLoadAverage = jsonLines["systemload.average"];
 	var systemProcessors = jsonLines["processors"];
@@ -72,7 +72,7 @@ function getLoadPercentAverage() {
 function getUptime() {
 	"use strict";
 
-	var jsonData = commons.getRestResponse("metrics", "json");
+	var jsonData = commons.getRestResponse("metrics", commons.jsonDataType);
 	var jsonLines = $.parseJSON(jsonData);
 	var uptime = jsonLines["instance.uptime"];
 	var uptimeDate = new Date(uptime);
@@ -83,7 +83,7 @@ function getUptime() {
 function getDiskInfo() {
 	"use strict";
 
-	var jsonData = commons.getRestResponse("health", "json");
+	var jsonData = commons.getRestResponse("health", commons.jsonDataType);
 	var jsonLines = $.parseJSON(jsonData);
 	var totalDisk = jsonLines["diskSpace"]["total"];
 	var freeDisk = jsonLines["diskSpace"]["free"];
@@ -96,7 +96,7 @@ function getDiskInfo() {
 function getDatabaseStatus() {
 	"use strict";
 
-	var jsonData = commons.getRestResponse("health", "json");
+	var jsonData = commons.getRestResponse("health", commons.jsonDataType);
 	var jsonLines = $.parseJSON(jsonData);
 	var databaseStatus = jsonLines.db.status;
 
