@@ -6,8 +6,8 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 	"use strict";
 
-	var jsonRequestTypes = commons.getRestResponse(commons.context + "groupbyquerytype", "json");
-	var jsonRequestDomains = commons.getRestResponse(commons.context + "counttoprequests", "json");
+	var jsonRequestTypes = commons.getRestResponse(commons.context + "groupbyquerytype", commons.jsonDataType);
+	var jsonRequestDomains = commons.getRestResponse(commons.context + "counttoprequests", commons.jsonDataType);
 
 	var jsonHourData = commons.textResponseToArray(jsonRequestTypes, "QUERY_TYPE");
 	var jsonDayData = commons.textResponseToArray(jsonRequestDomains, "QUERY_DOMAIN");

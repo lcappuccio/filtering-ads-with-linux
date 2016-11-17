@@ -6,7 +6,7 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 	"use strict";
 
-	var jsonDataFilteredDomains = commons.getRestResponse(commons.context + "groupbyfiltereddomains", "json");
+	var jsonDataFilteredDomains = commons.getRestResponse(commons.context + "groupbyfiltereddomains", commons.jsonDataType);
 	var data = commons.textResponseToArray(jsonDataFilteredDomains, "Advertiser");
 
 	var totalFiltered = commons.getRestResponse(commons.context + "countallfiltered", "text");

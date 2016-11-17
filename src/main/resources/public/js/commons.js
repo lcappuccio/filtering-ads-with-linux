@@ -2,6 +2,8 @@ commons = {};
 
 commons.context = "logarchiver/";
 
+commons.jsonDataType = "json";
+
 commons.optionsBarChart = {
 	width: 800,
 	height: 600,
