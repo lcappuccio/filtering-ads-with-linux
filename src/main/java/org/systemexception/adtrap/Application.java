@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.systemexception.adtrap.pojo.logtailer.LogTailerBridge;
 import org.systemexception.adtrap.pojo.LogQueue;
 import org.systemexception.adtrap.pojo.logtailer.LogTailer;
 import org.systemexception.adtrap.pojo.logtailer.LogTailerListener;
@@ -89,10 +88,7 @@ public class Application {
 		LogTailerListener logTailerListener = new LogTailerListener(logQueue);
 		LogTailer logTailer = new LogTailer(fileToTail, logTailerListener, dnsmasqTailerSleep);
 
-		LogTailerBridge logTailerBridge = new LogTailerBridge(dataService(), logQueue);
-
 		new Thread(logTailer).start();
-		new Thread(logTailerBridge).start();
 	}
 
 	private ApiInfo apiInfo() {

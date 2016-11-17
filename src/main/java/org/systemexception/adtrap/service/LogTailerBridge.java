@@ -1,12 +1,13 @@
-package org.systemexception.adtrap.pojo.logtailer;
+package org.systemexception.adtrap.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 import org.systemexception.adtrap.model.DnsLogLine;
 import org.systemexception.adtrap.pojo.JsonMapper;
 import org.systemexception.adtrap.pojo.LogQueue;
-import org.systemexception.adtrap.service.DataService;
 
 import java.text.ParseException;
 import java.util.Optional;
@@ -14,7 +15,8 @@ import java.util.Optional;
 /**
  * @author leo
  */
-public class LogTailerBridge implements Runnable {
+@Service
+public class LogTailerBridge {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LogTailerBridge.class);
 	private final DataService dataService;
@@ -27,20 +29,20 @@ public class LogTailerBridge implements Runnable {
 		this.dataService = dataService;
 	}
 
-	@Override
-	public void run() {
-		try {
-			while (true) {
-				String logLine = (String) logQueue.take();
-				Optional<DnsLogLine> dnsLogLine = jsonMapper.dnsLogLineFromLogLine(logLine);
-				if (dnsLogLine.isPresent()) {
-					dataService.save(dnsLogLine.get());
-				} else {
-					LOGGER.info("Bad line caught, skipped: " + logLine);
-				}
+	/**
+	 * Posts data taken from the queue
+	 */
+	@Scheduled(cron = "* * * * * *")
+	public void postData() throws ParseException, InterruptedException {
+		int queueSize = logQueue.size();
+		for (int i = 0; i < queueSize; i++) {
+			String queueItem = (String) logQueue.take();
+			Optional<DnsLogLine> dnsLogLine = jsonMapper.dnsLogLineFromLogLine(queueItem);
+			if (dnsLogLine.isPresent()) {
+				dataService.save(dnsLogLine.get());
+			} else {
+				LOGGER.info("Bad line caught, skipped: " + queueItem);
 			}
-		} catch (InterruptedException | ClassCastException | ParseException e) {
-			LOGGER.error(e.getMessage(), e);
 		}
 	}
 }
