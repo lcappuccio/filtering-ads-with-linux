@@ -135,11 +135,11 @@ function drawChart() {
 	var chart = new google.visualization.Gauge(document.getElementById("gauges"));
 	chart.draw(gaugesData, options);
 
-	setRefreshForGauges(1000);
+	setRefreshForGauges(gaugesData, 1000);
 
 }
 
-function setRefreshForGauges(refreshInMillis) {
+function setRefreshForGauges(gaugesData, refreshInMillis) {
 	"use strict";
 
 	setInterval(function () {
