@@ -10,7 +10,6 @@ import org.systemexception.adtrap.pojo.DhcpFileParser;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
