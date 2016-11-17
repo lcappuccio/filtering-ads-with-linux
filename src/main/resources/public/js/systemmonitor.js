@@ -4,6 +4,25 @@
 google.charts.load("current", {"packages": ["gauge"]});
 google.charts.setOnLoadCallback(drawChart);
 
+function timeConversion(millisec) {
+	"use strict";
+
+	var seconds = (millisec / 1000).toFixed(1);
+	var minutes = (millisec / (1000 * 60)).toFixed(1);
+	var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
+	var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
+
+	if (seconds < 60) {
+		return seconds + " Sec";
+	} else if (minutes < 60) {
+		return minutes + " Min";
+	} else if (hours < 24) {
+		return hours + " Hrs";
+	} else {
+		return days + " Days";
+	}
+}
+
 function formatBytes(bytes, decimals) {
 	"use strict";
 
@@ -36,9 +55,8 @@ function getDiskInfo() {
 	var totalDisk = jsonLines["diskSpace"]["total"];
 	var freeDisk = jsonLines["diskSpace"]["free"];
 	var diskFreePercentage = 100 - ((freeDisk / totalDisk) * 100);
-	var diskInfo = [diskFreePercentage, formatBytes(totalDisk, 1), formatBytes(freeDisk, 1), formatBytes(totalDisk, 1)];
 
-	return diskInfo;
+	return [diskFreePercentage, formatBytes(totalDisk, 1), formatBytes(freeDisk, 1), formatBytes(totalDisk, 1)];
 }
 
 function getHeapPercentUsed() {
@@ -85,61 +103,7 @@ function getUptime() {
 	return timeConversion(uptimeDate);
 }
 
-function timeConversion(millisec) {
-	"use strict";
-
-	var seconds = (millisec / 1000).toFixed(1);
-	var minutes = (millisec / (1000 * 60)).toFixed(1);
-	var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
-	var days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
-
-	if (seconds < 60) {
-		return seconds + " Sec";
-	} else if (minutes < 60) {
-		return minutes + " Min";
-	} else if (hours < 24) {
-		return hours + " Hrs";
-	} else {
-		return days + " Days";
-	}
-}
-
-function drawChart() {
-	"use strict";
-
-	var diskInfo = getDiskInfo();
-
-	var gaugesData = google.visualization.arrayToDataTable([
-		["Label", "Value"],
-		["Disk %", diskInfo[0]],
-		["Memory", getMemPercentUsed()],
-		["Heap", getHeapPercentUsed()],
-		["Load", getLoadPercentAverage()]
-	]);
-
-	var options = {
-		width: 800, height: 150,
-		redFrom: 85, redTo: 100,
-		yellowFrom: 70, yellowTo: 85,
-		minorTicks: 5
-	};
-
-	$("#uptime").text(getUptime());
-	$("#disk_free").text(diskInfo[2]);
-	$("#disk_total").text(diskInfo[3]);
-	if (getDatabaseStatus()) {
-		$("#database_status").addClass("glyphicon glyphicon-ok-circle");
-	} else {
-		$("#database_status").addClass("glyphicon glyphicon-remove-circle");
-	}
-	var chart = new google.visualization.Gauge(document.getElementById("gauges"));
-	chart.draw(gaugesData, options);
-
-	setRefreshForGauges(gaugesData, 1000);
-
-}
-
-function setRefreshForGauges(gaugesData, refreshInMillis) {
+function setRefreshForGauges(chart, gaugesData, options, refreshInMillis) {
 	"use strict";
 
 	setInterval(function () {
@@ -158,4 +122,43 @@ function setRefreshForGauges(gaugesData, refreshInMillis) {
 		gaugesData.setValue(3, 1, getLoadPercentAverage());
 		chart.draw(gaugesData, options);
 	}, refreshInMillis);
+}
+
+function drawChart() {
+	"use strict";
+
+	var diskInfo = getDiskInfo();
+
+	var gaugesData = google.visualization.arrayToDataTable([
+		["Label", "Value"],
+		["Disk %", diskInfo[0]],
+		["Memory", getMemPercentUsed()],
+		["Heap", getHeapPercentUsed()],
+		["Load", getLoadPercentAverage()]
+	]);
+
+	var options = {
+		width: 800,
+		height: 150,
+		yellowFrom: 80,
+		yellowTo: 90,
+		redFrom: 90,
+		redTo: 100,
+		minorTicks: 3,
+		majorTicks: ["0", "20", "40", "60", "80", "100"]
+	};
+
+	$("#uptime").text(getUptime());
+	$("#disk_free").text(diskInfo[2]);
+	$("#disk_total").text(diskInfo[3]);
+	if (getDatabaseStatus()) {
+		$("#database_status").addClass("glyphicon glyphicon-ok-circle");
+	} else {
+		$("#database_status").addClass("glyphicon glyphicon-remove-circle");
+	}
+	var chart = new google.visualization.Gauge(document.getElementById("gauges"));
+	chart.draw(gaugesData, options);
+
+	setRefreshForGauges(chart, gaugesData, options, 1000);
+
 }
