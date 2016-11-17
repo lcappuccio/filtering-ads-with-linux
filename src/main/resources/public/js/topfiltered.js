@@ -6,11 +6,11 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 	"use strict";
 
-	var jsonDataFilteredDomains = commons.getRestResponse("logarchiver/groupbyfiltereddomains", "json");
+	var jsonDataFilteredDomains = commons.getRestResponse(commons.context + "groupbyfiltereddomains", "json");
 	var data = commons.textResponseToArray(jsonDataFilteredDomains, "Advertiser");
 
-	var totalFiltered = commons.getRestResponse("logarchiver/countallfiltered", "text");
-	var distinctFiltered = commons.getRestResponse("logarchiver/countdistinctfiltered", "text");
+	var totalFiltered = commons.getRestResponse(commons.context + "countallfiltered", "text");
+	var distinctFiltered = commons.getRestResponse(commons.context + "countdistinctfiltered", "text");
 
 	$("#total_advertisers").text(totalFiltered);
 	$("#distinct_advertisers").text(distinctFiltered);
