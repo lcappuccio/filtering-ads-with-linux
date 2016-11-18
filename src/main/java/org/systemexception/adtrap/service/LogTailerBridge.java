@@ -1,5 +1,6 @@
 package org.systemexception.adtrap.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,7 @@ public class LogTailerBridge {
 	 */
 	private boolean isDomainIgnored(DnsLogLine dnsLogLine) {
 		for (String ignoredDomain : ignoreList) {
-			if (ignoredDomain.equalsIgnoreCase(dnsLogLine.getQueryDomain())) {
+			if (StringUtils.containsIgnoreCase(dnsLogLine.getQueryDomain(), ignoredDomain)) {
 				return true;
 			}
 		}
