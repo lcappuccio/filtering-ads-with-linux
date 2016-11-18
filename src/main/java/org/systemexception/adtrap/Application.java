@@ -14,6 +14,7 @@ import org.systemexception.adtrap.pojo.logtailer.LogTailer;
 import org.systemexception.adtrap.pojo.logtailer.LogTailerListener;
 import org.systemexception.adtrap.service.DataService;
 import org.systemexception.adtrap.service.DhcpLeasesReader;
+import org.systemexception.adtrap.service.LogTailerBridge;
 import org.systemexception.adtrap.service.MySqlDataService;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
@@ -23,6 +24,7 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 
 /**
  * @author leo
@@ -47,11 +49,17 @@ public class Application {
 	@Value("${home.domain}")
 	private String homeDomain;
 
-	@Autowired
-	private LogQueue logQueue;
+	@Value("${ignore.list}")
+	private String[] ignoreList;
+
+	private final LogQueue logQueue;
+	private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	public Application(LogQueue logQueue, JdbcTemplate jdbcTemplate) {
+		this.logQueue = logQueue;
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 	public static final String CONTEXT = "logarchiver";
@@ -69,6 +77,11 @@ public class Application {
 	@Bean
 	public DhcpLeasesReader dhcpLeasesReader() throws URISyntaxException {
 		return new DhcpLeasesReader(dnmasqDhcpLeasesFilePath);
+	}
+
+	@Bean
+	public LogTailerBridge logTailerBridge() {
+		return new LogTailerBridge(dataService(), logQueue, Arrays.asList(ignoreList));
 	}
 
 	@Bean

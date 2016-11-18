@@ -9,6 +9,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.systemexception.adtrap.Application;
+import org.systemexception.adtrap.pojo.LogParser;
 import org.systemexception.adtrap.pojo.LogQueue;
 
 import java.io.IOException;
@@ -48,6 +49,20 @@ public class LogTailerBridgeTest {
 
 		assertTrue(ClassCastException.class.getName() + " not logged",
 				logFileToString.contains(ClassCastException.class.getName()));
+		assertEquals(0, logQueue.size());
+	}
+
+	@Test
+	public void should_ignore_domains() throws InterruptedException, IOException {
+		String logLineToIgnore = LogParserTest.timeToDate() + LogParser.LOG_LINE_SEPARATOR +
+				"dnsmasq[26446]: query[A] www.ignore1.com from 192.168.0.1";
+		logQueue.put(logLineToIgnore);
+
+		Thread.sleep(LogTailerListenerTest.THREAD_SLEEP);
+		String logFileToString = FileUtils.readFileToString(LogTailerListenerTest.INFO_LOG_FILE,
+				Charset.defaultCharset());
+
+		assertTrue("Not logged " + logLineToIgnore, logFileToString.contains("Ignored domain: www.ignore1.com"));
 		assertEquals(0, logQueue.size());
 	}
 
