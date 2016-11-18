@@ -47,11 +47,14 @@ public class Application {
 	@Value("${home.domain}")
 	private String homeDomain;
 
-	@Autowired
-	private LogQueue logQueue;
+	private final LogQueue logQueue;
+	private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	public Application(LogQueue logQueue, JdbcTemplate jdbcTemplate) {
+		this.logQueue = logQueue;
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 	public static final String CONTEXT = "logarchiver";
