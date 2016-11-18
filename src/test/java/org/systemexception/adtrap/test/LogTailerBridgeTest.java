@@ -51,4 +51,17 @@ public class LogTailerBridgeTest {
 		assertEquals(0, logQueue.size());
 	}
 
+	@Test
+	public void should_ignore_domains() throws InterruptedException, IOException {
+		String logLineToIgnore = "dnsmasq[27711]: query[A] www.ignore1.com 129.168.0.1";
+		logQueue.put(logLineToIgnore);
+
+		Thread.sleep(LogTailerListenerTest.THREAD_SLEEP);
+		String logFileToString = FileUtils.readFileToString(LogTailerListenerTest.INFO_LOG_FILE,
+				Charset.defaultCharset());
+
+		assertTrue("Not logged " + logLineToIgnore, logFileToString.contains("www.ignore1.com"));
+		assertEquals(0, logQueue.size());
+	}
+
 }
