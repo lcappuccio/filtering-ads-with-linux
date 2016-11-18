@@ -62,7 +62,7 @@ public class LogTailerBridgeTest {
 		String logFileToString = FileUtils.readFileToString(LogTailerListenerTest.INFO_LOG_FILE,
 				Charset.defaultCharset());
 
-		assertTrue("Not logged " + logLineToIgnore, logFileToString.contains("www.ignore1.com"));
+		assertTrue("Not logged " + logLineToIgnore, logFileToString.contains("Ignored domain: www.ignore1.com"));
 		assertEquals(0, logQueue.size());
 	}
 

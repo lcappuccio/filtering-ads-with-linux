@@ -46,7 +46,7 @@ public class LogTailerBridge {
 			if (dnsLogLine.isPresent() && !isDomainIgnored(dnsLogLine.get())) {
 				dataService.save(dnsLogLine.get());
 			} else {
-				LOGGER.info("Ignore or bad line caught, skipped: " + queueItem);
+				LOGGER.info("Bad line caught, skipped: " + queueItem);
 			}
 		}
 	}
@@ -60,6 +60,7 @@ public class LogTailerBridge {
 	private boolean isDomainIgnored(DnsLogLine dnsLogLine) {
 		for (String ignoredDomain : ignoreList) {
 			if (StringUtils.containsIgnoreCase(dnsLogLine.getQueryDomain(), ignoredDomain)) {
+				LOGGER.info("Ignored domain: " + dnsLogLine.getQueryDomain());
 				return true;
 			}
 		}
