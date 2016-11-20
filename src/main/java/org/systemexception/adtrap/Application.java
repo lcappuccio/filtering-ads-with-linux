@@ -34,6 +34,9 @@ import java.util.Arrays;
 @EnableScheduling
 public class Application {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+	public static final String CONTEXT = "logarchiver";
+
 	@Value("${adtrap.ipaddress}")
 	private String ipAddress;
 
@@ -60,9 +63,6 @@ public class Application {
 		this.logQueue = logQueue;
 		this.jdbcTemplate = jdbcTemplate;
 	}
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
-	public static final String CONTEXT = "logarchiver";
 
 	public static void main(String[] args) {
 
