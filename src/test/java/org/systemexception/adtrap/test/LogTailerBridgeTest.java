@@ -29,14 +29,14 @@ public class LogTailerBridgeTest {
 
 	@Test
 	public void should_take() throws InterruptedException, IOException {
-		String outString = LogParserTest.LOG_LINE;
+		String outString = LogParserTest.timeToDate() + LogParser.LOG_LINE_SEPARATOR + LogParserTest.LOG_LINE;
 		logQueue.put(outString);
 
 		Thread.sleep(LogTailerListenerTest.THREAD_SLEEP);
 		String logFileToString = FileUtils.readFileToString(LogTailerListenerTest.INFO_LOG_FILE,
 				Charset.defaultCharset());
 
-		assertTrue("Not logged " + outString, logFileToString.contains("e4478.a.akamaiedge.net"));
+		assertTrue("Not logged " + outString, logFileToString.contains("Received: forwarded e4478.a.akamaiedge.net"));
 		assertEquals(0, logQueue.size());
 	}
 
