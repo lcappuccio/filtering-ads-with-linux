@@ -13,11 +13,9 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.systemexception.adtrap.Application;
-import org.systemexception.adtrap.pojo.logtailer.LogTailerBridge;
 import org.systemexception.adtrap.pojo.LogQueue;
 import org.systemexception.adtrap.pojo.logtailer.LogTailer;
 import org.systemexception.adtrap.pojo.logtailer.LogTailerListener;
-import org.systemexception.adtrap.service.DataService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,10 +42,7 @@ public class LogTailerListenerTest {
 	private final static int SLEEP_TIMER = 100;
 
 	public final static File INFO_LOG_FILE = new File("target/adtrap-test.log");
-	public final static int THREAD_SLEEP = 500;
-
-	@Autowired
-	private DataService dataService;
+	public final static int THREAD_SLEEP = 2000;
 
 	@Autowired
 	private LogQueue logQueue;
@@ -80,10 +75,6 @@ public class LogTailerListenerTest {
 
 		Thread threadLogTailer = new Thread(logTailer);
 		threadLogTailer.start();
-
-		LogTailerBridge logTailerBridge = new LogTailerBridge(dataService, logQueue);
-		Thread threadLogTailerBridge = new Thread(logTailerBridge);
-		threadLogTailerBridge.start();
 	}
 
 	@After

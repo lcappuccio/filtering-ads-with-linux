@@ -10,7 +10,6 @@ import org.systemexception.adtrap.pojo.DhcpFileParser;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +40,6 @@ public class DhcpLeasesReader {
 	 * Get a list of dhcp leases from a dnsmasq standard formatted file
 	 *
 	 * @return
-	 * @throws URISyntaxException
-	 * @throws IOException
 	 */
 	public List<DhcpLease> getDhcpLeases() {
 		List<String> dhcpLeaseFileLines = new ArrayList<>();

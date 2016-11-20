@@ -153,8 +153,7 @@ Now for the fun part. Actually I'm not creating anything, just putting together 
 
 The entrypoint is `manual_easylist.sh`. This bash script will download the lists in `lists.lst`, parse them and put them into another file.
 
-If no web server is running on your local machine replace the `127.0.0.1` on the end of the script with the ip 
-of your ad trap web server 1px gif image.
+If no web server is running on your local machine replace `127.0.0.1` at the end of the script with the ip of your ad trap web server 1px gif image.
 
 On this same file I'm appending some other hosts found on [URLBlacklist](http://www.urlblacklist.com). After all this parsing and appending the script will sort and remove duplicates.
 
@@ -314,6 +313,7 @@ Application queries in: `org.systemexception.adtrap.pojo.Queries`
 
 ## ToDo
 
+* **Introduce login and security**
 * How to handle HTTPS requests
 * Installation script
 * list creation frontend

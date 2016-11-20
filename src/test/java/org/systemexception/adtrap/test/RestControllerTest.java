@@ -36,8 +36,10 @@ public class RestControllerTest {
 
 	@MockBean
 	private DataService dataService;
+
 	@MockBean
 	private DhcpLeasesReader dhcpLeasesReader;
+
 	@Autowired
 	private RestController restController;
 	private MockMvc sut;

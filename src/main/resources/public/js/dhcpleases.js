@@ -1,3 +1,6 @@
+/*eslint no-undef: "error"*/
+/* global $, commons */
+
 function drawRow(rowData) {
 	var row = $("<tr>");
 	$("#dhcp_leases_table").append(row);
@@ -16,7 +19,7 @@ function drawTable(data) {
 }
 
 $(document).ready(function () {
-	$.get("logarchiver/listdhcpleases", function (data) {
+	$.get(commons.context + "listdhcpleases", function (data) {
 		drawTable(data);
 	});
 });

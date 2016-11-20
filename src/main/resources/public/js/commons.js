@@ -1,4 +1,13 @@
-commons = {};
+/* eslint no-undef: "error" */
+/* global $, google */
+
+var commons = {};
+
+commons.context = "logarchiver/";
+
+commons.jsonDataType = "json";
+
+commons.textDataType = "text";
 
 commons.optionsBarChart = {
 	width: 800,
@@ -51,7 +60,7 @@ commons.optionsPieChart = {
 	sliceVisibilityThreshold: 0.04
 };
 
-commons.getRestResponse = function(restUrl, restResponseType) {
+commons.getRestResponse = function (restUrl, restResponseType) {
 	"use strict";
 
 	return $.ajax({
@@ -61,7 +70,7 @@ commons.getRestResponse = function(restUrl, restResponseType) {
 	}).responseText;
 };
 
-commons.textResponseToArray = function(responseText, columnName) {
+commons.textResponseToArray = function (responseText, columnName) {
 	"use strict";
 
 	var jsonData = JSON.parse(responseText);

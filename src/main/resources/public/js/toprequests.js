@@ -1,13 +1,11 @@
-/* global $, google */
-
-google.charts.load("current", {"packages": ["corechart"]});
-google.charts.setOnLoadCallback(drawChart);
+/* eslint no-undef: "error" */
+/* global google, commons */
 
 function drawChart() {
 	"use strict";
 
-	var jsonRequestTypes = commons.getRestResponse("logarchiver/groupbyquerytype", "json");
-	var jsonRequestDomains = commons.getRestResponse("logarchiver/counttoprequests", "json");
+	var jsonRequestTypes = commons.getRestResponse(commons.context + "groupbyquerytype", commons.jsonDataType);
+	var jsonRequestDomains = commons.getRestResponse(commons.context + "counttoprequests", commons.jsonDataType);
 
 	var jsonHourData = commons.textResponseToArray(jsonRequestTypes, "QUERY_TYPE");
 	var jsonDayData = commons.textResponseToArray(jsonRequestDomains, "QUERY_DOMAIN");
@@ -18,3 +16,6 @@ function drawChart() {
 	requestTypesPie.draw(jsonHourData, commons.optionsPieChart);
 	topRequestsBar.draw(jsonDayData, commons.optionsBarChart);
 }
+
+google.charts.load("current", {"packages": ["corechart"]});
+google.charts.setOnLoadCallback(drawChart);
