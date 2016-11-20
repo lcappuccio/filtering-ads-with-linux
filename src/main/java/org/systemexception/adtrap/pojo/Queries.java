@@ -32,12 +32,11 @@ public class Queries {
 			"FROM DNS_LOG_LINES WHERE QUERY_TARGET = ? GROUP BY QUERY_DOMAIN ORDER BY 2 DESC LIMIT 20";
 
 	// STATISTICS
-	public static final String WEEKLY_BY_HOUR = "select FROM_UNIXTIME(LOG_TIME/1000, '%a %H:59') as LOG_DATE, " +
-			"count(*) as TOTAL from DNS_LOG_LINES where QUERY_TARGET = ? " +
-			"and STR_TO_DATE(FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y %H'), '%d/%m/%Y %H') " +
-			"BETWEEN NOW() - INTERVAL 25 HOUR AND NOW() - INTERVAL 1 HOUR " +
-			"group by FROM_UNIXTIME(LOG_TIME/1000, '%d%m%H') " +
-			"order by FROM_UNIXTIME(LOG_TIME/1000, '%d%m%H') asc";
+	public static final String WEEKLY_BY_HOUR = "select * from (" +
+			"select FROM_UNIXTIME(LOG_TIME/1000, '%a %d %H:59') as LOG_DATE, count(*) as TOTAL " +
+			"from DNS_LOG_LINES where QUERY_TARGET = ? and UNIX_TIMESTAMP() - LOG_TIME/1000 > 3600 " +
+			"group by FROM_UNIXTIME(LOG_TIME/1000, '%d%m%H') order by LOG_TIME desc limit 24) data " +
+			"order by STR_TO_DATE(LOG_DATE, '%a %d %H:59') asc";
 	public static final String MONTHLY_BY_DAY = "select FROM_UNIXTIME(LOG_TIME/1000, '%a %d/%m') as LOG_DATE, " +
 			"count(*) as TOTAL from DNS_LOG_LINES where QUERY_TARGET = ? " +
 			"and STR_TO_DATE(FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y'), '%d/%m/%Y') " +
