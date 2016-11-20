@@ -141,7 +141,7 @@ function drawChart() {
 		yellowTo: 90,
 		redFrom: 90,
 		redTo: 100,
-		minorTicks: 3,
+		minorTicks: 5,
 		majorTicks: ["0", "20", "40", "60", "80", "100"]
 	};
 
