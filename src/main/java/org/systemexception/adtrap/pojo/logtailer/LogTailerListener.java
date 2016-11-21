@@ -14,7 +14,6 @@ import java.io.FileNotFoundException;
 public class LogTailerListener implements TailerListener {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LogTailerListener.class);
-	private static final int MAX_QUEUE_SIZE = 1000;
 	private final LogQueue blockingQueue;
 
 	@Autowired
@@ -43,14 +42,9 @@ public class LogTailerListener implements TailerListener {
 	}
 
 	@Override
-	public void handle(String line) {
+	public synchronized void handle(String line) {
 		try {
-			if (blockingQueue.size() <= MAX_QUEUE_SIZE) {
-				blockingQueue.put(line);
-			} else {
-				LOGGER.error("Queue blocked, waiting " + MAX_QUEUE_SIZE + "ms");
-				Thread.sleep(50);
-			}
+			blockingQueue.put(line);
 		} catch (InterruptedException e) {
 			logInterruptedException(e);
 		}
