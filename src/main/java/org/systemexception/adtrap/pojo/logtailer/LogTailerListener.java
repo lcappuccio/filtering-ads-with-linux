@@ -45,11 +45,11 @@ public class LogTailerListener implements TailerListener {
 	@Override
 	public void handle(String line) {
 		try {
-			if (!(blockingQueue.size() >= MAX_QUEUE_SIZE)) {
+			if (blockingQueue.size() <= MAX_QUEUE_SIZE) {
 				blockingQueue.put(line);
 			} else {
 				LOGGER.error("Queue blocked, waiting " + MAX_QUEUE_SIZE + "ms");
-				Thread.sleep(500);
+				Thread.sleep(50);
 			}
 		} catch (InterruptedException e) {
 			logInterruptedException(e);
