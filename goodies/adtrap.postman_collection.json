@@ -24,9 +24,24 @@
 		{
 			"name": "Count All",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
 				"url": "http://{{ip}}:{{port}}/logarchiver/countall",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -38,9 +53,24 @@
 		{
 			"name": "Count Distinct Filtered",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
 				"url": "http://{{ip}}:{{port}}/logarchiver/countdistinctfiltered",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -52,9 +82,24 @@
 		{
 			"name": "Count Top Clients",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
 				"url": "http://{{ip}}:{{port}}/logarchiver/counttopclients",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -66,9 +111,24 @@
 		{
 			"name": "Count Top Requests",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
 				"url": "http://{{ip}}:{{port}}/logarchiver/counttoprequests",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -80,9 +140,24 @@
 		{
 			"name": "Count All Filtered",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
 				"url": "http://{{ip}}:{{port}}/logarchiver/countallfiltered",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -94,9 +169,24 @@
 		{
 			"name": "Group By Filtered Domain",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
 				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyfiltereddomains",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -108,9 +198,24 @@
 		{
 			"name": "Group By Query Domain",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
 				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyquerydomain",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -122,9 +227,24 @@
 		{
 			"name": "Group By Query Target",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
 				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyquerytarget",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -136,9 +256,24 @@
 		{
 			"name": "Group By Query Type",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
 				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyquerytype",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -150,9 +285,24 @@
 		{
 			"name": "List DHCP Leases",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
 				"url": "http://{{ip}}:{{port}}/logarchiver/listdhcpleases",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -164,9 +314,24 @@
 		{
 			"name": "Stats Daily By Houy",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
 				"url": "http://{{ip}}:{{port}}/logarchiver/dailybyhour",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -178,9 +343,24 @@
 		{
 			"name": "Stats Monthly By Day",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
 				"url": "http://{{ip}}:{{port}}/logarchiver/monthlybyday",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
