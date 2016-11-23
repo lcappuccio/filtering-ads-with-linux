@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -15,6 +18,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.systemexception.adtrap.Application;
+import org.systemexception.adtrap.SecurityConfig;
 import org.systemexception.adtrap.controller.RestController;
 import org.systemexception.adtrap.service.DataService;
 import org.systemexception.adtrap.service.DhcpLeasesReader;
@@ -31,9 +35,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = {Application.class})
 @WebAppConfiguration
 @TestPropertySource(locations = "classpath:application.properties")
-// TODO add mocks and tests with asserts here
 public class RestControllerTest {
 
+	private static final String ADMIN = "admin", PASSWORD = "123456";
 	@MockBean
 	private DataService dataService;
 
@@ -42,14 +46,20 @@ public class RestControllerTest {
 
 	@Autowired
 	private RestController restController;
+
+	@Autowired
+	private FilterChainProxy springSecurityFilterChain;
+
 	private MockMvc sut;
 
 	@Before
 	public void setUp() {
-		sut = MockMvcBuilders.standaloneSetup(restController).build();
+		sut = MockMvcBuilders.standaloneSetup(restController)
+				.apply(SecurityMockMvcConfigurers.springSecurity(springSecurityFilterChain)).build();
 	}
 
 	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
 	public void should_count_all() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/countall"))
 				.andExpect(status().is(HttpStatus.OK.value()));
@@ -59,6 +69,7 @@ public class RestControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
 	public void should_count_all_filtered() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/countallfiltered"))
 				.andExpect(status().is(HttpStatus.OK.value()));
@@ -68,6 +79,7 @@ public class RestControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
 	public void should_count_distinct_filtered() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/countdistinctfiltered"))
 				.andExpect(status().is(HttpStatus.OK.value()));
@@ -77,6 +89,7 @@ public class RestControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
 	public void should_count_top_clients() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/counttopclients"))
 				.andExpect(status().is(HttpStatus.OK.value()));
@@ -86,6 +99,7 @@ public class RestControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
 	public void should_count_top_requests() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/counttoprequests"))
 				.andExpect(status().is(HttpStatus.OK.value()));
@@ -95,6 +109,7 @@ public class RestControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
 	public void should_count_by_type() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyquerytype"))
 				.andExpect(status().is(HttpStatus.OK.value()));
@@ -104,6 +119,7 @@ public class RestControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
 	public void should_count_by_domain() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyquerydomain"))
 				.andExpect(status().is(HttpStatus.OK.value()));
@@ -113,6 +129,7 @@ public class RestControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
 	public void should_count_by_target() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyquerytarget"))
 				.andExpect(status().is(HttpStatus.OK.value()));
@@ -122,6 +139,7 @@ public class RestControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
 	public void should_count_by_filtered_domain() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/groupbyfiltereddomains"))
 				.andExpect(status().is(HttpStatus.OK.value()));
@@ -131,6 +149,7 @@ public class RestControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
 	public void should_list_hourly_statistics() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/dailybyhour"))
 				.andExpect(status().is(HttpStatus.OK.value()));
@@ -140,6 +159,7 @@ public class RestControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
 	public void should_list_daily_statistics() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/monthlybyday"))
 				.andExpect(status().is(HttpStatus.OK.value()));
@@ -149,6 +169,7 @@ public class RestControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
 	public void should_list_dhcp_leases() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/logarchiver/listdhcpleases"))
 				.andExpect(status().is(HttpStatus.OK.value()));
