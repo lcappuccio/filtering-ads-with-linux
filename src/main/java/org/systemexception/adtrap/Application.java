@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.systemexception.adtrap.pojo.LogQueue;
 import org.systemexception.adtrap.pojo.logtailer.LogTailer;
 import org.systemexception.adtrap.pojo.logtailer.LogTailerListener;
@@ -64,8 +66,12 @@ public class Application {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	/**
+	 * Main entry point
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
-
 		SpringApplication.run(Application.class, args);
 	}
 
