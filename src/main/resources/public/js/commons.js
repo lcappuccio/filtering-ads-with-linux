@@ -3,7 +3,7 @@
 
 var commons = {};
 
-commons.context = "logarchiver/";
+commons.context = "restapi/";
 
 commons.jsonDataType = "json";
 

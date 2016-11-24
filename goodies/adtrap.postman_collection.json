@@ -33,7 +33,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/countall",
+				"url": "http://{{ip}}:{{port}}/restapi/countall",
 				"method": "GET",
 				"header": [
 					{
@@ -62,7 +62,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/countdistinctfiltered",
+				"url": "http://{{ip}}:{{port}}/restapi/countdistinctfiltered",
 				"method": "GET",
 				"header": [
 					{
@@ -91,7 +91,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/counttopclients",
+				"url": "http://{{ip}}:{{port}}/restapi/counttopclients",
 				"method": "GET",
 				"header": [
 					{
@@ -120,7 +120,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/counttoprequests",
+				"url": "http://{{ip}}:{{port}}/restapi/counttoprequests",
 				"method": "GET",
 				"header": [
 					{
@@ -149,7 +149,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/countallfiltered",
+				"url": "http://{{ip}}:{{port}}/restapi/countallfiltered",
 				"method": "GET",
 				"header": [
 					{
@@ -178,7 +178,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyfiltereddomains",
+				"url": "http://{{ip}}:{{port}}/restapi/groupbyfiltereddomains",
 				"method": "GET",
 				"header": [
 					{
@@ -207,7 +207,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyquerydomain",
+				"url": "http://{{ip}}:{{port}}/restapi/groupbyquerydomain",
 				"method": "GET",
 				"header": [
 					{
@@ -236,7 +236,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyquerytarget",
+				"url": "http://{{ip}}:{{port}}/restapi/groupbyquerytarget",
 				"method": "GET",
 				"header": [
 					{
@@ -265,7 +265,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyquerytype",
+				"url": "http://{{ip}}:{{port}}/restapi/groupbyquerytype",
 				"method": "GET",
 				"header": [
 					{
@@ -294,7 +294,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/listdhcpleases",
+				"url": "http://{{ip}}:{{port}}/restapi/listdhcpleases",
 				"method": "GET",
 				"header": [
 					{
@@ -323,7 +323,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/dailybyhour",
+				"url": "http://{{ip}}:{{port}}/restapi/dailybyhour",
 				"method": "GET",
 				"header": [
 					{
@@ -352,7 +352,7 @@
 						"showPassword": false
 					}
 				},
-				"url": "http://{{ip}}:{{port}}/logarchiver/monthlybyday",
+				"url": "http://{{ip}}:{{port}}/restapi/monthlybyday",
 				"method": "GET",
 				"header": [
 					{

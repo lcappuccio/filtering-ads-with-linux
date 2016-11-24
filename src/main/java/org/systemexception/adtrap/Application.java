@@ -37,7 +37,7 @@ import java.util.Arrays;
 public class Application {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
-	public static final String CONTEXT = "logarchiver";
+	public static final String CONTEXT = "restapi";
 
 	@Value("${adtrap.ipaddress}")
 	private String ipAddress;
