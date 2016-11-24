@@ -35,7 +35,7 @@ import java.util.Arrays;
 public class Application {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
-	public static final String CONTEXT = "logarchiver";
+	public static final String CONTEXT = "restapi";
 
 	@Value("${adtrap.ipaddress}")
 	private String ipAddress;
@@ -64,8 +64,12 @@ public class Application {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	/**
+	 * Main entry point
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
-
 		SpringApplication.run(Application.class, args);
 	}
 
