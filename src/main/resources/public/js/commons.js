@@ -86,3 +86,11 @@ commons.textResponseToArray = function (responseText, columnName) {
 	});
 	return new google.visualization.arrayToDataTable(jsonArray);
 };
+
+commons.hideLoadingGears = function() {
+	"use strict";
+
+	$(window).ready(function() {
+		$("#loading").hide();
+	});
+}

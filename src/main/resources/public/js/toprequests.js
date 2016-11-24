@@ -10,6 +10,8 @@ function drawChart() {
 	var jsonHourData = commons.textResponseToArray(jsonRequestTypes, "QUERY_TYPE");
 	var jsonDayData = commons.textResponseToArray(jsonRequestDomains, "QUERY_DOMAIN");
 
+	commons.hideLoadingGears();
+
 	var requestTypesPie = new google.visualization.PieChart(document.getElementById("query_types_pie"));
 	var topRequestsBar = new google.visualization.BarChart(document.getElementById("top_requests_bar"));
 

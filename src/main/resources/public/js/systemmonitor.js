@@ -153,6 +153,9 @@ function drawChart() {
 	} else {
 		$("#database_status").addClass("glyphicon glyphicon-remove-circle");
 	}
+
+	commons.hideLoadingGears();
+
 	var chart = new google.visualization.Gauge(document.getElementById("gauges"));
 	chart.draw(gaugesData, options);
 

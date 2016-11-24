@@ -53,7 +53,8 @@
 				</span> API Documentation</a></li>
 					<form class="navbar-form navbar-left" action="/logout" th:action="@{/logout}" method="post">
 						<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-log-out">
-						</span> Logout</button>
+						</span> Logout
+						</button>
 					</form>
 				</ul>
 			</div>
@@ -70,6 +71,7 @@
 				</thead>
 			</table>
 		</div>
+		<div id="loading" class="row"></div>
 		<h2>Top Clients</h2>
 		<div class="row">
 			<div id="top_clients_pie" class="col-md-5"></div>
