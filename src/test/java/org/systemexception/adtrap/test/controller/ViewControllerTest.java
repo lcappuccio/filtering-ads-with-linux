@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.systemexception.adtrap.Application;
 import org.systemexception.adtrap.SecurityConfig;
+import org.systemexception.adtrap.controller.ViewController;
 
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
@@ -69,14 +70,14 @@ public class ViewControllerTest {
 	@Test
 	public void login_with_bad_credentials() throws Exception {
 		MvcResult mvcResult = sut.perform(MockMvcRequestBuilders.get("/login?error")
-				.param("error", "someError")).andExpect(status().isOk()).andReturn();
+				.param(ViewController.ATTRIBUTE_ERROR, "someError")).andExpect(status().isOk()).andReturn();
 
 		assertNull(mvcResult.getResponse().getErrorMessage());
 		assertTrue(mvcResult.getResponse().getContentAsString().contains("Please Login"));
 		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - login"));
-		String errorMessage = "Bad username or password.";
-		assertTrue(mvcResult.getResponse().getContentAsString().contains(errorMessage));
-		assertEquals(errorMessage, mvcResult.getModelAndView().getModel().get("error"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(ViewController.MESSAGE_ERROR));
+		assertEquals(ViewController.MESSAGE_ERROR,
+				mvcResult.getModelAndView().getModel().get(ViewController.ATTRIBUTE_ERROR));
 	}
 
 	@Test
@@ -89,9 +90,9 @@ public class ViewControllerTest {
 		assertNull(mvcResult.getResponse().getErrorMessage());
 		assertTrue(mvcResult.getResponse().getContentAsString().contains("Please Login"));
 		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - login"));
-		String logoutMessage = "You have been logged out.";
-		assertTrue(mvcResult.getResponse().getContentAsString().contains(logoutMessage));
-		assertEquals(logoutMessage, mvcResult.getModelAndView().getModel().get("message"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(ViewController.MESSAGE_LOGOUT));
+		assertEquals(ViewController.MESSAGE_LOGOUT,
+				mvcResult.getModelAndView().getModel().get(ViewController.ATTRIBUTE_MESSAGE));
 	}
 
 	@Test

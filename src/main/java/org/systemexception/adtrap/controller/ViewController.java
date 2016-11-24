@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "")
 public class ViewController {
 
+	public static final String ATTRIBUTE_ERROR = "error";
+	public static final String ATTRIBUTE_MESSAGE = "message";
+	public static final String MESSAGE_ERROR = "Bad username or password.";
+	public static final String MESSAGE_LOGOUT = "You have been logged out.";
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model, String error, String logout) {
 		if (error != null)
-			model.addAttribute("error", "Bad username or password.");
+			model.addAttribute(ATTRIBUTE_ERROR, MESSAGE_ERROR);
 
 		if (logout != null)
-			model.addAttribute("message", "You have been logged out.");
+			model.addAttribute(ATTRIBUTE_MESSAGE, MESSAGE_LOGOUT);
 
 		return "login";
 	}
