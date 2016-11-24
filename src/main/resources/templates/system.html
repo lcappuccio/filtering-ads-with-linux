@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
 	<title>adtrap - system monitor</title>
@@ -51,13 +50,10 @@
 					<li class="nav-item">
 						<a href="../swagger-ui.html" target="_blank"><span class="glyphicon glyphicon-info-sign">
 				</span> API Documentation</a></li>
-					<li class="nav-item">
-						<div>
-							<form action="#" th:action="@{/logout}" method="post">
-								<input type="submit" value="Logout"/>
-								<span>Logout</span></form>
-						</div>
-					</li>
+					<form class="navbar-form navbar-left" action="/logout" th:action="@{/logout}" method="post">
+						<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-log-out">
+						</span> Logout</button>
+					</form>
 				</ul>
 			</div>
 		</nav>
