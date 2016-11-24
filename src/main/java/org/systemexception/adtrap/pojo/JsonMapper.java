@@ -17,9 +17,9 @@ public class JsonMapper {
 	/**
 	 * Format log line as JSON for logarchiver
 	 *
-	 * @param logLine
-	 * @return
-	 * @throws ParseException
+	 * @param logLine a log line in dnsmasq format
+	 * @return an optional {@link org.systemexception.adtrap.model.DnsLogLine}
+	 * @throws ParseException if something goes wrong with the parsing
 	 */
 	public Optional<DnsLogLine> dnsLogLineFromLogLine(final String logLine) throws ParseException {
 		DnsLogLine dnsLogLine = new DnsLogLine();
@@ -40,9 +40,9 @@ public class JsonMapper {
 	/**
 	 * Handle exception for DHCP logs
 	 *
-	 * @param logSplitted
-	 * @param dnsLogLine
-	 * @return
+	 * @param logSplitted a dnsmasq log line splitted into an arraylist
+	 * @param dnsLogLine {@link org.systemexception.adtrap.model.DnsLogLine}
+	 * @return {@link org.systemexception.adtrap.model.DnsLogLine}
 	 */
 	private DnsLogLine dnsLogLineFromDhcpLogLine(final ArrayList<String> logSplitted, final DnsLogLine dnsLogLine) {
 		dnsLogLine.setQueryType(logSplitted.get(4));
