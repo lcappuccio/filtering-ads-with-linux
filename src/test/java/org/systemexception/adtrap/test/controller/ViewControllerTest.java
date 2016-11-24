@@ -20,6 +20,7 @@ import org.systemexception.adtrap.Application;
 import org.systemexception.adtrap.SecurityConfig;
 
 import static junit.framework.TestCase.assertNull;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -67,26 +68,30 @@ public class ViewControllerTest {
 
 	@Test
 	public void login_with_bad_credentials() throws Exception {
-		MvcResult mvcResult = sut.perform(MockMvcRequestBuilders.get("/login?error"))
-				.andExpect(status().isOk()).andReturn();
+		MvcResult mvcResult = sut.perform(MockMvcRequestBuilders.get("/login?error")
+				.param("error", "someError")).andExpect(status().isOk()).andReturn();
 
 		assertNull(mvcResult.getResponse().getErrorMessage());
 		assertTrue(mvcResult.getResponse().getContentAsString().contains("Please Login"));
 		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - login"));
-		assertTrue(mvcResult.getResponse().getContentAsString().contains("Bad username or password."));
+		String errorMessage = "Bad username or password.";
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(errorMessage));
+		assertEquals(errorMessage, mvcResult.getModelAndView().getModel().get("error"));
 	}
 
 	@Test
 	@WithMockUser(username = RestControllerTest.ADMIN, password = RestControllerTest.PASSWORD,
 			roles = {SecurityConfig.USER_ROLE})
 	public void logout_authenticated_user() throws Exception {
-		MvcResult mvcResult = sut.perform(MockMvcRequestBuilders.get("/login?logout"))
-				.andExpect(status().isOk()).andReturn();
+		MvcResult mvcResult = sut.perform(MockMvcRequestBuilders.get("/login?logout")
+				.param("logout", "logoutMessage")).andExpect(status().isOk()).andReturn();
 
 		assertNull(mvcResult.getResponse().getErrorMessage());
 		assertTrue(mvcResult.getResponse().getContentAsString().contains("Please Login"));
 		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - login"));
-		assertTrue(mvcResult.getResponse().getContentAsString().contains("You have been logged out."));
+		String logoutMessage = "You have been logged out.";
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(logoutMessage));
+		assertEquals(logoutMessage, mvcResult.getModelAndView().getModel().get("message"));
 	}
 
 	@Test
