@@ -93,4 +93,4 @@ commons.hideLoadingGears = function() {
 	$(window).ready(function() {
 		$("#loading").hide();
 	});
-}
+};
