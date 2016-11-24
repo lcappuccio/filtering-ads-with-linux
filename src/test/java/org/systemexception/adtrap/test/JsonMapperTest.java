@@ -23,8 +23,8 @@ public class JsonMapperTest {
 
 	@Test
 	public void should_convert_to_json() throws ParseException {
-		DnsLogLine dnsLogLine = sut.dnsLogLineFromLogLine(LogParserTest.timeToDate() + LogParser.LOG_LINE_SEPARATOR +
-				LogParserTest.LOG_LINE).get();
+		DnsLogLine dnsLogLine = sut.dnsLogLineFromLogLine(LogParserTest.timeToDate() +
+				LogParser.LOG_LINE_SEPARATOR + LogParserTest.LOG_LINE).get();
 
 		assertTrue("forwarded".equals(dnsLogLine.getQueryType()));
 		assertTrue("e4478.a.akamaiedge.net".equals(dnsLogLine.getQueryDomain()));
@@ -39,8 +39,8 @@ public class JsonMapperTest {
 
 	@Test
 	public void should_convert_dhcpack_to_json() throws ParseException {
-		DnsLogLine dnsLogLine = sut.dnsLogLineFromLogLine(LogParserTest.timeToDate() + LogParser.LOG_LINE_SEPARATOR +
-				LogParserTest.DHCPACK_LOG_LINE).get();
+		DnsLogLine dnsLogLine = sut.dnsLogLineFromLogLine(LogParserTest.timeToDate() +
+				LogParser.LOG_LINE_SEPARATOR + LogParserTest.DHCPACK_LOG_LINE).get();
 
 		assertTrue("DHCPACK(eth0)".equals(dnsLogLine.getQueryType()));
 		assertTrue("34:12:98:77:5e:b3".equals(dnsLogLine.getQueryDomain()));
