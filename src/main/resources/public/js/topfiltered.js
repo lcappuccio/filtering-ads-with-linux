@@ -10,6 +10,8 @@ function drawChart() {
 	var totalFiltered = commons.getRestResponse(commons.context + "countallfiltered", commons.textDataType);
 	var distinctFiltered = commons.getRestResponse(commons.context + "countdistinctfiltered", commons.textDataType);
 
+	commons.hideLoadingGears();
+
 	$("#total_advertisers").text(totalFiltered);
 	$("#distinct_advertisers").text(distinctFiltered);
 	var barChart = new google.visualization.BarChart(document.getElementById("top_filtered_bar"));

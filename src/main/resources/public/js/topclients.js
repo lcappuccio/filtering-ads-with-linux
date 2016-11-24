@@ -7,6 +7,8 @@ function drawChart() {
 	var jsonData = commons.getRestResponse(commons.context + "counttopclients", commons.jsonDataType);
 	var data = commons.textResponseToArray(jsonData, "Client");
 
+	commons.hideLoadingGears();
+
 	var pieChart = new google.visualization.PieChart(document.getElementById("top_clients_pie"));
 	pieChart.draw(data, commons.optionsPieChart);
 

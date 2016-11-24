@@ -10,6 +10,8 @@ function drawChart() {
 	var jsonDataByDay = commons.getRestResponse(commons.context + "monthlybyday", commons.jsonDataType);
 	var jsonDayData = commons.textResponseToArray(jsonDataByDay, "Day", commons.jsonDataType);
 
+	commons.hideLoadingGears();
+
 	var chartByHour = new google.visualization.LineChart(document.getElementById("advertisers_by_hour"));
 	var chartByDay = new google.visualization.LineChart(document.getElementById("advertisers_by_day"));
 
