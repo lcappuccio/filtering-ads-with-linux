@@ -66,6 +66,30 @@ public class ViewControllerTest {
 	}
 
 	@Test
+	public void login_with_bad_credentials() throws Exception {
+		MvcResult mvcResult = sut.perform(MockMvcRequestBuilders.get("/login?error"))
+				.andExpect(status().isOk()).andReturn();
+
+		assertNull(mvcResult.getResponse().getErrorMessage());
+		assertTrue(mvcResult.getResponse().getContentAsString().contains("Please Login"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - login"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains("Bad username or password."));
+	}
+
+	@Test
+	@WithMockUser(username = RestControllerTest.ADMIN, password = RestControllerTest.PASSWORD,
+			roles = {SecurityConfig.USER_ROLE})
+	public void logout_authenticated_user() throws Exception {
+		MvcResult mvcResult = sut.perform(MockMvcRequestBuilders.get("/login?logout"))
+				.andExpect(status().isOk()).andReturn();
+
+		assertNull(mvcResult.getResponse().getErrorMessage());
+		assertTrue(mvcResult.getResponse().getContentAsString().contains("Please Login"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - login"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains("You have been logged out."));
+	}
+
+	@Test
 	@WithMockUser(username = RestControllerTest.ADMIN, password = RestControllerTest.PASSWORD,
 			roles = {SecurityConfig.USER_ROLE})
 	public void clientlist() throws Exception {
