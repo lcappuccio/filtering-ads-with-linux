@@ -18,8 +18,17 @@
 <body>
 <div th:fragment="content" class="container-fluid">
 	<div class="jumbotron">
-		<h1 class="display-3">adtrap</h1>
-		<p class="lead">Trap your advertising</p>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<h1 class="display-3">adtrap</h1>
+					<p class="lead">Trap your advertising</p>
+				</div>
+				<div class="col-sm-2">
+					<img src="../images/adtrap-logo.png"/>
+				</div>
+			</div>
+		</div>
 	</div>
 	<form class="form-inline" name="f" th:action="@{/login}" method="post" default-target-url="/clientlist">
 		<fieldset>
