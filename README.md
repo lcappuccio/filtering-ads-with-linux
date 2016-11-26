@@ -313,7 +313,6 @@ Application queries in: `org.systemexception.adtrap.pojo.Queries`
 
 ## ToDo
 
-* **Introduce login and security**
 * How to handle HTTPS requests
 * Installation script
 * list creation frontend

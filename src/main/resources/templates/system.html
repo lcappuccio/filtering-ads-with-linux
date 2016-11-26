@@ -1,23 +1,22 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8">
-	<title>adtrap</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+	<title>adtrap - system monitor</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png"/>
 	<!-- CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
 	      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
-	<link rel="stylesheet" href="css/adtrap.css"/>
+	<link rel="stylesheet" href="../css/adtrap.css"/>
 	<!-- JS -->
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"
 	        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 	<!-- adtrap JS -->
-	<script type="text/javascript" src="js/commons.js"></script>
-	<script type="text/javascript" src="js/toprequests.js"></script>
+	<script type="text/javascript" src="../js/commons.js"></script>
+	<script type="text/javascript" src="../js/systemmonitor.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -31,33 +30,44 @@
 					</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="index.html">
+					<li class="nav-item"><a class="nav-link" href="clientlist">
 						<span class="glyphicon glyphicon-phone"></span> Clients</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="toprequests.html">
+					<li class="nav-item"><a class="nav-link" href="toprequests">
 						<span class="glyphicon glyphicon-cloud-upload"></span> Top Requests</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="topfiltered.html">
+					<li class="nav-item"><a class="nav-link" href="topfiltered">
 						<span class="glyphicon glyphicon-alert"></span> Top Advertisers</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="statistics.html">
+					<li class="nav-item"><a class="nav-link" href="statistics">
 						<span class="glyphicon glyphicon-stats"></span> Statistics</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="system.html">
+					<li class="nav-item"><a class="nav-link" href="system">
 						<span class="glyphicon glyphicon-dashboard"></span> System</a>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="../swagger-ui.html" target="_blank"><span class="glyphicon glyphicon-info-sign">
+					<li class="nav-item">
+						<a href="../swagger-ui.html" target="_blank"><span class="glyphicon glyphicon-info-sign">
 				</span> API Documentation</a></li>
+					<form class="navbar-form navbar-left" action="/logout" th:action="@{/logout}" method="post">
+						<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-log-out">
+						</span> Logout</button>
+					</form>
 				</ul>
 			</div>
 		</nav>
-		<h2>Top Requested Domains</h2>
-		<div class="row">
-			<div id="query_types_pie" class="col-md-5"></div>
-			<div id="top_requests_bar" class="col-md-6"></div>
-		</div>
+		<div id="loading" class="row"></div>
+		<h2>System Monitor</h2>
+		<div id="gauges"></div>
+		<h2>Status</h2>
+		<div id="status"></div>
+		<span id="database_status"></span> Database
+		<br /><br />
+		<span class="glyphicon glyphicon-hdd"></span> Disk free:<span id="disk_free"></span> / <span
+			id="disk_total"></span>
+		<br /><br />
+		<span class="glyphicon glyphicon-time"></span> Uptime: <span id="uptime"></span>
 	</div>
 </div>
 </body>

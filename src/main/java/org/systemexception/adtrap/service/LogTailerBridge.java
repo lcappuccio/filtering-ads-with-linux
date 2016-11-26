@@ -38,7 +38,7 @@ public class LogTailerBridge {
 	 * Posts data taken from the queue
 	 */
 	@Scheduled(cron = "* * * * * *")
-	public void postData() throws ParseException, InterruptedException {
+	public synchronized void postData() throws ParseException, InterruptedException {
 		int queueSize = logQueue.size();
 		for (int i = 0; i < queueSize; i++) {
 			String queueItem = (String) logQueue.take();
@@ -54,8 +54,8 @@ public class LogTailerBridge {
 	/**
 	 * Check if logline contains a domain in ignore list
 	 *
-	 * @param dnsLogLine
-	 * @return
+	 * @param dnsLogLine {@link org.systemexception.adtrap.model.DnsLogLine}
+	 * @return true if the domain is in the ignore list
 	 */
 	private boolean isDomainIgnored(DnsLogLine dnsLogLine) {
 		for (String ignoredDomain : ignoreList) {

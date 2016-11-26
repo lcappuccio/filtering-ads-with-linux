@@ -35,7 +35,7 @@ import java.util.Arrays;
 public class Application {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
-	public static final String CONTEXT = "logarchiver";
+	public static final String CONTEXT = "restapi";
 
 	@Value("${adtrap.ipaddress}")
 	private String ipAddress;
@@ -64,8 +64,12 @@ public class Application {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	/**
+	 * Main entry point
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
-
 		SpringApplication.run(Application.class, args);
 	}
 
@@ -80,14 +84,15 @@ public class Application {
 	}
 
 	@Bean
+	public Docket restfulApi() {
+		return new Docket(DocumentationType.SWAGGER_2).groupName("restful-api").select().build().apiInfo(getApiInfo());
+	}
+
+	@Bean
 	public LogTailerBridge logTailerBridge() {
 		return new LogTailerBridge(dataService(), logQueue, Arrays.asList(ignoreList));
 	}
 
-	@Bean
-	public Docket restfulApi() {
-		return new Docket(DocumentationType.SWAGGER_2).groupName("restful-api").select().build().apiInfo(apiInfo());
-	}
 
 	@PostConstruct
 	public void postConstruct() throws FileNotFoundException {
@@ -104,7 +109,7 @@ public class Application {
 		new Thread(logTailer).start();
 	}
 
-	private ApiInfo apiInfo() {
+	private ApiInfo getApiInfo() {
 		return new ApiInfo(
 				"Adtrap",
 				"Adtrap Application",

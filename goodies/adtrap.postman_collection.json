@@ -24,9 +24,24 @@
 		{
 			"name": "Count All",
 			"request": {
-				"url": "http://{{ip}}:{{port}}/logarchiver/countall",
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/restapi/countall",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -38,9 +53,24 @@
 		{
 			"name": "Count Distinct Filtered",
 			"request": {
-				"url": "http://{{ip}}:{{port}}/logarchiver/countdistinctfiltered",
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/restapi/countdistinctfiltered",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -52,9 +82,24 @@
 		{
 			"name": "Count Top Clients",
 			"request": {
-				"url": "http://{{ip}}:{{port}}/logarchiver/counttopclients",
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/restapi/counttopclients",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -66,9 +111,24 @@
 		{
 			"name": "Count Top Requests",
 			"request": {
-				"url": "http://{{ip}}:{{port}}/logarchiver/counttoprequests",
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/restapi/counttoprequests",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -80,9 +140,24 @@
 		{
 			"name": "Count All Filtered",
 			"request": {
-				"url": "http://{{ip}}:{{port}}/logarchiver/countallfiltered",
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/restapi/countallfiltered",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -94,9 +169,24 @@
 		{
 			"name": "Group By Filtered Domain",
 			"request": {
-				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyfiltereddomains",
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/restapi/groupbyfiltereddomains",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -108,9 +198,24 @@
 		{
 			"name": "Group By Query Domain",
 			"request": {
-				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyquerydomain",
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/restapi/groupbyquerydomain",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -122,9 +227,24 @@
 		{
 			"name": "Group By Query Target",
 			"request": {
-				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyquerytarget",
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/restapi/groupbyquerytarget",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -136,9 +256,24 @@
 		{
 			"name": "Group By Query Type",
 			"request": {
-				"url": "http://{{ip}}:{{port}}/logarchiver/groupbyquerytype",
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/restapi/groupbyquerytype",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -150,9 +285,24 @@
 		{
 			"name": "List DHCP Leases",
 			"request": {
-				"url": "http://{{ip}}:{{port}}/logarchiver/listdhcpleases",
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/restapi/listdhcpleases",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -164,9 +314,24 @@
 		{
 			"name": "Stats Daily By Houy",
 			"request": {
-				"url": "http://{{ip}}:{{port}}/logarchiver/dailybyhour",
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/restapi/dailybyhour",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -178,9 +343,24 @@
 		{
 			"name": "Stats Monthly By Day",
 			"request": {
-				"url": "http://{{ip}}:{{port}}/logarchiver/monthlybyday",
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://{{ip}}:{{port}}/restapi/monthlybyday",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []

@@ -42,7 +42,7 @@ public class LogTailerListener implements TailerListener {
 	}
 
 	@Override
-	public void handle(String line) {
+	public synchronized void handle(String line) {
 		try {
 			blockingQueue.put(line);
 		} catch (InterruptedException e) {
