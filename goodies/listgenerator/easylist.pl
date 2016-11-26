@@ -2,6 +2,7 @@
 #Source: https://newspaint.wordpress.com/2014/08/18/filtering-easylist-for-hosts-file-style-adblock/
 
 use strict;
+use warnings FATAL => 'all';
 
 my %hosts = ();
 while ( <> ) {
