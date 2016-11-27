@@ -97,9 +97,8 @@ On your home modem/router set the adtrap ipaddress as DNS. Remember to disable a
 ## Configure local webserver
 
 Will not get much into detail here, simply install lighttpd, apache, pixelserv or whatever other web server of your 
-choice. Personally I'm using apache.
-
-In `/etc/apache2/sites-enabled/000-default.conf` file:
+choice. For apache configure `/etc/apache2/sites-enabled/000-default.conf` (for other webservers chech the 
+documentation).
 
 ```
 <VirtualHost *:80>
@@ -190,7 +189,7 @@ See `application.properties` to configure.
 
 ## init, launch and stop scripts
 
-Use `launch.sh` and `stop.sh` in the folder where the jar was copied.
+Use `start.sh` and `stop.sh` in the folder where the jar was copied.
 
 Create a folder `config` and copy (with the opportune values) the `application.properties` configuration file.
 
