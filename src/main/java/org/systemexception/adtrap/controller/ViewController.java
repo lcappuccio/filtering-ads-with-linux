@@ -4,13 +4,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.systemexception.adtrap.pojo.StringUtils;
 
 /**
  * @author leo
  * @date 24/11/2016 10:49
  */
 @Controller
-@RequestMapping(value = "")
+@RequestMapping(value = StringUtils.EMTPY_STRING)
 public class ViewController {
 
 	public static final String ATTRIBUTE_ERROR = "error";

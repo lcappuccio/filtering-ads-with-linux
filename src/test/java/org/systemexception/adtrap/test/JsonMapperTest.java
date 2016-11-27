@@ -3,7 +3,7 @@ package org.systemexception.adtrap.test;
 import org.junit.Test;
 import org.systemexception.adtrap.model.DnsLogLine;
 import org.systemexception.adtrap.pojo.JsonMapper;
-import org.systemexception.adtrap.pojo.LogParser;
+import org.systemexception.adtrap.pojo.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,8 +23,8 @@ public class JsonMapperTest {
 
 	@Test
 	public void should_convert_to_json() throws ParseException {
-		DnsLogLine dnsLogLine = sut.dnsLogLineFromLogLine(LogParserTest.timeToDate() +
-				LogParser.LOG_LINE_SEPARATOR + LogParserTest.LOG_LINE).get();
+		DnsLogLine dnsLogLine = sut.dnsLogLineFromLogLine(StringUtilsTest.timeToDate() +
+				StringUtils.LOG_LINE_SEPARATOR + StringUtilsTest.LOG_LINE).get();
 
 		assertTrue("forwarded".equals(dnsLogLine.getQueryType()));
 		assertTrue("e4478.a.akamaiedge.net".equals(dnsLogLine.getQueryDomain()));
@@ -33,14 +33,14 @@ public class JsonMapperTest {
 
 	@Test
 	public void should_convert_dhcp_to_json() throws ParseException {
-		assertFalse(sut.dnsLogLineFromLogLine(LogParserTest.timeToDate() + LogParser.LOG_LINE_SEPARATOR +
-				LogParserTest.DHCP_LOG_LINE).isPresent());
+		assertFalse(sut.dnsLogLineFromLogLine(StringUtilsTest.timeToDate() + StringUtils.LOG_LINE_SEPARATOR +
+				StringUtilsTest.DHCP_LOG_LINE).isPresent());
 	}
 
 	@Test
 	public void should_convert_dhcpack_to_json() throws ParseException {
-		DnsLogLine dnsLogLine = sut.dnsLogLineFromLogLine(LogParserTest.timeToDate() +
-				LogParser.LOG_LINE_SEPARATOR + LogParserTest.DHCPACK_LOG_LINE).get();
+		DnsLogLine dnsLogLine = sut.dnsLogLineFromLogLine(StringUtilsTest.timeToDate() +
+				StringUtils.LOG_LINE_SEPARATOR + StringUtilsTest.DHCPACK_LOG_LINE).get();
 
 		assertTrue("DHCPACK(eth0)".equals(dnsLogLine.getQueryType()));
 		assertTrue("34:12:98:77:5e:b3".equals(dnsLogLine.getQueryDomain()));
@@ -49,18 +49,18 @@ public class JsonMapperTest {
 
 	@Test
 	public void should_skip_bad_line() throws ParseException {
-		assertFalse(sut.dnsLogLineFromLogLine(LogParserTest.BAD_LOG_LINE).isPresent());
+		assertFalse(sut.dnsLogLineFromLogLine(StringUtilsTest.BAD_LOG_LINE).isPresent());
 	}
 
 	@Test
 	public void should_skip_other_bad_line() throws ParseException {
-		assertFalse(sut.dnsLogLineFromLogLine(LogParserTest.BAD_LOG_LINE_A).isPresent());
+		assertFalse(sut.dnsLogLineFromLogLine(StringUtilsTest.BAD_LOG_LINE_A).isPresent());
 	}
 
 	@Test
 	public void should_skip_old_records() throws ParseException {
-		assertFalse(sut.dnsLogLineFromLogLine(timeToPreviousDate() + LogParser.LOG_LINE_SEPARATOR +
-				LogParserTest.LOG_LINE).isPresent());
+		assertFalse(sut.dnsLogLineFromLogLine(timeToPreviousDate() + StringUtils.LOG_LINE_SEPARATOR +
+				StringUtilsTest.LOG_LINE).isPresent());
 	}
 
 	private String timeToPreviousDate() {

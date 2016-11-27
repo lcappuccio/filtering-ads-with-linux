@@ -1,6 +1,6 @@
 package org.systemexception.adtrap.model;
 
-import org.systemexception.adtrap.pojo.LogParser;
+import org.systemexception.adtrap.pojo.StringUtils;
 
 /**
  * @author leo
@@ -50,6 +50,6 @@ public class DnsLogLine {
 
 	@Override
 	public String toString() {
-		return queryType + LogParser.LOG_LINE_SEPARATOR + queryDomain + LogParser.LOG_LINE_SEPARATOR + queryTarget;
+		return queryType + StringUtils.LOG_LINE_SEPARATOR + queryDomain + StringUtils.LOG_LINE_SEPARATOR + queryTarget;
 	}
 }

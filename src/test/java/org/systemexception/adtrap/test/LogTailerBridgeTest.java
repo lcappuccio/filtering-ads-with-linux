@@ -9,7 +9,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.systemexception.adtrap.Application;
-import org.systemexception.adtrap.pojo.LogParser;
+import org.systemexception.adtrap.pojo.StringUtils;
 import org.systemexception.adtrap.pojo.LogQueue;
 
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class LogTailerBridgeTest {
 
 	@Test
 	public void should_take() throws InterruptedException, IOException {
-		String outString = LogParserTest.timeToDate() + LogParser.LOG_LINE_SEPARATOR + LogParserTest.LOG_LINE;
+		String outString = StringUtilsTest.timeToDate() + StringUtils.LOG_LINE_SEPARATOR + StringUtilsTest.LOG_LINE;
 		logQueue.put(outString);
 
 		Thread.sleep(LogTailerListenerTest.THREAD_SLEEP);
@@ -54,7 +54,7 @@ public class LogTailerBridgeTest {
 
 	@Test
 	public void should_ignore_domains() throws InterruptedException, IOException {
-		String logLineToIgnore = LogParserTest.timeToDate() + LogParser.LOG_LINE_SEPARATOR +
+		String logLineToIgnore = StringUtilsTest.timeToDate() + StringUtils.LOG_LINE_SEPARATOR +
 				"dnsmasq[26446]: query[A] www.ignore1.com from 192.168.0.1";
 		logQueue.put(logLineToIgnore);
 
