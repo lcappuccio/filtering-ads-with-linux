@@ -21,42 +21,7 @@
 <body>
 <div class="container-fluid">
 	<div class="container-fluid">
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">
-						<span><img alt="Brand" src="../images/favicon-32x32.png" width="16" height="16"/></span>
-						Adtrap
-					</a>
-				</div>
-				<ul class="nav navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="clientlist">
-						<span class="glyphicon glyphicon-phone"></span> Clients</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="toprequests">
-						<span class="glyphicon glyphicon-cloud-upload"></span> Top Requests</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="topfiltered">
-						<span class="glyphicon glyphicon-alert"></span> Top Advertisers</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="statistics">
-						<span class="glyphicon glyphicon-stats"></span> Statistics</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="system">
-						<span class="glyphicon glyphicon-dashboard"></span> System</a>
-					</li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="nav-item">
-						<a href="../swagger-ui.html" target="_blank"><span class="glyphicon glyphicon-info-sign">
-				</span> API Documentation</a></li>
-					<form class="navbar-form navbar-left" action="/logout" th:action="@{/logout}" method="post">
-						<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-log-out">
-						</span> Logout</button>
-					</form>
-				</ul>
-			</div>
-		</nav>
+		<nav th:replace="fragments/navbar :: navbar"></nav>
 		<div id="loading" class="row"></div>
 		<h2>Top Requested Domains</h2>
 		<div class="row">
