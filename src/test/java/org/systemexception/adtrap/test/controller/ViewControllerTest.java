@@ -35,6 +35,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(locations = "classpath:application.properties")
 public class ViewControllerTest {
 
+	private static final String TITLE_HEADER_TAG = "<title>adtrap</title>";
+	private static final String TITLE_LOGIN_HEADER_TAG = "<title>adtrap - login</title>";
+
 	@Autowired
 	private FilterChainProxy springSecurityFilterChain;
 
@@ -64,7 +67,7 @@ public class ViewControllerTest {
 
 		assertNull(mvcResult.getResponse().getErrorMessage());
 		assertTrue(mvcResult.getResponse().getContentAsString().contains("Please Login"));
-		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - login"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(TITLE_LOGIN_HEADER_TAG));
 	}
 
 	@Test
@@ -74,7 +77,7 @@ public class ViewControllerTest {
 
 		assertNull(mvcResult.getResponse().getErrorMessage());
 		assertTrue(mvcResult.getResponse().getContentAsString().contains("Please Login"));
-		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - login"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(TITLE_LOGIN_HEADER_TAG));
 		assertTrue(mvcResult.getResponse().getContentAsString().contains(ViewController.MESSAGE_ERROR));
 		assertEquals(ViewController.MESSAGE_ERROR,
 				mvcResult.getModelAndView().getModel().get(ViewController.ATTRIBUTE_ERROR));
@@ -89,7 +92,7 @@ public class ViewControllerTest {
 
 		assertNull(mvcResult.getResponse().getErrorMessage());
 		assertTrue(mvcResult.getResponse().getContentAsString().contains("Please Login"));
-		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - login"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(TITLE_LOGIN_HEADER_TAG));
 		assertTrue(mvcResult.getResponse().getContentAsString().contains(ViewController.MESSAGE_LOGOUT));
 		assertEquals(ViewController.MESSAGE_LOGOUT,
 				mvcResult.getModelAndView().getModel().get(ViewController.ATTRIBUTE_MESSAGE));
@@ -103,7 +106,7 @@ public class ViewControllerTest {
 				.isOk()).andReturn();
 
 		assertNull(mvcResult.getResponse().getErrorMessage());
-		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - client list"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(TITLE_HEADER_TAG));
 	}
 
 	@Test
@@ -114,7 +117,7 @@ public class ViewControllerTest {
 				.isOk()).andReturn();
 
 		assertNull(mvcResult.getResponse().getErrorMessage());
-		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - statistics"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(TITLE_HEADER_TAG));
 	}
 
 	@Test
@@ -125,7 +128,7 @@ public class ViewControllerTest {
 				.isOk()).andReturn();
 
 		assertNull(mvcResult.getResponse().getErrorMessage());
-		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - system monitor"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(TITLE_HEADER_TAG));
 	}
 
 	@Test
@@ -136,7 +139,7 @@ public class ViewControllerTest {
 				.isOk()).andReturn();
 
 		assertNull(mvcResult.getResponse().getErrorMessage());
-		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - top filtered"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(TITLE_HEADER_TAG));
 	}
 
 	@Test
@@ -147,6 +150,6 @@ public class ViewControllerTest {
 				.isOk()).andReturn();
 
 		assertNull(mvcResult.getResponse().getErrorMessage());
-		assertTrue(mvcResult.getResponse().getContentAsString().contains("adtrap - top requests"));
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(TITLE_HEADER_TAG));
 	}
 }
