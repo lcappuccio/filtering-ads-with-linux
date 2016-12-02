@@ -109,7 +109,9 @@ public class MySqlDataService implements DataService {
 	 */
 	@Scheduled(cron = "0 0 * * * *")
 	public void cleanUpDatabase() {
-		long monthInMillis = System.currentTimeMillis() - (1000L * 60L * 60L * 24L * 30L);
+		long dayInMills = 1000L * 60L * 60L * 24L;
+		long daysBack = 30L;
+		long monthInMillis = System.currentTimeMillis() - (dayInMills * daysBack);
 		int deletedLines = jdbcTemplate.update(Queries.CLEANUP, monthInMillis);
 		LOGGER.info("Scheduled database cleanup: " + deletedLines + " lines deleted");
 	}

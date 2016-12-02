@@ -32,17 +32,17 @@ public class Queries {
 			"FROM DNS_LOG_LINES WHERE QUERY_TARGET = ? GROUP BY QUERY_DOMAIN ORDER BY 2 DESC LIMIT 20";
 
 	// STATISTICS
-	public static final String WEEKLY_BY_HOUR = "select * from (" +
-			"select FROM_UNIXTIME(LOG_TIME/1000, '%a %d %H:59') as LOG_DATE, count(*) as TOTAL " +
+	public static final String WEEKLY_BY_HOUR = "select LOG_DATE, TOTAL from (" +
+			"select FROM_UNIXTIME(LOG_TIME/1000, '%a %d %H:59') as LOG_DATE, LOG_TIME, count(*) as TOTAL " +
 			"from DNS_LOG_LINES where QUERY_TARGET = ? and UNIX_TIMESTAMP() - LOG_TIME/1000 > 3600 " +
 			"group by FROM_UNIXTIME(LOG_TIME/1000, '%d%m%H') order by LOG_TIME desc limit 24) data " +
-			"order by STR_TO_DATE(LOG_DATE, '%a %d %H:59') asc";
+			"order by LOG_TIME asc";
 	public static final String MONTHLY_BY_DAY = "select FROM_UNIXTIME(LOG_TIME/1000, '%a %d/%m') as LOG_DATE, " +
 			"count(*) as TOTAL from DNS_LOG_LINES where QUERY_TARGET = ? " +
 			"and STR_TO_DATE(FROM_UNIXTIME(LOG_TIME/1000, '%d/%m/%Y'), '%d/%m/%Y') " +
 			"BETWEEN NOW() - INTERVAL 31 DAY AND NOW() - INTERVAL 1 DAY " +
 			"group by FROM_UNIXTIME(LOG_TIME/1000, '%a%d%m') " +
-			"order by FROM_UNIXTIME(LOG_TIME/1000, '%d%m') asc";
+			"order by LOG_TIME asc";
 
 	// CLEANUP
 	public static final String CLEANUP = "DELETE FROM DNS_LOG_LINES WHERE LOG_TIME < ?";

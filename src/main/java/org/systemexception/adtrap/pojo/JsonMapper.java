@@ -23,7 +23,7 @@ public class JsonMapper {
 	 */
 	public Optional<DnsLogLine> dnsLogLineFromLogLine(final String logLine) throws ParseException {
 		DnsLogLine dnsLogLine = new DnsLogLine();
-		ArrayList<String> logSplitted = LogParser.splitLogLine(logLine);
+		ArrayList<String> logSplitted = StringUtils.splitLogLine(logLine);
 		if (logSplitted.size() != DNSMASQ_STANDARD_LINE_SIZE || !isValidDate(logLine)) {
 			return Optional.empty();
 		}
@@ -31,9 +31,9 @@ public class JsonMapper {
 		if (logLine.contains("dnsmasq-dhcp")) {
 			return Optional.of(dnsLogLineFromDhcpLogLine(logSplitted, dnsLogLine));
 		}
-		dnsLogLine.setQueryType(logSplitted.get(LogParser.QUERY_TYPE));
-		dnsLogLine.setQueryDomain(logSplitted.get(LogParser.DOMAIN));
-		dnsLogLine.setQueryTarget(logSplitted.get(LogParser.TARGET));
+		dnsLogLine.setQueryType(logSplitted.get(StringUtils.QUERY_TYPE));
+		dnsLogLine.setQueryDomain(logSplitted.get(StringUtils.DOMAIN));
+		dnsLogLine.setQueryTarget(logSplitted.get(StringUtils.TARGET));
 		return Optional.of(dnsLogLine);
 	}
 
@@ -54,14 +54,14 @@ public class JsonMapper {
 	private boolean isValidDate(final String logLine)
 			throws ParseException {
 
-		ArrayList<String> logSplitted = LogParser.splitLogLine(logLine);
-		String monthText = logSplitted.get(LogParser.QUERY_MONTH);
-		String dayOfMonth = logSplitted.get(LogParser.QUERY_DAY);
-		String hhmmss = logSplitted.get(LogParser.QUERY_TIME);
+		ArrayList<String> logSplitted = StringUtils.splitLogLine(logLine);
+		String monthText = logSplitted.get(StringUtils.QUERY_MONTH);
+		String dayOfMonth = logSplitted.get(StringUtils.QUERY_DAY);
+		String hhmmss = logSplitted.get(StringUtils.QUERY_TIME);
 		Calendar calendar = Calendar.getInstance();
 		String year = String.valueOf(calendar.get(Calendar.YEAR));
 
-		String dateString = dayOfMonth + "/" + monthText + "/" + year + LogParser.LOG_LINE_SEPARATOR + hhmmss;
+		String dateString = dayOfMonth + "/" + monthText + "/" + year + StringUtils.LOG_LINE_SEPARATOR + hhmmss;
 		SimpleDateFormat dateParser = new SimpleDateFormat("d/MMM/yyyy HH:mm:ss", Locale.getDefault());
 		Date parsedDate = dateParser.parse(dateString);
 

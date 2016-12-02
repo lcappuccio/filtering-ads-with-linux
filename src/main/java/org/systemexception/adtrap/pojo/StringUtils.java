@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author leo
  * @date 02/11/2016 20:45
  */
-public class LogParser {
+public class StringUtils {
 
 	public static final String LOG_LINE_SEPARATOR = " ";
 	public static final int QUERY_MONTH = 0;
@@ -15,7 +15,7 @@ public class LogParser {
 	public static final int QUERY_TYPE = 4;
 	public static final int DOMAIN = 5;
 	public static final int TARGET = 7;
-	private static final String EMTPY_STRING = "";
+	public static final String EMTPY_STRING = "";
 
 	public static ArrayList<String> splitLogLine(final String logLine) {
 

@@ -1,7 +1,7 @@
 package org.systemexception.adtrap.test;
 
 import org.junit.Test;
-import org.systemexception.adtrap.pojo.LogParser;
+import org.systemexception.adtrap.pojo.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
  * @author leo
  * @date 02/11/2016 20:47
  */
-public class LogParserTest {
+public class StringUtilsTest {
 
 	public static final String LOG_LINE = "dnsmasq[27711]: forwarded e4478.a.akamaiedge.net to 8.8.4.4";
 	public static final String DHCP_LOG_LINE = "dnsmasq-dhcp[1643]: DHCPREQUEST(eth0) 192.168.0.214 34:12:98:77:5e:b3";
@@ -29,7 +29,7 @@ public class LogParserTest {
 
 	@Test
 	public void should_split_log_line() {
-		ArrayList<String> splitLog = LogParser.splitLogLine(timeToDate() + LogParser.LOG_LINE_SEPARATOR + LOG_LINE);
+		ArrayList<String> splitLog = StringUtils.splitLogLine(timeToDate() + StringUtils.LOG_LINE_SEPARATOR + LOG_LINE);
 
 		assertEquals("dnsmasq[27711]:", splitLog.get(3));
 		assertEquals(QUERY_TYPE, splitLog.get(4));
@@ -40,7 +40,7 @@ public class LogParserTest {
 
 	@Test
 	public void should_split_dhcp_log_line() {
-		ArrayList<String> splitLog = LogParser.splitLogLine(timeToDate() + LogParser.LOG_LINE_SEPARATOR + DHCP_LOG_LINE);
+		ArrayList<String> splitLog = StringUtils.splitLogLine(timeToDate() + StringUtils.LOG_LINE_SEPARATOR + DHCP_LOG_LINE);
 
 		assertEquals("dnsmasq-dhcp[1643]:", splitLog.get(3));
 		assertEquals("DHCPREQUEST(eth0)", splitLog.get(4));
@@ -50,7 +50,7 @@ public class LogParserTest {
 
 	@Test
 	public void should_split_dhcpack_log_line() {
-		ArrayList<String> splitLog = LogParser.splitLogLine(timeToDate() + LogParser.LOG_LINE_SEPARATOR + DHCPACK_LOG_LINE);
+		ArrayList<String> splitLog = StringUtils.splitLogLine(timeToDate() + StringUtils.LOG_LINE_SEPARATOR + DHCPACK_LOG_LINE);
 
 		assertEquals("dnsmasq-dhcp[1643]:", splitLog.get(3));
 		assertEquals("DHCPACK(eth0)", splitLog.get(4));

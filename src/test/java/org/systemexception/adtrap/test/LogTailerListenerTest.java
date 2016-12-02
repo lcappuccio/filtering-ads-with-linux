@@ -84,11 +84,11 @@ public class LogTailerListenerTest {
 
 	@Test
 	public void should_listen_new_lines() throws InterruptedException, IOException {
-		write(testLogFile, LogParserTest.LOG_LINE);
+		write(testLogFile, StringUtilsTest.LOG_LINE);
 		Thread.sleep(THREAD_SLEEP);
 		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
 
-		assertTrue("Not logged " + LogParserTest.LOG_LINE, logFileToString.contains("e4478.a.akamaiedge.net"));
+		assertTrue("Not logged " + StringUtilsTest.LOG_LINE, logFileToString.contains("e4478.a.akamaiedge.net"));
 	}
 
 	@Test
@@ -108,11 +108,11 @@ public class LogTailerListenerTest {
 
 	@Test
 	public void should_log_file_rotate() throws InterruptedException, IOException {
-		String outString = LogParserTest.LOG_LINE;
+		String outString = StringUtilsTest.LOG_LINE;
 		write(testLogFile, outString);
 		Thread.sleep(THREAD_SLEEP);
 		FileUtils.moveFile(testLogFile, testLogFileRotate);
-		outString = LogParserTest.LOG_LINE;
+		outString = StringUtilsTest.LOG_LINE;
 		write(testLogFile, outString);
 		Thread.sleep(THREAD_SLEEP);
 		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());

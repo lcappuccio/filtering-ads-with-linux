@@ -2,7 +2,7 @@ package org.systemexception.adtrap.test;
 
 import org.junit.Test;
 import org.systemexception.adtrap.model.DnsLogLine;
-import org.systemexception.adtrap.pojo.LogParser;
+import org.systemexception.adtrap.pojo.StringUtils;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,8 +22,8 @@ public class DnsLogLineTest {
 		sut.setQueryType("query[A]");
 		sut.setQueryTarget("8.8.8.8");
 
-		assertEquals("query[A]" + LogParser.LOG_LINE_SEPARATOR + "www.test.it" +
-				LogParser.LOG_LINE_SEPARATOR + "8.8.8.8",sut.toString());
+		assertEquals("query[A]" + StringUtils.LOG_LINE_SEPARATOR + "www.test.it" +
+				StringUtils.LOG_LINE_SEPARATOR + "8.8.8.8",sut.toString());
 
 	}
 }
