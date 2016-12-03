@@ -1,4 +1,4 @@
-package org.systemexception.adtrap.test;
+package org.systemexception.adtrap.test.service;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -11,6 +11,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.systemexception.adtrap.Application;
 import org.systemexception.adtrap.pojo.StringUtils;
 import org.systemexception.adtrap.pojo.LogQueue;
+import org.systemexception.adtrap.test.pojo.LogTailerListenerTest;
+import org.systemexception.adtrap.test.pojo.StringUtilsTest;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

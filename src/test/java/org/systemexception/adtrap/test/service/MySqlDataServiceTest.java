@@ -1,4 +1,4 @@
-package org.systemexception.adtrap.test;
+package org.systemexception.adtrap.test.service;
 
 import org.junit.Before;
 import org.junit.Test;
