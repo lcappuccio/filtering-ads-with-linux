@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.file.FileSystemException;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
@@ -52,19 +51,13 @@ public class LogTailerListenerTest {
 		URL testLogFileUrl = ClassLoader.getSystemResource(TEST_LOG_FILE);
 		testLogFile = new File(testLogFileUrl.toURI());
 		if (testLogFile.exists()) {
-			boolean delete = testLogFile.delete();
-			if (!delete) {
-				throw new FileSystemException("Could not delete");
-			}
+			FileUtils.deleteQuietly(testLogFile);
 		}
 		String outString = "STARTING";
 		write(testLogFile, outString);
 		testLogFileRotate = new File(testLogFile.getAbsolutePath() + ".1");
 		if (testLogFileRotate.exists()) {
-			boolean delete = testLogFileRotate.delete();
-			if (!delete) {
-				throw new FileSystemException("Could not delete");
-			}
+			FileUtils.deleteQuietly(testLogFileRotate);
 		}
 	}
 
