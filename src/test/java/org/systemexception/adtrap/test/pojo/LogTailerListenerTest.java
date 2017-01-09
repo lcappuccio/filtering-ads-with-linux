@@ -101,16 +101,18 @@ public class LogTailerListenerTest {
 
 	@Test
 	public void should_log_file_rotate() throws InterruptedException, IOException {
-		String outString = StringUtilsTest.LOG_LINE;
-		write(testLogFile, outString);
-		Thread.sleep(THREAD_SLEEP);
-		FileUtils.moveFile(testLogFile, testLogFileRotate);
-		outString = StringUtilsTest.LOG_LINE;
-		write(testLogFile, outString);
-		Thread.sleep(THREAD_SLEEP);
-		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
+		if (!System.getProperty("os.name").contains("Windows")) {
+			String outString = StringUtilsTest.LOG_LINE;
+			write(testLogFile, outString);
+			Thread.sleep(THREAD_SLEEP);
+			FileUtils.moveFile(testLogFile, testLogFileRotate);
+			outString = StringUtilsTest.LOG_LINE;
+			write(testLogFile, outString);
+			Thread.sleep(THREAD_SLEEP);
+			String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
 
-		assertTrue("File rotation not logged", logFileToString.contains("File rotated"));
+			assertTrue("File rotation not logged", logFileToString.contains("File rotated"));
+		}
 	}
 
 	@Test
