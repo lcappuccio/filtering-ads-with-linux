@@ -153,4 +153,14 @@ public class RestController {
 
 		return new ResponseEntity<>(dhcpLeases, HttpStatus.OK);
 	}
+
+	@RequestMapping(value = "getignoreddomains", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map<String, Object>>> getIgnoredDomains() {
+
+		LOGGER.info("RestController List ignored domains");
+		List<Map<String, Object>> ignoredDomains = dataService.getIgnoredDomains();
+
+		return new ResponseEntity<>(ignoredDomains, HttpStatus.OK);
+	}
 }
