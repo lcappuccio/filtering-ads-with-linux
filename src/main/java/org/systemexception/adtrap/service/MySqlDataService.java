@@ -39,85 +39,85 @@ public class MySqlDataService implements DataService {
 
 	@Override
 	public int countAll() {
-		LOGGER.info("Count all");
+		LOGGER.debug("Count all");
 		return jdbcTemplate.queryForObject(Queries.COUNT_ALL, Integer.class);
 	}
 
 	@Override
 	public int countAllFiltered() {
-		LOGGER.info("Count all filtered");
+		LOGGER.debug("Count all filtered");
 		return jdbcTemplate.queryForObject(Queries.COUNT_ALL_FILTERED, new Object[]{ipAddress}, Integer.class);
 	}
 
 	@Override
 	public int countDistinctAdvertisersFiltered() {
-		LOGGER.info("Count distinct advertisers filtered");
+		LOGGER.debug("Count distinct advertisers filtered");
 		return jdbcTemplate.queryForObject(Queries.COUNT_DISTINCT_ADVERTISERS, new Object[]{ipAddress}, Integer.class);
 	}
 
 	@Override
 	public List<Map<String, Object>> countTopClients() {
-		LOGGER.info("Count top clients");
+		LOGGER.debug("Count top clients");
 		return jdbcTemplate.queryForList(Queries.COUNT_TOP_CLIENTS, "query[A]");
 	}
 
 	@Override
 	public List<Map<String, Object>> countTopRequests() {
-		LOGGER.info("Count top requests");
+		LOGGER.debug("Count top requests");
 		return jdbcTemplate.queryForList(Queries.COUNT_TOP_REQUESTS, "query[A]", "%" + homeDomain + "%");
 	}
 
 	@Override
 	public List<Map<String, Object>> groupByQueryType() {
-		LOGGER.info("Group by query type");
+		LOGGER.debug("Group by query type");
 		return jdbcTemplate.queryForList(Queries.GROUP_BY_QUERY_TYPE);
 	}
 
 	@Override
 	public List<Map<String, Object>> groupByQueryDomain() {
-		LOGGER.info("Group by query domain");
+		LOGGER.debug("Group by query domain");
 		return jdbcTemplate.queryForList(Queries.GROUP_BY_QUERY_DOMAIN);
 	}
 
 	@Override
 	public List<Map<String, Object>> groupByQueryTarget() {
-		LOGGER.info("Group by query target");
+		LOGGER.debug("Group by query target");
 		return jdbcTemplate.queryForList(Queries.GROUP_BY_QUERY_TARGET);
 	}
 
 	@Override
 	public List<Map<String, Object>> groupByFilteredDomains() {
-		LOGGER.info("Group by query filtered domains");
+		LOGGER.debug("Group by query filtered domains");
 		return jdbcTemplate.queryForList(Queries.GROUP_BY_FILTERED_DOMAINS, ipAddress);
 	}
 
 	@Override
 	public List<Map<String, Object>> dailyByHour() {
-		LOGGER.info("Get statistics by hour");
+		LOGGER.debug("Get statistics by hour");
 		return jdbcTemplate.queryForList(Queries.WEEKLY_BY_HOUR, ipAddress);
 	}
 
 	@Override
 	public List<Map<String, Object>> monthlyByDay() {
-		LOGGER.info("Get statistics by day");
+		LOGGER.debug("Get statistics by day");
 		return jdbcTemplate.queryForList(Queries.MONTHLY_BY_DAY, ipAddress);
 	}
 
 	@Override
 	public List<Map<String, Object>> getIgnoredDomains() {
-		LOGGER.info("Refreshing ignored domain list");
+		LOGGER.debug("Refreshing ignored domain list");
 		return jdbcTemplate.queryForList(Queries.GET_IGNORED_DOMAINS);
 	}
 
 	@Override
 	public void addIgnoredDomain(final String ignoredDomain) {
-		LOGGER.info(String.format("Add ignored domain %s", ignoredDomain));
+		LOGGER.debug(String.format("Add ignored domain %s", ignoredDomain));
 		jdbcTemplate.update(Queries.SAVE_IGNORED_DOMAIN, ignoredDomain);
 	}
 
 	@Override
 	public void removeIgnoredDomain(final String ignoredDomain) {
-		LOGGER.info(String.format("Delete ignored domain %s", ignoredDomain));
+		LOGGER.debug(String.format("Delete ignored domain %s", ignoredDomain));
 		jdbcTemplate.update(Queries.DELETE_IGNORED_DOMAIN, ignoredDomain);
 	}
 
