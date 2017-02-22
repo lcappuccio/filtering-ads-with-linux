@@ -197,4 +197,15 @@ public class RestControllerTest {
 		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dataService).addIgnoredDomain(ignoredDomain);
 	}
+
+	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
+	public void should_remove_ignored_domains() throws Exception {
+		String ignoredDomain = "TestIgnoredDomain";
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.post("/restapi/removeignoreddomain")
+				.param("domain", ignoredDomain)).andExpect(status().isOk());
+
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
+		verify(dataService).removeIgnoredDomain(ignoredDomain);
+	}
 }
