@@ -18,6 +18,7 @@ public class ViewController {
 	public static final String ATTRIBUTE_MESSAGE = "message";
 	public static final String MESSAGE_ERROR = "Bad username or password.";
 	public static final String MESSAGE_LOGOUT = "You have been logged out.";
+	private static final String VIEW_ADMIN = "admin";
 	private static final String VIEW_CLIENTLIST = "clientlist";
 	private static final String VIEW_LOGIN = "login";
 	private static final String VIEW_STATISTICS = "statistics";
@@ -34,6 +35,11 @@ public class ViewController {
 			model.addAttribute(ATTRIBUTE_MESSAGE, MESSAGE_LOGOUT);
 
 		return VIEW_LOGIN;
+	}
+
+	@RequestMapping(value = VIEW_ADMIN, method = RequestMethod.GET)
+	public String viewAdmin(Model model) {
+		return VIEW_ADMIN;
 	}
 
 	@RequestMapping(value = VIEW_CLIENTLIST, method = RequestMethod.GET)
