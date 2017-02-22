@@ -55,6 +55,7 @@ public class MySqlDataServiceTest {
 		dnsLogLine.setQueryTarget("127.0.0.1");
 		dnsLogLine.setQueryType("query[A]");
 		sut.save(dnsLogLine);
+		sut.addIgnoredDomain("example_domain");
 	}
 
 	@Test
@@ -146,5 +147,12 @@ public class MySqlDataServiceTest {
 		List<Map<String, Object>> maps = sut.monthlyByDay();
 
 		assertTrue(maps.size() > 0);
+	}
+
+	@Test
+	public void should_have_an_ignored_domain() {
+		List<Map<String, Object>> ignoredDomains = sut.getIgnoredDomains();
+
+		assertTrue(ignoredDomains.size() > 0);
 	}
 }

@@ -29,7 +29,6 @@ public class MySqlDataService implements DataService {
 		this.homeDomain = homeDomain;
 	}
 
-
 	@Override
 	public DnsLogLine save(DnsLogLine dnsLogLine) {
 		LOGGER.info("Received: " + dnsLogLine.toString());
@@ -102,6 +101,24 @@ public class MySqlDataService implements DataService {
 	public List<Map<String, Object>> monthlyByDay() {
 		LOGGER.info("Get statistics by day");
 		return jdbcTemplate.queryForList(Queries.MONTHLY_BY_DAY, ipAddress);
+	}
+
+	@Override
+	public List<Map<String, Object>> getIgnoredDomains() {
+		LOGGER.info("Refreshing ignored domain list");
+		return jdbcTemplate.queryForList(Queries.GET_IGNORED_DOMAINS);
+	}
+
+	@Override
+	public void addIgnoredDomain(final String ignoredDomain) {
+		LOGGER.info(String.format("Add ignored domain %s", ignoredDomain));
+		jdbcTemplate.update(Queries.SAVE_IGNORED_DOMAIN, ignoredDomain);
+	}
+
+	@Override
+	public void removeIgnoredDomain(final String ignoredDomain) {
+		LOGGER.info(String.format("Delete ignored domain %s", ignoredDomain));
+		jdbcTemplate.update(Queries.DELETE_IGNORED_DOMAIN, ignoredDomain);
 	}
 
 	/**

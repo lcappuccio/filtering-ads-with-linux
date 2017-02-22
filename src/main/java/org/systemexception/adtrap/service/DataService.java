@@ -98,4 +98,20 @@ public interface DataService {
 	 */
 	List<Map<String, Object>> monthlyByDay();
 
+	/**
+	 * Get list of ignored domains
+	 * @return
+	 */
+	List<Map<String, Object>> getIgnoredDomains();
+
+	/**
+	 * Add a new entry to the ignored domain list
+	 */
+	void addIgnoredDomain(String ignoredDomain);
+
+	/**
+	 * Remove an entry from the ignored domain list
+	 */
+	void removeIgnoredDomain(String ignoredDomain);
+
 }
