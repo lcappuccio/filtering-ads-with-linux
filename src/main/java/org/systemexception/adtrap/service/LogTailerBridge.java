@@ -70,11 +70,16 @@ public class LogTailerBridge {
 		return false;
 	}
 
+	/**
+	 * Fetch the ignored domain list from the database
+	 *
+	 * @return
+	 */
 	private List<String> getIgnoredDomainList() {
 		List<String> ignoredDomainList = new ArrayList<>();
 		List<Map<String, Object>> ignoredDomains = dataService.getIgnoredDomains();
 
-		for (Map<String, Object> entry: ignoredDomains) {
+		for (Map<String, Object> entry : ignoredDomains) {
 			ignoredDomainList.add(String.valueOf(entry.get("IGNORE_DOMAIN")));
 		}
 
