@@ -46,4 +46,14 @@ public class Queries {
 
 	// CLEANUP
 	public static final String CLEANUP = "DELETE FROM DNS_LOG_LINES WHERE LOG_TIME < ?";
+
+	/**
+	 * IGNORE LIST
+	 */
+
+	// SAVE_IGNORED_DOMAIN
+	public static final String SAVE_IGNORED_DOMAIN = "INSERT INTO DNS_IGNORE (DNS_IGNORE) VALUES (?)";
+
+	// DELETE_IGNORED_DOMAIN
+	public static final String DELETE_IGNORED_DOMAIN = "DELETE FROM DNS_IGNORE WHERE IGNORE_ID = ?";
 }
