@@ -1,5 +1,6 @@
 package org.systemexception.adtrap.test.service;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,6 +57,12 @@ public class MySqlDataServiceTest {
 		dnsLogLine.setQueryType("query[A]");
 		sut.save(dnsLogLine);
 		sut.addIgnoredDomain("example_domain");
+	}
+
+	@After
+	public void tearDown() {
+		jdbcTemplate.update("DELETE FROM DNS_LOG_LINES");
+		jdbcTemplate.update("DELETE FROM DNS_IGNORE");
 	}
 
 	@Test
