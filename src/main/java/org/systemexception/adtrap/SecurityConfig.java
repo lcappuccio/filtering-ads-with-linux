@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				.antMatchers("/css**").permitAll()
 				.antMatchers("/health").permitAll()
+				.antMatchers("/images/**").permitAll()
 				.antMatchers("/metrics").permitAll()
 				.antMatchers("/**").hasRole(USER_ROLE)
 				.and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/clientlist", true)
