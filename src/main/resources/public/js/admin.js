@@ -11,6 +11,15 @@ function addIgnoredDomain() {
     });
 }
 
+function removeIgnoredDomain(domainToRemove) {
+    $.ajax({
+        data: jQuery.param({domain: domainToRemove}),
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        url: commons.context + "removeignoreddomain",
+        type: "POST"
+    });
+}
+
 $(document).ready(function () {
     commons.hideLoadingGears();
 });

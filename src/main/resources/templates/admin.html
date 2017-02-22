@@ -22,8 +22,9 @@
 					<td th:text="${ignoredDomain.IGNORE_ID}"></td>
 					<td th:text="${ignoredDomain.IGNORE_DOMAIN}"></td>
 					<td>
-						<button class="btn btn-xs" type="button" onclick="removeIgnoredDomain()"
-						        th:id="${ignoredDomain.IGNORE_DOMAIN}"><span class="glyphicon glyphicon-remove"></span>
+						<button class="btn btn-xs" type="button"
+						        th:onclick="'removeIgnoredDomain(\'' + ${ignoredDomain.IGNORE_DOMAIN} + '\');'">
+							<span class="glyphicon glyphicon-remove"></span>
 						</button>
 					</td>
 				</tr>
