@@ -9,6 +9,7 @@ function addIgnoredDomain() {
         url: commons.context + "addignoreddomain",
         type: "POST"
     });
+    location.reload();
 }
 
 function removeIgnoredDomain(domainToRemove) {
@@ -18,6 +19,7 @@ function removeIgnoredDomain(domainToRemove) {
         url: commons.context + "removeignoreddomain",
         type: "POST"
     });
+    location.reload();
 }
 
 $(document).ready(function () {
