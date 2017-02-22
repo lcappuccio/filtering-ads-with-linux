@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.systemexception.adtrap.Application;
 import org.systemexception.adtrap.model.DhcpLease;
 import org.systemexception.adtrap.service.DataService;
@@ -47,7 +48,8 @@ public class RestController {
 		return new ResponseEntity<>(dataService.countAll(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "countallfiltered", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "countallfiltered", method = RequestMethod.GET, produces = MediaType
+			.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> countAllFiltered() {
 
 		LOGGER.info("RestController Count all filtered");
@@ -162,5 +164,15 @@ public class RestController {
 		List<Map<String, Object>> ignoredDomains = dataService.getIgnoredDomains();
 
 		return new ResponseEntity<>(ignoredDomains, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "addignoreddomain", method = RequestMethod.POST,
+			params = {"domain"}, produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<HttpStatus> addIgnoredDomain(@RequestParam(value = "domain") final String ignoredDomain) {
+
+		LOGGER.info("RestController Add ignored domain");
+		dataService.addIgnoredDomain(ignoredDomain);
+
+		return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 	}
 }

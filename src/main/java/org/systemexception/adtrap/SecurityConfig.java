@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
 		http.authorizeRequests()
 				.antMatchers("/css**").permitAll()
 				.antMatchers("/health").permitAll()
@@ -35,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/clientlist", true)
 				.and().logout().permitAll();
 		http.authorizeRequests().antMatchers(Application.CONTEXT, HttpMethod.GET.toString()).hasRole(USER_ROLE)
+				.and().httpBasic();
+		http.authorizeRequests().antMatchers(Application.CONTEXT, HttpMethod.POST.toString()).hasRole(USER_ROLE)
 				.and().httpBasic();
 	}
 
