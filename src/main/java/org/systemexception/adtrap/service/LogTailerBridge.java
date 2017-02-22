@@ -39,6 +39,9 @@ public class LogTailerBridge {
 	 */
 	@Scheduled(cron = "* * * * * *")
 	public synchronized void postData() throws ParseException, InterruptedException {
+
+		// TODO LC refresh ignore list here
+
 		int queueSize = logQueue.size();
 		for (int i = 0; i < queueSize; i++) {
 			String queueItem = (String) logQueue.take();
