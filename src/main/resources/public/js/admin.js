@@ -1,7 +1,7 @@
 /*eslint no-undef: "error"*/
 /* global $, commons, jQuery */
 
-function addIgnoredDomain() {
+function addIgnoredDomain() { // eslint-disable-line 
     var findByNameString = document.getElementById("addDomainTextField").value;
     $.ajax({
         data: jQuery.param({domain: findByNameString}),
@@ -14,7 +14,7 @@ function addIgnoredDomain() {
     });
 }
 
-function removeIgnoredDomain(domainToRemove) {
+function removeIgnoredDomain(domainToRemove) { // eslint-disable-line
     $.ajax({
         data: jQuery.param({domain: domainToRemove}),
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
