@@ -37,16 +37,14 @@ public class LogTailerBridge {
 	 * Posts data taken from the queue
 	 */
 	@Scheduled(cron = "* * * * * *")
-	public synchronized void postData() throws ParseException, InterruptedException {
-
-		// TODO LC refresh ignore list here
-
-		int queueSize = logQueue.size();
+	public synchronized void postData() throws ParseException, InterruptedException {int queueSize = logQueue.size();
 		for (int i = 0; i < queueSize; i++) {
 			String queueItem = (String) logQueue.take();
 			Optional<DnsLogLine> dnsLogLine = jsonMapper.dnsLogLineFromLogLine(queueItem);
-			if (dnsLogLine.isPresent() && !isDomainIgnored(dnsLogLine.get())) {
-				dataService.save(dnsLogLine.get());
+			if (dnsLogLine.isPresent()) {
+				if (!isDomainIgnored(dnsLogLine.get())) {
+					dataService.save(dnsLogLine.get());
+				}
 			} else {
 				LOGGER.warn("Bad line caught, skipped: " + queueItem);
 			}
