@@ -31,6 +31,7 @@ import java.util.Map;
 public class RestController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RestController.class);
+	private static final String DOMAIN_PARAMETER = "domain";
 	private final DataService dataService;
 	private final DhcpLeasesReader dhcpLeasesReader;
 
@@ -167,8 +168,9 @@ public class RestController {
 	}
 
 	@RequestMapping(value = "addignoreddomain", method = RequestMethod.POST,
-			params = {"domain"}, produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<HttpStatus> addIgnoredDomain(@RequestParam(value = "domain") final String ignoredDomain) {
+			params = {DOMAIN_PARAMETER}, produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<HttpStatus> addIgnoredDomain(
+			@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
 
 		LOGGER.info("RestController Add ignored domain");
 		dataService.addIgnoredDomain(ignoredDomain);
@@ -177,8 +179,9 @@ public class RestController {
 	}
 
 	@RequestMapping(value = "removeignoreddomain", method = RequestMethod.POST,
-			params = {"domain"}, produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<HttpStatus> removeIgnoredDomain(@RequestParam(value = "domain") final String ignoredDomain) {
+			params = {DOMAIN_PARAMETER}, produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<HttpStatus> removeIgnoredDomain(
+			@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
 
 		LOGGER.info("RestController Remove ignored domain");
 		dataService.removeIgnoredDomain(ignoredDomain);
