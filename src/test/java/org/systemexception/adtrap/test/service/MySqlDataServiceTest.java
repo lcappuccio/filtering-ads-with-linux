@@ -167,7 +167,7 @@ public class MySqlDataServiceTest {
 
 	@Test
 	public void should_add_an_ignored_domain() {
-		String ignoredDomain = "TEST" + String.valueOf(System.currentTimeMillis());
+		String ignoredDomain = "TEST" + System.currentTimeMillis();
 		sut.addIgnoredDomain(ignoredDomain);
 		boolean domainIsSaved = false;
 
