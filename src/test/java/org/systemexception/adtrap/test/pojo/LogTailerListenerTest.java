@@ -1,4 +1,4 @@
-package org.systemexception.adtrap.test;
+package org.systemexception.adtrap.test.pojo;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.file.FileSystemException;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
@@ -52,19 +51,13 @@ public class LogTailerListenerTest {
 		URL testLogFileUrl = ClassLoader.getSystemResource(TEST_LOG_FILE);
 		testLogFile = new File(testLogFileUrl.toURI());
 		if (testLogFile.exists()) {
-			boolean delete = testLogFile.delete();
-			if (!delete) {
-				throw new FileSystemException("Could not delete");
-			}
+			FileUtils.deleteQuietly(testLogFile);
 		}
 		String outString = "STARTING";
 		write(testLogFile, outString);
 		testLogFileRotate = new File(testLogFile.getAbsolutePath() + ".1");
 		if (testLogFileRotate.exists()) {
-			boolean delete = testLogFileRotate.delete();
-			if (!delete) {
-				throw new FileSystemException("Could not delete");
-			}
+			FileUtils.deleteQuietly(testLogFileRotate);
 		}
 	}
 
@@ -108,16 +101,18 @@ public class LogTailerListenerTest {
 
 	@Test
 	public void should_log_file_rotate() throws InterruptedException, IOException {
-		String outString = StringUtilsTest.LOG_LINE;
-		write(testLogFile, outString);
-		Thread.sleep(THREAD_SLEEP);
-		FileUtils.moveFile(testLogFile, testLogFileRotate);
-		outString = StringUtilsTest.LOG_LINE;
-		write(testLogFile, outString);
-		Thread.sleep(THREAD_SLEEP);
-		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
+		if (!System.getProperty("os.name").contains("Windows")) {
+			String outString = StringUtilsTest.LOG_LINE;
+			write(testLogFile, outString);
+			Thread.sleep(THREAD_SLEEP);
+			FileUtils.moveFile(testLogFile, testLogFileRotate);
+			outString = StringUtilsTest.LOG_LINE;
+			write(testLogFile, outString);
+			Thread.sleep(THREAD_SLEEP);
+			String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
 
-		assertTrue("File rotation not logged", logFileToString.contains("File rotated"));
+			assertTrue("File rotation not logged", logFileToString.contains("File rotated"));
+		}
 	}
 
 	@Test

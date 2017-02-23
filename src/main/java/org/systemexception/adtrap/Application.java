@@ -24,7 +24,6 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 
 /**
  * @author leo
@@ -51,9 +50,6 @@ public class Application {
 
 	@Value("${home.domain}")
 	private String homeDomain;
-
-	@Value("${ignore.list}")
-	private String[] ignoreList;
 
 	private final LogQueue logQueue;
 	private final JdbcTemplate jdbcTemplate;
@@ -90,7 +86,7 @@ public class Application {
 
 	@Bean
 	public LogTailerBridge logTailerBridge() {
-		return new LogTailerBridge(dataService(), logQueue, Arrays.asList(ignoreList));
+		return new LogTailerBridge(dataService(), logQueue);
 	}
 
 

@@ -112,6 +112,17 @@ public class ViewControllerTest {
 	@Test
 	@WithMockUser(username = RestControllerTest.ADMIN, password = RestControllerTest.PASSWORD,
 			roles = {SecurityConfig.USER_ROLE})
+	public void admin() throws Exception {
+		MvcResult mvcResult = sut.perform(MockMvcRequestBuilders.get("/admin")).andExpect(status()
+				.isOk()).andReturn();
+
+		assertNull(mvcResult.getResponse().getErrorMessage());
+		assertTrue(mvcResult.getResponse().getContentAsString().contains(TITLE_HEADER_TAG));
+	}
+
+	@Test
+	@WithMockUser(username = RestControllerTest.ADMIN, password = RestControllerTest.PASSWORD,
+			roles = {SecurityConfig.USER_ROLE})
 	public void statistics() throws Exception {
 		MvcResult mvcResult = sut.perform(MockMvcRequestBuilders.get("/statistics")).andExpect(status()
 				.isOk()).andReturn();

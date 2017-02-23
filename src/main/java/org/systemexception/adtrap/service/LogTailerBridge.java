@@ -11,7 +11,9 @@ import org.systemexception.adtrap.pojo.JsonMapper;
 import org.systemexception.adtrap.pojo.LogQueue;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -21,15 +23,12 @@ import java.util.Optional;
 public class LogTailerBridge {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LogTailerBridge.class);
-	private final List<String> ignoreList;
 	private final DataService dataService;
 	private final LogQueue logQueue;
 	private final JsonMapper jsonMapper = new JsonMapper();
 
 	@Autowired
-	public LogTailerBridge(DataService dataService, final LogQueue logQueue, final List<String> ignoreList) {
-		LOGGER.info("Ignoring domains: " + ignoreList);
-		this.ignoreList = ignoreList;
+	public LogTailerBridge(DataService dataService, final LogQueue logQueue) {
 		this.dataService = dataService;
 		this.logQueue = logQueue;
 	}
@@ -38,15 +37,16 @@ public class LogTailerBridge {
 	 * Posts data taken from the queue
 	 */
 	@Scheduled(cron = "* * * * * *")
-	public synchronized void postData() throws ParseException, InterruptedException {
-		int queueSize = logQueue.size();
+	public synchronized void postData() throws ParseException, InterruptedException {int queueSize = logQueue.size();
 		for (int i = 0; i < queueSize; i++) {
 			String queueItem = (String) logQueue.take();
 			Optional<DnsLogLine> dnsLogLine = jsonMapper.dnsLogLineFromLogLine(queueItem);
-			if (dnsLogLine.isPresent() && !isDomainIgnored(dnsLogLine.get())) {
-				dataService.save(dnsLogLine.get());
+			if (dnsLogLine.isPresent()) {
+				if (!isDomainIgnored(dnsLogLine.get())) {
+					dataService.save(dnsLogLine.get());
+				}
 			} else {
-				LOGGER.info("Bad line caught, skipped: " + queueItem);
+				LOGGER.warn("Bad line caught, skipped: " + queueItem);
 			}
 		}
 	}
@@ -58,6 +58,7 @@ public class LogTailerBridge {
 	 * @return true if the domain is in the ignore list
 	 */
 	private boolean isDomainIgnored(DnsLogLine dnsLogLine) {
+		List<String> ignoreList = getIgnoredDomainList();
 		for (String ignoredDomain : ignoreList) {
 			if (StringUtils.containsIgnoreCase(dnsLogLine.getQueryDomain(), ignoredDomain)) {
 				LOGGER.info("Ignored domain: " + dnsLogLine.getQueryDomain());
@@ -65,5 +66,21 @@ public class LogTailerBridge {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Fetch the ignored domain list from the database
+	 *
+	 * @return
+	 */
+	private List<String> getIgnoredDomainList() {
+		List<String> ignoredDomainList = new ArrayList<>();
+		List<Map<String, Object>> ignoredDomains = dataService.getIgnoredDomains();
+
+		for (Map<String, Object> entry : ignoredDomains) {
+			ignoredDomainList.add(String.valueOf(entry.get("IGNORE_DOMAIN")));
+		}
+
+		return ignoredDomainList;
 	}
 }

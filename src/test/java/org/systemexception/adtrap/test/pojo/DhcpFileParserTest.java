@@ -1,4 +1,4 @@
-package org.systemexception.adtrap.test;
+package org.systemexception.adtrap.test.pojo;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;

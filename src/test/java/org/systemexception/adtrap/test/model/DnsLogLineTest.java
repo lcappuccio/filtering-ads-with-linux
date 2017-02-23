@@ -1,4 +1,4 @@
-package org.systemexception.adtrap.test;
+package org.systemexception.adtrap.test.model;
 
 import org.junit.Test;
 import org.systemexception.adtrap.model.DnsLogLine;

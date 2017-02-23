@@ -1,5 +1,6 @@
-package org.systemexception.adtrap.test;
+package org.systemexception.adtrap.test.service;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.systemexception.adtrap.Application;
 import org.systemexception.adtrap.model.DnsLogLine;
+import org.systemexception.adtrap.pojo.Queries;
 import org.systemexception.adtrap.service.MySqlDataService;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -55,6 +58,13 @@ public class MySqlDataServiceTest {
 		dnsLogLine.setQueryTarget("127.0.0.1");
 		dnsLogLine.setQueryType("query[A]");
 		sut.save(dnsLogLine);
+		sut.addIgnoredDomain("example_domain");
+	}
+
+	@After
+	public void tearDown() {
+		jdbcTemplate.update("DELETE FROM DNS_LOG_LINES");
+		jdbcTemplate.update("DELETE FROM DNS_IGNORE");
 	}
 
 	@Test
@@ -146,5 +156,49 @@ public class MySqlDataServiceTest {
 		List<Map<String, Object>> maps = sut.monthlyByDay();
 
 		assertTrue(maps.size() > 0);
+	}
+
+	@Test
+	public void should_have_an_ignored_domain() {
+		List<Map<String, Object>> ignoredDomains = sut.getIgnoredDomains();
+
+		assertEquals(1, ignoredDomains.size());
+	}
+
+	@Test
+	public void should_add_an_ignored_domain() {
+		String ignoredDomain = "TEST" + System.currentTimeMillis();
+		sut.addIgnoredDomain(ignoredDomain);
+		boolean domainIsSaved = false;
+
+		List<Map<String, Object>> ignoredDomains = sut.getIgnoredDomains();
+
+		for (Map<String, Object> object: ignoredDomains) {
+			if (object.containsValue(ignoredDomain)) {
+				domainIsSaved = true;
+			}
+		}
+
+		assertTrue(domainIsSaved);
+		assertEquals(2, ignoredDomains.size());
+	}
+
+	@Test
+	public void should_remove_an_ignored_domain() {
+		String ignoredDomain = "TEST" + System.currentTimeMillis();
+		jdbcTemplate.update(Queries.SAVE_IGNORED_DOMAIN, ignoredDomain);
+		sut.removeIgnoredDomain(ignoredDomain);
+		boolean domainIsSaved = false;
+
+		List<Map<String, Object>> ignoredDomains = sut.getIgnoredDomains();
+
+		for (Map<String, Object> object: ignoredDomains) {
+			if (object.containsValue(ignoredDomain)) {
+				domainIsSaved = true;
+			}
+		}
+
+		assertFalse(domainIsSaved);
+		assertEquals(1, ignoredDomains.size());
 	}
 }

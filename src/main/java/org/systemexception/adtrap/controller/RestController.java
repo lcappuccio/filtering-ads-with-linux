@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.systemexception.adtrap.Application;
 import org.systemexception.adtrap.model.DhcpLease;
 import org.systemexception.adtrap.service.DataService;
@@ -30,6 +31,7 @@ import java.util.Map;
 public class RestController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RestController.class);
+	private static final String DOMAIN_PARAMETER = "domain";
 	private final DataService dataService;
 	private final DhcpLeasesReader dhcpLeasesReader;
 
@@ -47,7 +49,8 @@ public class RestController {
 		return new ResponseEntity<>(dataService.countAll(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "countallfiltered", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "countallfiltered", method = RequestMethod.GET, produces = MediaType
+			.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> countAllFiltered() {
 
 		LOGGER.info("RestController Count all filtered");
@@ -152,5 +155,37 @@ public class RestController {
 		List<DhcpLease> dhcpLeases = dhcpLeasesReader.getDhcpLeases();
 
 		return new ResponseEntity<>(dhcpLeases, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "getignoreddomains", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map<String, Object>>> getIgnoredDomains() {
+
+		LOGGER.info("RestController List ignored domains");
+		List<Map<String, Object>> ignoredDomains = dataService.getIgnoredDomains();
+
+		return new ResponseEntity<>(ignoredDomains, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "addignoreddomain", method = RequestMethod.POST,
+			params = {DOMAIN_PARAMETER}, produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<HttpStatus> addIgnoredDomain(
+			@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
+
+		LOGGER.info("RestController Add ignored domain");
+		dataService.addIgnoredDomain(ignoredDomain);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "removeignoreddomain", method = RequestMethod.POST,
+			params = {DOMAIN_PARAMETER}, produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<HttpStatus> removeIgnoredDomain(
+			@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
+
+		LOGGER.info("RestController Remove ignored domain");
+		dataService.removeIgnoredDomain(ignoredDomain);
+
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
