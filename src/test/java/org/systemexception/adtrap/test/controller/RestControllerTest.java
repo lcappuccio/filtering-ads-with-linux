@@ -176,4 +176,36 @@ public class RestControllerTest {
 		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
 		verify(dhcpLeasesReader).getDhcpLeases();
 	}
+
+	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
+	public void should_list_ignored_domains() throws Exception {
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/getignoreddomains"))
+				.andExpect(status().isOk());
+
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
+		verify(dataService).getIgnoredDomains();
+	}
+
+	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
+	public void should_add_ignored_domains() throws Exception {
+		String ignoredDomain = "TestIgnoredDomain";
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.post("/restapi/addignoreddomain")
+				.param("domain", ignoredDomain)).andExpect(status().isOk());
+
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
+		verify(dataService).addIgnoredDomain(ignoredDomain);
+	}
+
+	@Test
+	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
+	public void should_remove_ignored_domains() throws Exception {
+		String ignoredDomain = "TestIgnoredDomain";
+		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.post("/restapi/removeignoreddomain")
+				.param("domain", ignoredDomain)).andExpect(status().isOk());
+
+		assertNull(resultActions.andReturn().getResponse().getErrorMessage());
+		verify(dataService).removeIgnoredDomain(ignoredDomain);
+	}
 }

@@ -13,10 +13,7 @@
 				"url": "http://api.macvendors.com/00:50:56:31:51:28",
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -38,14 +35,11 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic YWRtaW46MTIzNDU2",
+						"value": "Basic YWRtaW46MTIzNDU2=",
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -71,10 +65,7 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -96,14 +87,11 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic YWRtaW46MTIzNDU2",
+						"value": "Basic YWRtaW46MTIzNDU2=",
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -125,14 +113,11 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic YWRtaW46MTIzNDU2",
+						"value": "Basic YWRtaW46MTIzNDU2=",
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -158,10 +143,7 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -187,10 +169,7 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -212,14 +191,11 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic YWRtaW46MTIzNDU2",
+						"value": "Basic YWRtaW46MTIzNDU2=",
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -245,10 +221,7 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -274,10 +247,79 @@
 						"description": ""
 					}
 				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Ignored Domain Add",
+			"request": {
+				"url": "http://localhost:8080/restapi/addignoreddomain?domain=prova",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
 				"body": {
-					"mode": "formdata",
-					"formdata": []
+					"mode": "raw",
+					"raw": ""
 				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Ignored Domain Remove",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://localhost:8080/restapi/removeignoreddomain?domain=Prova",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Ignored Domain List",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "admin",
+						"password": "123456",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "http://localhost:8080/restapi/getignoreddomains",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU2",
+						"description": ""
+					}
+				],
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -299,14 +341,11 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic YWRtaW46MTIzNDU2",
+						"value": "Basic YWRtaW46MTIzNDU2=",
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -328,14 +367,11 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic YWRtaW46MTIzNDU2",
+						"value": "Basic YWRtaW46MTIzNDU2=",
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -361,10 +397,7 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
