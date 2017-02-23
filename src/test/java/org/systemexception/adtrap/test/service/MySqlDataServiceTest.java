@@ -185,7 +185,7 @@ public class MySqlDataServiceTest {
 
 	@Test
 	public void should_remove_an_ignored_domain() {
-		String ignoredDomain = "TEST" + String.valueOf(System.currentTimeMillis());
+		String ignoredDomain = "TEST" + System.currentTimeMillis();
 		jdbcTemplate.update(Queries.SAVE_IGNORED_DOMAIN, ignoredDomain);
 		sut.removeIgnoredDomain(ignoredDomain);
 		boolean domainIsSaved = false;
