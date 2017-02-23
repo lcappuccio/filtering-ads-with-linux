@@ -7,9 +7,11 @@ function addIgnoredDomain() {
         data: jQuery.param({domain: findByNameString}),
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         url: commons.context + "addignoreddomain",
-        type: "POST"
+        type: "POST",
+	    success() {
+		    location.reload();
+	    }
     });
-    location.reload();
 }
 
 function removeIgnoredDomain(domainToRemove) {
@@ -17,9 +19,11 @@ function removeIgnoredDomain(domainToRemove) {
         data: jQuery.param({domain: domainToRemove}),
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         url: commons.context + "removeignoreddomain",
-        type: "POST"
+        type: "POST",
+	    success() {
+		    location.reload();
+	    }
     });
-    location.reload();
 }
 
 $(document).ready(function () {
