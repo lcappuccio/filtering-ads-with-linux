@@ -217,9 +217,9 @@ Create a folder `config` and copy (with the opportune values) the `application.p
 
 ### System Monitoring Information
 
-Domains can be ignored as long as the statistics are concerned, so you can filter out domains not relevant such as 
+Domains can be ignored as long as the statistics are concerned so you can filter out domains not relevant such as 
 NTP servers, ddns services, etc.
-The ignored domain list can be managed from the Admin page.
+The ignored domain list is managed in the Admin page.
 
 ![Administration](goodies/images/admin.png?raw=true)
 
