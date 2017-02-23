@@ -48,7 +48,7 @@ public class LogTailerBridge {
 			if (dnsLogLine.isPresent() && !isDomainIgnored(dnsLogLine.get())) {
 				dataService.save(dnsLogLine.get());
 			} else {
-				LOGGER.info("Bad line caught, skipped: " + queueItem);
+				LOGGER.warn("Bad line caught, skipped: " + queueItem);
 			}
 		}
 	}
