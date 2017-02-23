@@ -8,9 +8,9 @@ function addIgnoredDomain() {
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         url: commons.context + "addignoreddomain",
         type: "POST",
-	    success() {
-		    location.reload();
-	    }
+        success() {
+            location.reload();
+        }
     });
 }
 
@@ -20,9 +20,9 @@ function removeIgnoredDomain(domainToRemove) {
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         url: commons.context + "removeignoreddomain",
         type: "POST",
-	    success() {
-		    location.reload();
-	    }
+        success() {
+            location.reload();
+        }
     });
 }
 
