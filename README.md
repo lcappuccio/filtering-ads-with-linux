@@ -13,9 +13,10 @@ The idea is very simple and very well documented on the 'net:
 
 To obtain this we will need:
 * a linux machine or a raspberry (I'm using a Pi3)
-* dnsmasq installed
-* a local webserver (I'm using apache)
-* a running mysql database
+* dnsmasq
+* a local webserver
+* (optional) java8 jre or jdk
+* (optional) running mysql database
 
 ## Installing dnsmasq
 
