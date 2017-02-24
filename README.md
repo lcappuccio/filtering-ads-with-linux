@@ -97,7 +97,7 @@ On your home modem/router set the adtrap ipaddress as DNS. Remember to disable a
 ## Configure local webserver
 
 Will not get much into detail here, simply install lighttpd, apache, pixelserv or whatever other web server of your 
-choice. For apache configure `/etc/apache2/sites-enabled/000-default.conf` (for other webservers chech the 
+choice. For apache configure `/etc/apache2/sites-enabled/000-default.conf` (for other webservers check the 
 documentation).
 
 ```
