@@ -17,6 +17,7 @@ import org.systemexception.adtrap.service.DhcpLeasesReader;
 import org.systemexception.adtrap.service.LogTailerBridge;
 import org.systemexception.adtrap.service.MySqlDataService;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -33,26 +34,20 @@ import java.net.URISyntaxException;
 @EnableScheduling
 public class Application {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 	public static final String CONTEXT = "restapi";
-
-	@Value("${adtrap.ipaddress}")
-	private String ipAddress;
-
-	@Value("${dnsmasq.dhcp.leases.file.path}")
-	private String dnmasqDhcpLeasesFilePath;
-
-	@Value("${dnsmasq.log.file.path}")
-	private String dnsmasqLogFilePath;
-
-	@Value("${dnsmasq.tailer.sleep}")
-	private int dnsmasqTailerSleep;
-
-	@Value("${home.domain}")
-	private String homeDomain;
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 	private final LogQueue logQueue;
 	private final JdbcTemplate jdbcTemplate;
+	@Value("${adtrap.ipaddress}")
+	private String ipAddress;
+	@Value("${dnsmasq.dhcp.leases.file.path}")
+	private String dnmasqDhcpLeasesFilePath;
+	@Value("${dnsmasq.log.file.path}")
+	private String dnsmasqLogFilePath;
+	@Value("${dnsmasq.tailer.sleep}")
+	private int dnsmasqTailerSleep;
+	@Value("${home.domain}")
+	private String homeDomain;
 
 	@Autowired
 	public Application(LogQueue logQueue, JdbcTemplate jdbcTemplate) {
@@ -105,15 +100,30 @@ public class Application {
 		new Thread(logTailer).start();
 	}
 
+	/**
+	 * Build swagger api documentation info
+	 *
+	 * @return
+	 */
 	private ApiInfo getApiInfo() {
 		return new ApiInfo(
 				"Adtrap",
 				"Adtrap Application",
 				null,
 				null,
-				"https://github.com/lcappuccio/filtering-ads-with-linux/",
+				getContact(),
 				"GPL v3",
 				"https://github.com/lcappuccio/filtering-ads-with-linux/blob/master/LICENSE"
 		);
+	}
+
+	/**
+	 * Build service documentation contact
+	 *
+	 * @return
+	 */
+	private Contact getContact() {
+		return new Contact("Leonardo Cappuccio",
+				"https://github.com/lcappuccio/filtering-ads-with-linux/", null);
 	}
 }
