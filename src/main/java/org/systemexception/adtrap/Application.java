@@ -111,19 +111,10 @@ public class Application {
 				"Adtrap Application",
 				null,
 				null,
-				getContact(),
+				new Contact("Leonardo Cappuccio", "https://github.com/lcappuccio/filtering-ads-with-linux/",
+						null),
 				"GPL v3",
 				"https://github.com/lcappuccio/filtering-ads-with-linux/blob/master/LICENSE"
 		);
-	}
-
-	/**
-	 * Build service documentation contact
-	 *
-	 * @return
-	 */
-	private Contact getContact() {
-		return new Contact("Leonardo Cappuccio",
-				"https://github.com/lcappuccio/filtering-ads-with-linux/", null);
 	}
 }
