@@ -38,6 +38,7 @@ public class Application {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 	private final LogQueue logQueue;
 	private final JdbcTemplate jdbcTemplate;
+
 	@Value("${adtrap.ipaddress}")
 	private String ipAddress;
 	@Value("${dnsmasq.dhcp.leases.file.path}")
