@@ -47,6 +47,7 @@ public class DhcpFileParser {
 	private static String getVendor(String macAddress) {
 		RestTemplate restTemplate = new RestTemplate();
 		try {
+			// TODO LC remove this terrible thing here
 			Thread.sleep(2000);
 			return restTemplate.getForObject("https://api.macvendors.com/" + macAddress, String.class);
 		} catch (RestClientException | InterruptedException exception) {
