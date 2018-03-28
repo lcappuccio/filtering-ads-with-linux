@@ -6,7 +6,6 @@ import org.systemexception.adtrap.model.DhcpLease;
 import org.systemexception.adtrap.service.DhcpLeasesReader;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
@@ -26,7 +25,7 @@ public class DhcpLeasesReaderTest {
 	private File file;
 
 	@Before
-	public void setUp() throws IOException, URISyntaxException {
+	public void setUp() throws URISyntaxException {
 		URL systemResource = ClassLoader.getSystemResource("sample.leases");
 		file = new File(systemResource.toURI());
 	}
@@ -60,7 +59,7 @@ public class DhcpLeasesReaderTest {
 	}
 
 	@Test
-	public void should_log_nonexisting_file() throws URISyntaxException, IOException {
+	public void should_log_nonexisting_file() {
 
 		File file = new File("nonexisting.file");
 		sut = new DhcpLeasesReader(file.getAbsolutePath());

@@ -24,7 +24,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 
 /**
  * @author leo
@@ -71,7 +70,7 @@ public class Application {
 	}
 
 	@Bean
-	public DhcpLeasesReader dhcpLeasesReader() throws URISyntaxException {
+	public DhcpLeasesReader dhcpLeasesReader() {
 		return new DhcpLeasesReader(dnmasqDhcpLeasesFilePath);
 	}
 
