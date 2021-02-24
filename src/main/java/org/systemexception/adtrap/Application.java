@@ -24,6 +24,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collections;
 
 /**
  * @author leo
@@ -114,7 +115,8 @@ public class Application {
 				new Contact("Leonardo Cappuccio", "https://github.com/lcappuccio/filtering-ads-with-linux/",
 						null),
 				"GPL v3",
-				"https://github.com/lcappuccio/filtering-ads-with-linux/blob/master/LICENSE"
+				"https://github.com/lcappuccio/filtering-ads-with-linux/blob/master/LICENSE",
+				Collections.emptyList()
 		);
 	}
 }
