@@ -10,8 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 /**
  * @author leo
@@ -26,9 +25,9 @@ public class JsonMapperTest {
 		DnsLogLine dnsLogLine = sut.dnsLogLineFromLogLine(StringUtilsTest.timeToDate() +
 				StringUtils.LOG_LINE_SEPARATOR + StringUtilsTest.LOG_LINE).get();
 
-		assertTrue("forwarded".equals(dnsLogLine.getQueryType()));
-		assertTrue("e4478.a.akamaiedge.net".equals(dnsLogLine.getQueryDomain()));
-		assertTrue("8.8.4.4".equals(dnsLogLine.getQueryTarget()));
+		assertEquals("forwarded", dnsLogLine.getQueryType());
+		assertEquals("e4478.a.akamaiedge.net", dnsLogLine.getQueryDomain());
+		assertEquals("8.8.4.4", dnsLogLine.getQueryTarget());
 	}
 
 	@Test
@@ -42,9 +41,9 @@ public class JsonMapperTest {
 		DnsLogLine dnsLogLine = sut.dnsLogLineFromLogLine(StringUtilsTest.timeToDate() +
 				StringUtils.LOG_LINE_SEPARATOR + StringUtilsTest.DHCPACK_LOG_LINE).get();
 
-		assertTrue("DHCPACK(eth0)".equals(dnsLogLine.getQueryType()));
-		assertTrue("34:12:98:77:5e:b3".equals(dnsLogLine.getQueryDomain()));
-		assertTrue("192.168.0.214".equals(dnsLogLine.getQueryTarget()));
+		assertEquals("DHCPACK(eth0)", dnsLogLine.getQueryType());
+		assertEquals("34:12:98:77:5e:b3", dnsLogLine.getQueryDomain());
+		assertEquals("192.168.0.214", dnsLogLine.getQueryTarget());
 	}
 
 	@Test

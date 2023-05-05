@@ -13,9 +13,10 @@ The idea is very simple and very well documented on the 'net:
 
 To obtain this we will need:
 * a linux machine or a raspberry (I'm using a Pi3)
-* dnsmasq installed
-* a local webserver (I'm using apache)
-* a running mysql database
+* dnsmasq
+* a local webserver
+* (optional) java8 jre or jdk
+* (optional) running mysql database
 
 ## Installing dnsmasq
 
@@ -97,7 +98,7 @@ On your home modem/router set the adtrap ipaddress as DNS. Remember to disable a
 ## Configure local webserver
 
 Will not get much into detail here, simply install lighttpd, apache, pixelserv or whatever other web server of your 
-choice. For apache configure `/etc/apache2/sites-enabled/000-default.conf` (for other webservers chech the 
+choice. For apache configure `/etc/apache2/sites-enabled/000-default.conf` (for other webservers check the 
 documentation).
 
 ```

@@ -17,13 +17,14 @@ import org.systemexception.adtrap.service.DhcpLeasesReader;
 import org.systemexception.adtrap.service.LogTailerBridge;
 import org.systemexception.adtrap.service.MySqlDataService;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
+import java.util.Collections;
 
 /**
  * @author leo
@@ -33,26 +34,21 @@ import java.net.URISyntaxException;
 @EnableScheduling
 public class Application {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 	public static final String CONTEXT = "restapi";
+	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+	private final LogQueue logQueue;
+	private final JdbcTemplate jdbcTemplate;
 
 	@Value("${adtrap.ipaddress}")
 	private String ipAddress;
-
 	@Value("${dnsmasq.dhcp.leases.file.path}")
 	private String dnmasqDhcpLeasesFilePath;
-
 	@Value("${dnsmasq.log.file.path}")
 	private String dnsmasqLogFilePath;
-
 	@Value("${dnsmasq.tailer.sleep}")
 	private int dnsmasqTailerSleep;
-
 	@Value("${home.domain}")
 	private String homeDomain;
-
-	private final LogQueue logQueue;
-	private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	public Application(LogQueue logQueue, JdbcTemplate jdbcTemplate) {
@@ -75,7 +71,7 @@ public class Application {
 	}
 
 	@Bean
-	public DhcpLeasesReader dhcpLeasesReader() throws URISyntaxException {
+	public DhcpLeasesReader dhcpLeasesReader() {
 		return new DhcpLeasesReader(dnmasqDhcpLeasesFilePath);
 	}
 
@@ -105,15 +101,22 @@ public class Application {
 		new Thread(logTailer).start();
 	}
 
+	/**
+	 * Build swagger api documentation info
+	 *
+	 * @return
+	 */
 	private ApiInfo getApiInfo() {
 		return new ApiInfo(
 				"Adtrap",
 				"Adtrap Application",
 				null,
 				null,
-				"https://github.com/lcappuccio/filtering-ads-with-linux/",
+				new Contact("Leonardo Cappuccio", "https://github.com/lcappuccio/filtering-ads-with-linux/",
+						null),
 				"GPL v3",
-				"https://github.com/lcappuccio/filtering-ads-with-linux/blob/master/LICENSE"
+				"https://github.com/lcappuccio/filtering-ads-with-linux/blob/master/LICENSE",
+				Collections.emptyList()
 		);
 	}
 }

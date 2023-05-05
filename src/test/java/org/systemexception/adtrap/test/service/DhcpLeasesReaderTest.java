@@ -6,7 +6,6 @@ import org.systemexception.adtrap.model.DhcpLease;
 import org.systemexception.adtrap.service.DhcpLeasesReader;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
@@ -26,7 +25,7 @@ public class DhcpLeasesReaderTest {
 	private File file;
 
 	@Before
-	public void setUp() throws IOException, URISyntaxException {
+	public void setUp() throws URISyntaxException {
 		URL systemResource = ClassLoader.getSystemResource("sample.leases");
 		file = new File(systemResource.toURI());
 	}
@@ -55,12 +54,11 @@ public class DhcpLeasesReaderTest {
 		assertEquals("00:50:56:31:51:28", dhcpLease.getMacAddress());
 		assertEquals("192.168.0.102", dhcpLease.getIpAddress());
 		assertEquals("host1", dhcpLease.getHostname());
-		assertTrue("VMWARE, INC.".equalsIgnoreCase(dhcpLease.getVendor()) ||
-				"N/A".equals(dhcpLease.getVendor()));
+		assertTrue("VMWARE, INC.".equalsIgnoreCase(dhcpLease.getVendor()));
 	}
 
 	@Test
-	public void should_log_nonexisting_file() throws URISyntaxException, IOException {
+	public void should_log_nonexisting_file() {
 
 		File file = new File("nonexisting.file");
 		sut = new DhcpLeasesReader(file.getAbsolutePath());

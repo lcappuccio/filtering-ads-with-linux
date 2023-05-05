@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.List;
 
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertEquals;
 
 /**
  * @author leo
@@ -27,9 +27,9 @@ public class DhcpFileParserTest {
 
 		List<DhcpLease> dhcpLeases = DhcpFileParser.parseFileContents(fileLines);
 
-		assertTrue("host1".equals(dhcpLeases.get(0).getHostname()));
-		assertTrue("Host2".equals(dhcpLeases.get(1).getHostname()));
-		assertTrue("host3".equals(dhcpLeases.get(2).getHostname()));
+		assertEquals("host1", dhcpLeases.get(0).getHostname());
+		assertEquals("Host2", dhcpLeases.get(1).getHostname());
+		assertEquals("host3", dhcpLeases.get(2).getHostname());
 	}
 
 	@Test
@@ -39,9 +39,9 @@ public class DhcpFileParserTest {
 
 		List<DhcpLease> dhcpLeases = DhcpFileParser.parseFileContents(fileLines);
 
-		assertTrue("192.168.0.101".equals(dhcpLeases.get(0).getIpAddress()));
-		assertTrue("192.168.0.102".equals(dhcpLeases.get(1).getIpAddress()));
-		assertTrue("192.168.0.103".equals(dhcpLeases.get(2).getIpAddress()));
+		assertEquals("192.168.0.101", dhcpLeases.get(0).getIpAddress());
+		assertEquals("192.168.0.102", dhcpLeases.get(1).getIpAddress());
+		assertEquals("192.168.0.103", dhcpLeases.get(2).getIpAddress());
 	}
 
 	private List<String> readFile(String fileName) throws IOException, URISyntaxException {
