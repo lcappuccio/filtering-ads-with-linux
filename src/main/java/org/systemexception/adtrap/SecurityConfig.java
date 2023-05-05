@@ -17,13 +17,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	public static final String USER_ROLE = "USER";
+
 	@Value("${adtrap.user}")
 	private String user;
 
 	@Value("${adtrap.password}")
 	private String password;
-
-	public static final String USER_ROLE = "USER";
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

@@ -62,7 +62,7 @@ public class LogTailerListenerTest {
 	}
 
 	@Before
-	public void setUp() throws URISyntaxException {
+	public void setUp() {
 		logTailerListener = new LogTailerListener(logQueue);
 		logTailer = new LogTailer(testLogFile, logTailerListener, SLEEP_TIMER);
 
