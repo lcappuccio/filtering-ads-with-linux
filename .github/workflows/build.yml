@@ -53,23 +53,24 @@ jobs:
           path: ~/.m2
           key: ubuntu-latest-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ubuntu-latest-m2
+      - name: Install MariaDB
+        uses: getong/mariadb-action@v1.1
+        with:
+          host port: 3306
+          container port: 3306
+          character set server: 'utf8'
+          collation server: 'utf8_general_ci'
+          mariadb version: 'latest'
+          mysql database: ${{ADTRAP_DATABASE_NAME}}
+          mysql root password: ${{ADTRAP_DATASOURCE_PASSWORD}}
+          mysql user: ${{ADTRAP_DATASOURCE_USERNAME}}
+          mysql password: ${{ADTRAP_DATASOURCE_PASSWORD}}
       - name: Build with Maven
         uses: GabrielBB/xvfb-action@v1
         with:
           run: mvn -B install --file pom.xml
       - name: Publish test coverage results
         uses: PavanMudigonda/jacoco-reporter@v4.6
-                - uses: getong/mariadb-action@v1.1
-                with:
-                  host port: 3306
-                  container port: 3306
-                  character set server: 'utf8'
-                  collation server: 'utf8_general_ci'
-                  mariadb version: 'latest'
-                  mysql database: ${{ADTRAP_DATABASE_NAME}}
-                  mysql root password: ${{ADTRAP_DATASOURCE_PASSWORD}}
-                  mysql user: ${{ADTRAP_DATASOURCE_USERNAME}}
-                  mysql password: ${{ADTRAP_DATASOURCE_PASSWORD}}
         with:
           coverage_results_path: 'target/site/jacoco/jacoco.xml'
           coverage_report_title: 'Test coverage results'
