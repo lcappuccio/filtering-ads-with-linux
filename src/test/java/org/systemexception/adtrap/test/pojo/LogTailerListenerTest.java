@@ -2,15 +2,16 @@ package org.systemexception.adtrap.test.pojo;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.event.annotation.BeforeTestClass;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.systemexception.adtrap.Application;
 import org.systemexception.adtrap.pojo.LogQueue;
@@ -25,13 +26,14 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static org.springframework.test.util.AssertionErrors.assertFalse;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {Application.class})
 @WebAppConfiguration
 @TestPropertySource(locations = "classpath:application.properties")
+@DirtiesContext
 public class LogTailerListenerTest {
 
 	private static File testLogFile, testLogFileRotate;
@@ -46,7 +48,7 @@ public class LogTailerListenerTest {
 	@Autowired
 	private LogQueue logQueue;
 
-	@BeforeClass
+	@BeforeTestClass
 	public static void setLogTailerListenerTest() throws URISyntaxException, IOException {
 		URL testLogFileUrl = ClassLoader.getSystemResource(TEST_LOG_FILE);
 		testLogFile = new File(testLogFileUrl.toURI());
@@ -61,8 +63,8 @@ public class LogTailerListenerTest {
 		}
 	}
 
-	@Before
-	public void setUp() {
+	@BeforeEach
+	void setUp() {
 		logTailerListener = new LogTailerListener(logQueue);
 		logTailer = new LogTailer(testLogFile, logTailerListener, SLEEP_TIMER);
 
@@ -70,13 +72,13 @@ public class LogTailerListenerTest {
 		threadLogTailer.start();
 	}
 
-	@After
-	public void tearDown() {
+	@AfterEach
+	void tearDown() {
 		logTailer.stop();
 	}
 
 	@Test
-	public void should_listen_new_lines() throws InterruptedException, IOException {
+	void should_listen_new_lines() throws InterruptedException, IOException {
 		write(testLogFile, StringUtilsTest.LOG_LINE);
 		Thread.sleep(THREAD_SLEEP);
 		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
@@ -85,7 +87,7 @@ public class LogTailerListenerTest {
 	}
 
 	@Test
-	public void should_log_file_not_found() throws InterruptedException, IOException {
+	void should_log_file_not_found() throws InterruptedException, IOException {
 		String nonExistingLogFile = "idontexist.log";
 		File testLogFile = new File(nonExistingLogFile);
 		logTailerListener = new LogTailerListener(logQueue);
@@ -100,7 +102,7 @@ public class LogTailerListenerTest {
 	}
 
 	@Test
-	public void should_log_file_rotate() throws InterruptedException, IOException {
+	void should_log_file_rotate() throws InterruptedException, IOException {
 		if (!System.getProperty("os.name").contains("Windows")) {
 			String outString = StringUtilsTest.LOG_LINE;
 			write(testLogFile, outString);
@@ -116,7 +118,7 @@ public class LogTailerListenerTest {
 	}
 
 	@Test
-	public void should_skip_old_file_content() throws URISyntaxException, IOException {
+	void should_skip_old_file_content() throws URISyntaxException, IOException {
 		URL testLogFileUrl = ClassLoader.getSystemResource("sample_dnsmasq.log");
 		File fileWithData  = new File(testLogFileUrl.toURI());
 		logTailer = new LogTailer(fileWithData, logTailerListener, SLEEP_TIMER);

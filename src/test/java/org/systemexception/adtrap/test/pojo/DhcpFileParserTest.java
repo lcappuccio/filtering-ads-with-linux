@@ -1,7 +1,7 @@
 package org.systemexception.adtrap.test.pojo;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.systemexception.adtrap.model.DhcpLease;
 import org.systemexception.adtrap.pojo.DhcpFileParser;
 
@@ -12,16 +12,17 @@ import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * @author leo
  * @date 07/11/2016 23:11
  */
-public class DhcpFileParserTest {
+class DhcpFileParserTest {
 
 	@Test
-	public void should_parse_and_sort_file_lines() throws URISyntaxException, IOException {
+	void should_parse_and_sort_file_lines() throws URISyntaxException, IOException {
 
 		List<String> fileLines = readFile("sample.leases");
 
@@ -33,7 +34,7 @@ public class DhcpFileParserTest {
 	}
 
 	@Test
-	public void should_parse_and_sort_file_lines_with_same_hostname() throws URISyntaxException, IOException {
+	void should_parse_and_sort_file_lines_with_same_hostname() throws URISyntaxException, IOException {
 
 		List<String> fileLines = readFile("sample_same_hostname.leases");
 

@@ -1,7 +1,7 @@
 package org.systemexception.adtrap.test.service;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.systemexception.adtrap.model.DhcpLease;
 import org.systemexception.adtrap.service.DhcpLeasesReader;
 
@@ -10,28 +10,26 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author leo
  * @date 06/11/2016 23:03
  */
-public class DhcpLeasesReaderTest {
+class DhcpLeasesReaderTest {
 
 	private List<DhcpLease> dhcpLeases;
 	private DhcpLeasesReader sut;
 	private File file;
 
-	@Before
-	public void setUp() throws URISyntaxException {
+	@BeforeAll
+	void setUp() throws URISyntaxException {
 		URL systemResource = ClassLoader.getSystemResource("sample.leases");
 		file = new File(systemResource.toURI());
 	}
 
 	@Test
-	public void should_read_file() {
+	void should_read_file() {
 
 		sut = new DhcpLeasesReader(file.getAbsolutePath());
 
@@ -42,7 +40,7 @@ public class DhcpLeasesReaderTest {
 	}
 
 	@Test
-	public void should_have_valid_values() {
+	void should_have_valid_values() {
 
 		sut = new DhcpLeasesReader(file.getAbsolutePath());
 
@@ -58,7 +56,7 @@ public class DhcpLeasesReaderTest {
 	}
 
 	@Test
-	public void should_log_nonexisting_file() {
+	void should_log_nonexisting_file() {
 
 		File file = new File("nonexisting.file");
 		sut = new DhcpLeasesReader(file.getAbsolutePath());
