@@ -21,7 +21,9 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
-      - uses: getong/mariadb-action@v1.1
+
+      - name: Setup database
+        uses: getong/mariadb-action@v1.1
         with:
           host port: 3306
           container port: 3306
