@@ -1,8 +1,8 @@
 package org.systemexception.adtrap.test.service;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import static org.springframework.test.util.AssertionErrors.assertTrue;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {Application.class})
 @WebAppConfiguration
-@TestPropertySource(locations = "classpath:application.properties")
+@TestPropertySource(locations = "classpath:application-test.properties")
 @DirtiesContext
 class LogTailerBridgeTest {
 
@@ -37,12 +37,12 @@ class LogTailerBridgeTest {
 	@Autowired
 	private DataService dataService;
 
-	@BeforeAll
+	@BeforeEach
 	void setUp() {
 		dataService.addIgnoredDomain(TEST_IGNORE_DOMAIN);
 	}
 
-	@AfterAll
+	@AfterEach
 	void tearDown() {
 		dataService.removeIgnoredDomain(TEST_IGNORE_DOMAIN);
 	}

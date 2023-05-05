@@ -1,7 +1,7 @@
 package org.systemexception.adtrap.test.service;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {Application.class})
 @WebAppConfiguration
-@TestPropertySource(locations = "classpath:application.properties")
+@TestPropertySource(locations = "classpath:application-test.properties")
 @DirtiesContext
 class MySqlDataServiceTest {
 
@@ -46,7 +46,7 @@ class MySqlDataServiceTest {
 	private JdbcTemplate jdbcTemplate;
 	private DnsLogLine dnsLogLine;
 
-	@BeforeAll
+	@BeforeEach
 	void setUp() {
 		assertNotNull(jdbcTemplate);
 		assertNotNull(homeDomain);

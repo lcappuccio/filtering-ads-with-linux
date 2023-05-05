@@ -1,6 +1,6 @@
 package org.systemexception.adtrap.test.service;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.systemexception.adtrap.model.DhcpLease;
 import org.systemexception.adtrap.service.DhcpLeasesReader;
@@ -22,7 +22,7 @@ class DhcpLeasesReaderTest {
 	private DhcpLeasesReader sut;
 	private File file;
 
-	@BeforeAll
+	@BeforeEach
 	void setUp() throws URISyntaxException {
 		URL systemResource = ClassLoader.getSystemResource("sample.leases");
 		file = new File(systemResource.toURI());
