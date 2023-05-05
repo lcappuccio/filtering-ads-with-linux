@@ -1,6 +1,6 @@
 # How to filter (some) advertising with linux and dnsmasq
 
-[![Build Status](https://github.com/lcappuccio/filtering-ads-with-linux/workflows/Build%20filtering-ads-with-linux%20with%20xvfb/badge.svg)](https://github.com/lcappuccio/filtering-ads-with-linux/actions)
+[![Build Status](https://github.com/lcappuccio/filtering-ads-with-linux/workflows/Build%20adtrap%20with%20xvfb/badge.svg)](https://github.com/lcappuccio/filtering-ads-with-linux/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=lcappuccio_filtering-ads-with-linux&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=lcappuccio_filtering-ads-with-linux)
 
 A brief recap about how to filter (some) ads with a linux box. This will not remove all ads but can greatly help if used with AdBlock, uBlockOrigin, Ghostery, etc.
