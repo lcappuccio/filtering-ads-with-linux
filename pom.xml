@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<swagger.version>2.10.5</swagger.version>
+		<swagger.version>3.0.0</swagger.version>
 	</properties>
 
 	<dependencies>
