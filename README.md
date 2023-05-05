@@ -1,9 +1,7 @@
 # How to filter (some) advertising with linux and dnsmasq
 
-[![Build Status](https://travis-ci.org/lcappuccio/filtering-ads-with-linux.svg?branch=master)](https://travis-ci.org/lcappuccio/filtering-ads-with-linux)
-[![codecov](https://codecov.io/gh/lcappuccio/filtering-ads-with-linux/branch/master/graph/badge.svg)](https://codecov.io/gh/lcappuccio/filtering-ads-with-linux)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b6cf8eb58c5c441eaaa52a79b6f91bf7)](https://www.codacy.com/app/lcappuccio/filtering-ads-with-linux?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lcappuccio/filtering-ads-with-linux&amp;utm_campaign=Badge_Grade)
-[![codebeat badge](https://codebeat.co/badges/420cede9-dd38-4629-ac71-0d377143553b)](https://codebeat.co/projects/github-com-lcappuccio-filtering-ads-with-linux)
+[![Build Status](https://github.com/lcappuccio/filtering-ads-with-linux/workflows/Build%20filtering-ads-with-linux%20with%20xvfb/badge.svg)](https://github.com/lcappuccio/filtering-ads-with-linux/actions)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=lcappuccio_filtering-ads-with-linux&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=lcappuccio_filtering-ads-with-linux)
 
 A brief recap about how to filter (some) ads with a linux box. This will not remove all ads but can greatly help if used with AdBlock, uBlockOrigin, Ghostery, etc.
 
