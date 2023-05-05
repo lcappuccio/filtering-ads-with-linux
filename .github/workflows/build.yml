@@ -40,6 +40,10 @@ jobs:
       - name: Build with Maven
         env:
           API_KEY: ${{ secrets.API_KEY }}
+          ADTRAP_DATABASE_NAME: ${{ secrets.ADTRAP_DATABASE_NAME }}
+          ADTRAP_DATASOURCE_USERNAME: ${{ secrets.ADTRAP_DATASOURCE_USERNAME }}
+          ADTRAP_DATASOURCE_PASSWORD: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
+
         run: mvn -B install --file pom.xml
 
       - name: Publish test coverage results
