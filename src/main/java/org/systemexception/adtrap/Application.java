@@ -16,15 +16,10 @@ import org.systemexception.adtrap.service.DataService;
 import org.systemexception.adtrap.service.DhcpLeasesReader;
 import org.systemexception.adtrap.service.LogTailerBridge;
 import org.systemexception.adtrap.service.MySqlDataService;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Collections;
 
 /**
  * @author leo
@@ -75,37 +70,32 @@ public class Application {
 		return new DhcpLeasesReader(dnmasqDhcpLeasesFilePath);
 	}
 
+    @Bean
+    public LogTailerBridge logTailerBridge() {
+        return new LogTailerBridge(dataService(), logQueue);
+    }
+
+    @PostConstruct
+    public void postConstruct() throws FileNotFoundException {
+        File fileToTail = new File(dnsmasqLogFilePath);
+        if (!fileToTail.exists()) {
+            throw new FileNotFoundException(fileToTail.getAbsolutePath());
+        } else {
+            LOGGER.info("Tailing file " + dnsmasqLogFilePath);
+        }
+
+        LogTailerListener logTailerListener = new LogTailerListener(logQueue);
+        LogTailer logTailer = new LogTailer(fileToTail, logTailerListener, dnsmasqTailerSleep);
+
+        new Thread(logTailer).start();
+    }
+
+    /*
 	@Bean
 	public Docket restfulApi() {
 		return new Docket(DocumentationType.SWAGGER_2).groupName("restful-api").select().build().apiInfo(getApiInfo());
 	}
 
-	@Bean
-	public LogTailerBridge logTailerBridge() {
-		return new LogTailerBridge(dataService(), logQueue);
-	}
-
-
-	@PostConstruct
-	public void postConstruct() throws FileNotFoundException {
-		File fileToTail = new File(dnsmasqLogFilePath);
-		if (!fileToTail.exists()) {
-			throw new FileNotFoundException(fileToTail.getAbsolutePath());
-		} else {
-			LOGGER.info("Tailing file " + dnsmasqLogFilePath);
-		}
-
-		LogTailerListener logTailerListener = new LogTailerListener(logQueue);
-		LogTailer logTailer = new LogTailer(fileToTail, logTailerListener, dnsmasqTailerSleep);
-
-		new Thread(logTailer).start();
-	}
-
-	/**
-	 * Build swagger api documentation info
-	 *
-	 * @return
-	 */
 	private ApiInfo getApiInfo() {
 		return new ApiInfo(
 				"Adtrap",
@@ -119,4 +109,5 @@ public class Application {
 				Collections.emptyList()
 		);
 	}
+    */
 }
