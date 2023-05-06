@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -30,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = {Application.class})
 @WebAppConfiguration
 @TestPropertySource(locations = "classpath:application-test.properties")
-@DirtiesContext
 class MySqlDataServiceTest {
 
 	@Value("${adtrap.ipaddress}")

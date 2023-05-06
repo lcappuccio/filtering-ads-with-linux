@@ -2,13 +2,12 @@ package org.systemexception.adtrap.test.pojo;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -32,7 +31,6 @@ import static org.springframework.test.util.AssertionErrors.assertTrue;
 @SpringBootTest(classes = {Application.class})
 @WebAppConfiguration
 @TestPropertySource(locations = "classpath:application-test.properties")
-@DirtiesContext
 public class LogTailerListenerTest {
 
 	private static File testLogFile, testLogFileRotate;
@@ -45,10 +43,10 @@ public class LogTailerListenerTest {
 	public final static int THREAD_SLEEP = 2000;
 
 	@Autowired
-	private static LogQueue logQueue;
+	private LogQueue logQueue;
 
-	@BeforeAll
-	static void setUp() throws IOException, URISyntaxException {
+	@BeforeEach
+	void setUp() throws IOException, URISyntaxException {
         URL testLogFileUrl = ClassLoader.getSystemResource(TEST_LOG_FILE);
         testLogFile = new File(testLogFileUrl.toURI());
         if (testLogFile.exists()) {
@@ -68,8 +66,8 @@ public class LogTailerListenerTest {
 		threadLogTailer.start();
 	}
 
-	@AfterAll
-	static void tearDown() {
+	@AfterEach
+	void tearDown() {
 		logTailer.stop();
 	}
 
