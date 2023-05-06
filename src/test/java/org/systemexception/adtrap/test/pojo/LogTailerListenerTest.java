@@ -2,15 +2,14 @@ package org.systemexception.adtrap.test.pojo;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.systemexception.adtrap.Application;
@@ -37,8 +36,8 @@ import static org.springframework.test.util.AssertionErrors.assertTrue;
 public class LogTailerListenerTest {
 
 	private static File testLogFile, testLogFileRotate;
-	private LogTailerListener logTailerListener;
-	private LogTailer logTailer;
+	private static LogTailerListener logTailerListener;
+	private static LogTailer logTailer;
 	private final static String TEST_LOG_FILE = "empty.log";
 	private final static int SLEEP_TIMER = 100;
 
@@ -46,25 +45,22 @@ public class LogTailerListenerTest {
 	public final static int THREAD_SLEEP = 2000;
 
 	@Autowired
-	private LogQueue logQueue;
+	private static LogQueue logQueue;
 
-	@BeforeTestClass
-	public static void setLogTailerListenerTest() throws URISyntaxException, IOException {
-		URL testLogFileUrl = ClassLoader.getSystemResource(TEST_LOG_FILE);
-		testLogFile = new File(testLogFileUrl.toURI());
-		if (testLogFile.exists()) {
-			FileUtils.deleteQuietly(testLogFile);
-		}
-		String outString = "STARTING";
-		write(testLogFile, outString);
-		testLogFileRotate = new File(testLogFile.getAbsolutePath() + ".1");
-		if (testLogFileRotate.exists()) {
-			FileUtils.deleteQuietly(testLogFileRotate);
-		}
-	}
+	@BeforeAll
+	static void setUp() throws IOException, URISyntaxException {
+        URL testLogFileUrl = ClassLoader.getSystemResource(TEST_LOG_FILE);
+        testLogFile = new File(testLogFileUrl.toURI());
+        if (testLogFile.exists()) {
+            FileUtils.deleteQuietly(testLogFile);
+        }
+        String outString = "STARTING";
+        write(testLogFile, outString);
+        testLogFileRotate = new File(testLogFile.getAbsolutePath() + ".1");
+        if (testLogFileRotate.exists()) {
+            FileUtils.deleteQuietly(testLogFileRotate);
+        }
 
-	@BeforeEach
-	void setUp() {
 		logTailerListener = new LogTailerListener(logQueue);
 		logTailer = new LogTailer(testLogFile, logTailerListener, SLEEP_TIMER);
 
@@ -72,8 +68,8 @@ public class LogTailerListenerTest {
 		threadLogTailer.start();
 	}
 
-	@AfterEach
-	void tearDown() {
+	@AfterAll
+	static void tearDown() {
 		logTailer.stop();
 	}
 
