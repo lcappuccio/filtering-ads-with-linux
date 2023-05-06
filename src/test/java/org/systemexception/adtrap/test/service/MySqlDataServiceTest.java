@@ -77,7 +77,7 @@ class MySqlDataServiceTest {
 	void should_count_all() {
 		int countAll = sut.countAll();
 
-		assertEquals("No records in table", countAll > 0);
+		assertTrue(countAll > 0);
 	}
 
 	@Test
@@ -91,14 +91,14 @@ class MySqlDataServiceTest {
 
 		int countAllFiltered = sut.countAllFiltered();
 
-		assertEquals("No filtered record", countAllFiltered > 0);
+		assertTrue(countAllFiltered > 0);
 	}
 
 	@Test
 	void should_count_distinct_advertisers_filtered() {
 		int countAdvertisers = sut.countDistinctAdvertisersFiltered();
 
-        assertEquals("No records in table", countAdvertisers > 0);
+        assertTrue(countAdvertisers > 0);
 	}
 
 	@Test
