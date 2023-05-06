@@ -15,7 +15,7 @@ jobs:
       mariadb:
         image: mariadb:latest
         ports:
-          - 3306
+          - 3306:3306
         env:
           MYSQL_USER: ${{ secrets.ADTRAP_DATASOURCE_USERNAME }}
           MYSQL_PASSWORD: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
