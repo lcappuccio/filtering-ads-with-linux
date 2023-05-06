@@ -12,8 +12,8 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     services:
-      mariadb:
-        image: mariadb:latest
+      mysql:
+        image: mysql:latest
         ports:
           - 3306:3306
         env:
