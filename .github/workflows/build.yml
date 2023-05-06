@@ -39,7 +39,6 @@ jobs:
 
       - name: Build with Maven
         env:
-          API_KEY: ${{ secrets.API_KEY }}
           ADTRAP_DATABASE_NAME: ${{ secrets.ADTRAP_DATABASE_NAME }}
           ADTRAP_DATASOURCE_USERNAME: ${{ secrets.ADTRAP_DATASOURCE_USERNAME }}
           ADTRAP_DATASOURCE_PASSWORD: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
@@ -59,6 +58,9 @@ jobs:
 
       - name: SonarCloud Scan
         env:
+          ADTRAP_DATABASE_NAME: ${{ secrets.ADTRAP_DATABASE_NAME }}
+          ADTRAP_DATASOURCE_USERNAME: ${{ secrets.ADTRAP_DATASOURCE_USERNAME }}
+          ADTRAP_DATASOURCE_PASSWORD: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lcappuccio_filtering-ads-with-linux
