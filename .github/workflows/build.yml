@@ -57,10 +57,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: SonarCloud Scan
+        uses: sonarsource/sonarqube-scan-action@master
         env:
-          ADTRAP_DATABASE_NAME: ${{ secrets.ADTRAP_DATABASE_NAME }}
-          ADTRAP_DATASOURCE_USERNAME: ${{ secrets.ADTRAP_DATASOURCE_USERNAME }}
-          ADTRAP_DATASOURCE_PASSWORD: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lcappuccio_filtering-ads-with-linux
