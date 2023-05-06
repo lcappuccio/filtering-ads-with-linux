@@ -22,7 +22,13 @@ jobs:
           MYSQL_DATABASE: ${{ secrets.ADTRAP_DATABASE_NAME }}
           MYSQL_ROOT_PASSWORD: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
     steps:
+
+      - name: Setup database
+        run: |
+          mysql -e 'CREATE DATABASE ${{ secrets.ADTRAP_DATABASE_NAME }};' -u${{ secrets.ADTRAP_DATASOURCE_USERNAME }} -p${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
+
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -34,19 +40,6 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
-
-      - name: Setup database
-        uses: getong/mariadb-action@v1.1
-        with:
-          host port: 3306
-          container port: 3306
-          character set server: 'utf8'
-          collation server: 'utf8_general_ci'
-          mariadb version: 'latest'
-          mysql database: ${{ secrets.ADTRAP_DATABASE_NAME }}
-          mysql root password: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
-          mysql user: ${{ secrets.ADTRAP_DATASOURCE_USERNAME }}
-          mysql password: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
 
       - name: Build with Maven
         env:
