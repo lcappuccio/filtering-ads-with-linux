@@ -11,20 +11,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    services:
-      mariadb:
-        image: mariadb:latest
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_USER: ${{ secrets.ADTRAP_DATASOURCE_USERNAME }}
-          MYSQL_PASSWORD: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.ADTRAP_DATABASE_NAME }}
-          MYSQL_ROOT_PASSWORD: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
     steps:
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -38,11 +26,6 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        env:
-          ADTRAP_DATABASE_NAME: ${{ secrets.ADTRAP_DATABASE_NAME }}
-          ADTRAP_DATASOURCE_USERNAME: ${{ secrets.ADTRAP_DATASOURCE_USERNAME }}
-          ADTRAP_DATASOURCE_PASSWORD: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
-
         run: mvn -B install --file pom.xml
 
       - name: Publish test coverage results
