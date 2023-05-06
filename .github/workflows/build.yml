@@ -1,4 +1,4 @@
-name: Build life-game with xvfb
+name: Build adtrap
 
 on:
   push:
@@ -11,9 +11,24 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb:latest
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_USER: ${{ secrets.ADTRAP_DATASOURCE_USERNAME }}
+          MYSQL_PASSWORD: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.ADTRAP_DATABASE_NAME }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
     steps:
+
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup JDK 8
         uses: actions/setup-java@v3
@@ -22,23 +37,13 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Setup database
-        uses: getong/mariadb-action@v1.1
-        with:
-          host port: 3306
-          container port: 3306
-          character set server: 'utf8'
-          collation server: 'utf8_general_ci'
-          mariadb version: 'latest'
-          mysql database: ${{ADTRAP_DATABASE_NAME}}
-          mysql root password: ${{ADTRAP_DATASOURCE_PASSWORD}}
-          mysql user: ${{ADTRAP_DATASOURCE_USERNAME}}
-          mysql password: ${{ADTRAP_DATASOURCE_PASSWORD}}
-
       - name: Build with Maven
         env:
-          API_KEY: ${{ secrets.API_KEY }}
-        run: mvn -B package --file pom.xml
+          ADTRAP_DATABASE_NAME: ${{ secrets.ADTRAP_DATABASE_NAME }}
+          ADTRAP_DATASOURCE_USERNAME: ${{ secrets.ADTRAP_DATASOURCE_USERNAME }}
+          ADTRAP_DATASOURCE_PASSWORD: ${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
+
+        run: mvn -B install --file pom.xml
 
       - name: Publish test coverage results
         uses: PavanMudigonda/jacoco-reporter@v4.6
@@ -52,8 +57,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: SonarCloud Scan
+        uses: sonarsource/sonarqube-scan-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lcappuccio_filtering-ads-with-linux
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lcappuccio_filtering-ads-with-linux -Dmaven.test.skip=true

@@ -1,16 +1,17 @@
 package org.systemexception.adtrap.test.controller;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.security.web.FilterChainProxy;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -22,7 +23,7 @@ import org.systemexception.adtrap.controller.RestController;
 import org.systemexception.adtrap.service.DataService;
 import org.systemexception.adtrap.service.DhcpLeasesReader;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,11 +31,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author leo
  * @date 02/11/2016 23:49
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {Application.class})
 @WebAppConfiguration
-@TestPropertySource(locations = "classpath:application.properties")
-public class RestControllerTest {
+@TestPropertySource(locations = "classpath:application-test.properties")
+@DirtiesContext
+class RestControllerTest {
 
 	public static final String ADMIN = "admin", PASSWORD = "123456";
 	@MockBean
@@ -51,15 +53,15 @@ public class RestControllerTest {
 
 	private MockMvc sut;
 
-	@Before
-	public void setUp() {
+	@BeforeEach
+	void setUp() {
 		sut = MockMvcBuilders.standaloneSetup(restController)
 				.apply(SecurityMockMvcConfigurers.springSecurity(springSecurityFilterChain)).build();
 	}
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_count_all() throws Exception {
+	void should_count_all() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/countall"))
 				.andExpect(status().isOk());
 
@@ -69,7 +71,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_count_all_filtered() throws Exception {
+	void should_count_all_filtered() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/countallfiltered"))
 				.andExpect(status().isOk());
 
@@ -79,7 +81,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_count_distinct_filtered() throws Exception {
+	void should_count_distinct_filtered() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/countdistinctfiltered"))
 				.andExpect(status().isOk());
 
@@ -89,7 +91,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_count_top_clients() throws Exception {
+	void should_count_top_clients() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/counttopclients"))
 				.andExpect(status().isOk());
 
@@ -99,7 +101,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_count_top_requests() throws Exception {
+	void should_count_top_requests() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/counttoprequests"))
 				.andExpect(status().isOk());
 
@@ -109,7 +111,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_count_by_type() throws Exception {
+	void should_count_by_type() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/groupbyquerytype"))
 				.andExpect(status().isOk());
 
@@ -119,7 +121,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_count_by_domain() throws Exception {
+	void should_count_by_domain() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/groupbyquerydomain"))
 				.andExpect(status().isOk());
 
@@ -129,7 +131,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_count_by_target() throws Exception {
+	void should_count_by_target() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/groupbyquerytarget"))
 				.andExpect(status().isOk());
 
@@ -139,7 +141,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_count_by_filtered_domain() throws Exception {
+	void should_count_by_filtered_domain() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/groupbyfiltereddomains"))
 				.andExpect(status().isOk());
 
@@ -149,7 +151,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_list_hourly_statistics() throws Exception {
+	void should_list_hourly_statistics() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/dailybyhour"))
 				.andExpect(status().isOk());
 
@@ -159,7 +161,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_list_daily_statistics() throws Exception {
+	void should_list_daily_statistics() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/monthlybyday"))
 				.andExpect(status().isOk());
 
@@ -169,7 +171,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_list_dhcp_leases() throws Exception {
+	void should_list_dhcp_leases() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/listdhcpleases"))
 				.andExpect(status().isOk());
 
@@ -179,7 +181,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_list_ignored_domains() throws Exception {
+	void should_list_ignored_domains() throws Exception {
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.get("/restapi/getignoreddomains"))
 				.andExpect(status().isOk());
 
@@ -189,7 +191,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_add_ignored_domains() throws Exception {
+	void should_add_ignored_domains() throws Exception {
 		String ignoredDomain = "TestIgnoredDomain";
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.post("/restapi/addignoreddomain")
 				.param("domain", ignoredDomain)).andExpect(status().isOk());
@@ -200,7 +202,7 @@ public class RestControllerTest {
 
 	@Test
 	@WithMockUser(username = ADMIN, password = PASSWORD, roles = {SecurityConfig.USER_ROLE})
-	public void should_remove_ignored_domains() throws Exception {
+	void should_remove_ignored_domains() throws Exception {
 		String ignoredDomain = "TestIgnoredDomain";
 		ResultActions resultActions = sut.perform(MockMvcRequestBuilders.post("/restapi/removeignoreddomain")
 				.param("domain", ignoredDomain)).andExpect(status().isOk());

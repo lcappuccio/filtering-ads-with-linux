@@ -15,7 +15,6 @@ import org.systemexception.adtrap.Application;
 import org.systemexception.adtrap.model.DhcpLease;
 import org.systemexception.adtrap.service.DataService;
 import org.systemexception.adtrap.service.DhcpLeasesReader;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = Application.CONTEXT)
-@EnableSwagger2
+//@EnableSwagger2
 @Api(basePath = Application.CONTEXT, value = "Data", description = "Data REST API")
 public class RestController {
 

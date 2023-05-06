@@ -1,21 +1,22 @@
 package org.systemexception.adtrap.test.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.systemexception.adtrap.model.DnsLogLine;
 import org.systemexception.adtrap.pojo.StringUtils;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * @author leo
  * @date 11/11/2016 01:10
  */
-public class DnsLogLineTest {
+class DnsLogLineTest {
 
 	@Test
-	public void should_respect_string_format() {
+	void should_respect_string_format() {
 
-		Long creationTime = System.currentTimeMillis();
+		long creationTime = System.currentTimeMillis();
 		DnsLogLine sut = new DnsLogLine();
 		sut.setDate(creationTime);
 		sut.setQueryDomain("www.test.it");
