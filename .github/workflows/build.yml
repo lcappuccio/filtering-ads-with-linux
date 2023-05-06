@@ -25,12 +25,6 @@ jobs:
 
     steps:
 
-      - name: Start and setup database
-        run: |
-          sudo systemctl enable mysql.service
-          sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ${{ secrets.ADTRAP_DATABASE_NAME }};' -u${{ secrets.ADTRAP_DATASOURCE_USERNAME }} -p${{ secrets.ADTRAP_DATASOURCE_PASSWORD }}
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
