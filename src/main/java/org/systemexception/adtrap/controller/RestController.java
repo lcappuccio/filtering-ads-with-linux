@@ -1,6 +1,5 @@
 package org.systemexception.adtrap.controller;
 
-import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = Application.CONTEXT)
 //@EnableSwagger2
-@Api(basePath = Application.CONTEXT, value = "Data", description = "Data REST API")
+//@Api(basePath = Application.CONTEXT, value = "Data", description = "Data REST API")
 public class RestController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RestController.class);
@@ -68,20 +67,20 @@ public class RestController {
 
 	@RequestMapping(value = "counttopclients", method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Map>> countTopClients() {
+	public ResponseEntity<List<Map<String, Object>>> countTopClients() {
 
 		LOGGER.info("RestController Count top clients");
-		List countTopRequests = dataService.countTopClients();
+        List<Map<String, Object>> countTopRequests = dataService.countTopClients();
 
 		return new ResponseEntity<>(countTopRequests, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "counttoprequests", method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Map>> countTopRequests() {
+	public ResponseEntity<List<Map<String, Object>>> countTopRequests() {
 
 		LOGGER.info("RestController Count top requests");
-		List countTopRequests = dataService.countTopRequests();
+        List<Map<String, Object>> countTopRequests = dataService.countTopRequests();
 
 		return new ResponseEntity<>(countTopRequests, HttpStatus.OK);
 	}
@@ -171,7 +170,8 @@ public class RestController {
 	public ResponseEntity<HttpStatus> addIgnoredDomain(
 			@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
 
-		LOGGER.info(String.format("RestController Add ignored domain %s", ignoredDomain));
+		LOGGER.info(String.format("RestController Add ignored domain %s",
+                ignoredDomain.replaceAll("[\n\r]", "_")));
 		dataService.addIgnoredDomain(ignoredDomain);
 
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -182,7 +182,8 @@ public class RestController {
 	public ResponseEntity<HttpStatus> removeIgnoredDomain(
 			@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
 
-		LOGGER.info(String.format("RestController Remove ignored domain %s", ignoredDomain));
+		LOGGER.info(String.format("RestController Remove ignored domain %s",
+                ignoredDomain.replaceAll("[\n\r]", "_")));
 		dataService.removeIgnoredDomain(ignoredDomain);
 
 		return new ResponseEntity<>(HttpStatus.OK);

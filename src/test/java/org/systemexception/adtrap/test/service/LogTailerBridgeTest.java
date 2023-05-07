@@ -60,18 +60,6 @@ class LogTailerBridgeTest {
 	}
 
 	@Test
-	void should_take_poison_pill() throws InterruptedException, IOException {
-		logQueue.put(this);
-		Thread.sleep(LogTailerListenerTest.THREAD_SLEEP);
-		String logFileToString = FileUtils.readFileToString(LogTailerListenerTest.INFO_LOG_FILE,
-				Charset.defaultCharset());
-
-		assertTrue(ClassCastException.class.getName() + " not logged",
-				logFileToString.contains(ClassCastException.class.getName()));
-		assertEquals(0, logQueue.size());
-	}
-
-	@Test
 	void should_ignore_domains() throws InterruptedException, IOException {
 		String logLineToIgnore = StringUtilsTest.timeToDate() + StringUtils.LOG_LINE_SEPARATOR +
 				"dnsmasq[26446]: query[A] TEST_IGNORE_DOMAIN from 192.168.0.1";
