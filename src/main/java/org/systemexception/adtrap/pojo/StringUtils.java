@@ -17,6 +17,9 @@ public class StringUtils {
 	public static final int TARGET = 7;
 	public static final String EMTPY_STRING = "";
 
+    private StringUtils() {
+    }
+
 	public static ArrayList<String> splitLogLine(final String logLine) {
 
 		String[] splitString = logLine.split(LOG_LINE_SEPARATOR);
@@ -30,4 +33,12 @@ public class StringUtils {
 
 		return result;
 	}
+
+    public static String sanitizeDomain(final String domain) {
+        if (domain.contains(System.lineSeparator())) {
+            return domain.replaceAll(System.lineSeparator(), "_");
+        } else {
+            return domain;
+        }
+    }
 }

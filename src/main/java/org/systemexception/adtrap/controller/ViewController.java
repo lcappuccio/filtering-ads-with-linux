@@ -3,8 +3,8 @@ package org.systemexception.adtrap.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.systemexception.adtrap.pojo.StringUtils;
 import org.systemexception.adtrap.service.DataService;
 
@@ -34,7 +34,7 @@ public class ViewController {
 		this.dataService = dataService;
 	}
 
-	@RequestMapping(value = VIEW_LOGIN, method = RequestMethod.GET)
+	@GetMapping(value = VIEW_LOGIN)
 	public String login(Model model, String error, String logout) {
 		if (error != null)
 			model.addAttribute(ATTRIBUTE_ERROR, MESSAGE_ERROR);
@@ -45,33 +45,33 @@ public class ViewController {
 		return VIEW_LOGIN;
 	}
 
-	@RequestMapping(value = VIEW_ADMIN, method = RequestMethod.GET)
+	@GetMapping(value = VIEW_ADMIN)
 	public String viewAdmin(Model model) {
 		model.addAttribute("ignoredDomainList", dataService.getIgnoredDomains());
 		return VIEW_ADMIN;
 	}
 
-	@RequestMapping(value = VIEW_CLIENTLIST, method = RequestMethod.GET)
+	@GetMapping(value = VIEW_CLIENTLIST)
 	public String viewClientList(Model model) {
 		return VIEW_CLIENTLIST;
 	}
 
-	@RequestMapping(value = VIEW_STATISTICS, method = RequestMethod.GET)
+	@GetMapping(value = VIEW_STATISTICS)
 	public String viewStatistics(Model model) {
 		return VIEW_STATISTICS;
 	}
 
-	@RequestMapping(value = VIEW_SYSTEM, method = RequestMethod.GET)
+	@GetMapping(value = VIEW_SYSTEM)
 	public String viewSystem(Model model) {
 		return VIEW_SYSTEM;
 	}
 
-	@RequestMapping(value = VIEW_TOP_FILTERED, method = RequestMethod.GET)
+	@GetMapping(value = VIEW_TOP_FILTERED)
 	public String viewTopFiltered(Model model) {
 		return VIEW_TOP_FILTERED;
 	}
 
-	@RequestMapping(value = VIEW_TOP_REQUESTS, method = RequestMethod.GET)
+	@GetMapping(value = VIEW_TOP_REQUESTS)
 	public String viewTopRequests(Model model) {
 		return VIEW_TOP_REQUESTS;
 	}

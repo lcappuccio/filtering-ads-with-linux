@@ -7,11 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.systemexception.adtrap.Application;
 import org.systemexception.adtrap.model.DhcpLease;
+import org.systemexception.adtrap.pojo.StringUtils;
 import org.systemexception.adtrap.service.DataService;
 import org.systemexception.adtrap.service.DhcpLeasesReader;
 
@@ -39,7 +38,7 @@ public class RestController {
 		this.dhcpLeasesReader = dhcpLeasesReader;
 	}
 
-	@RequestMapping(value = "countall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "countall", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> countAll() {
 
 		LOGGER.info("RestController Count all");
@@ -47,8 +46,7 @@ public class RestController {
 		return new ResponseEntity<>(dataService.countAll(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "countallfiltered", method = RequestMethod.GET, produces = MediaType
-			.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "countallfiltered", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> countAllFiltered() {
 
 		LOGGER.info("RestController Count all filtered");
@@ -56,8 +54,7 @@ public class RestController {
 		return new ResponseEntity<>(dataService.countAllFiltered(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "countdistinctfiltered", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "countdistinctfiltered", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> countDistinctFiltered() {
 
 		LOGGER.info("RestController Count distinct filtered");
@@ -65,8 +62,7 @@ public class RestController {
 		return new ResponseEntity<>(dataService.countDistinctAdvertisersFiltered(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "counttopclients", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "counttopclients", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Map<String, Object>>> countTopClients() {
 
 		LOGGER.info("RestController Count top clients");
@@ -75,8 +71,7 @@ public class RestController {
 		return new ResponseEntity<>(countTopRequests, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "counttoprequests", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "counttoprequests", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Map<String, Object>>> countTopRequests() {
 
 		LOGGER.info("RestController Count top requests");
@@ -85,68 +80,61 @@ public class RestController {
 		return new ResponseEntity<>(countTopRequests, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "groupbyquerytype", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Map>> groupByQueryType() {
+	@GetMapping(value = "groupbyquerytype", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map<String, Object>>> groupByQueryType() {
 
 		LOGGER.info("RestController Group by query type");
-		List groupByQueryResult = dataService.groupByQueryType();
+        List<Map<String, Object>> groupByQueryResult = dataService.groupByQueryType();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "groupbyquerydomain", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Map>> groupByQueryDomain() {
+	@GetMapping(value = "groupbyquerydomain", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map<String, Object>>> groupByQueryDomain() {
 
 		LOGGER.info("RestController Group by query domain");
-		List groupByQueryResult = dataService.groupByQueryDomain();
+        List<Map<String, Object>> groupByQueryResult = dataService.groupByQueryDomain();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "groupbyquerytarget", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Map>> groupByQueryTarget() {
+	@GetMapping(value = "groupbyquerytarget", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map<String, Object>>> groupByQueryTarget() {
 
 		LOGGER.info("RestController Group by query target");
-		List groupByQueryResult = dataService.groupByQueryTarget();
+        List<Map<String, Object>> groupByQueryResult = dataService.groupByQueryTarget();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "groupbyfiltereddomains", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Map>> groupByFilteredDomains() {
+	@GetMapping(value = "groupbyfiltereddomains", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map<String, Object>>> groupByFilteredDomains() {
 
 		LOGGER.info("RestController Group by query filtered domains");
-		List groupByQueryResult = dataService.groupByFilteredDomains();
+        List<Map<String, Object>> groupByQueryResult = dataService.groupByFilteredDomains();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "dailybyhour", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Map>> dailyByHour() {
+	@GetMapping(value = "dailybyhour", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map<String, Object>>> dailyByHour() {
 
 		LOGGER.info("RestController Get statistics by hour");
-		List groupByQueryResult = dataService.dailyByHour();
+        List<Map<String, Object>> groupByQueryResult = dataService.dailyByHour();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "monthlybyday", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Map>> monthlyByDay() {
+	@GetMapping(value = "monthlybyday", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map<String, Object>>> monthlyByDay() {
 
 		LOGGER.info("RestController Get statistics by day");
-		List groupByQueryResult = dataService.monthlyByDay();
+        List<Map<String, Object>> groupByQueryResult = dataService.monthlyByDay();
 
 		return new ResponseEntity<>(groupByQueryResult, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "listdhcpleases", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "listdhcpleases", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DhcpLease>> listDhcpLeases() {
 
 		LOGGER.info("RestController List DHCP leases");
@@ -155,8 +143,7 @@ public class RestController {
 		return new ResponseEntity<>(dhcpLeases, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "getignoreddomains", method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "getignoreddomains", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Map<String, Object>>> getIgnoredDomains() {
 
 		LOGGER.info("RestController List ignored domains");
@@ -165,25 +152,19 @@ public class RestController {
 		return new ResponseEntity<>(ignoredDomains, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "addignoreddomain", method = RequestMethod.POST,
-			params = {DOMAIN_PARAMETER}, produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<HttpStatus> addIgnoredDomain(
-			@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
+	@PostMapping(value = "addignoreddomain", params = {DOMAIN_PARAMETER}, produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<HttpStatus> addIgnoredDomain(@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
 
-		LOGGER.info(String.format("RestController Add ignored domain %s",
-                ignoredDomain.replaceAll("[\n\r]", "_")));
+		LOGGER.info("RestController Add ignored domain {}", StringUtils.sanitizeDomain(ignoredDomain));
 		dataService.addIgnoredDomain(ignoredDomain);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "removeignoreddomain", method = RequestMethod.POST,
-			params = {DOMAIN_PARAMETER}, produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<HttpStatus> removeIgnoredDomain(
-			@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
+	@PostMapping(value = "removeignoreddomain", params = {DOMAIN_PARAMETER}, produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<HttpStatus> removeIgnoredDomain(@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
 
-		LOGGER.info(String.format("RestController Remove ignored domain %s",
-                ignoredDomain.replaceAll("[\n\r]", "_")));
+		LOGGER.info("RestController Remove ignored domain {}", StringUtils.sanitizeDomain(ignoredDomain));
 		dataService.removeIgnoredDomain(ignoredDomain);
 
 		return new ResponseEntity<>(HttpStatus.OK);

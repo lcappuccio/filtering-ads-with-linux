@@ -58,6 +58,15 @@ public class StringUtilsTest {
 		assertEquals("34:12:98:77:5e:b3", splitLog.get(6));
 	}
 
+    @Test
+    void should_sanitize_new_lines() {
+        final String toSanitize = "www.bad" + System.lineSeparator() + "domain.org" + System.lineSeparator();
+
+        String sanitized = StringUtils.sanitizeDomain(StringUtils.sanitizeDomain(toSanitize));
+
+        assertEquals("www.bad_domain.org_", sanitized);
+    }
+
 	public static String timeToDate() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat dateParser = new SimpleDateFormat("MMM d HH:mm:ss", Locale.getDefault());
