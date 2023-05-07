@@ -1,7 +1,6 @@
 package org.systemexception.adtrap.test.pojo;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,11 +17,11 @@ import org.systemexception.adtrap.pojo.logtailer.LogTailerListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import static org.springframework.test.util.AssertionErrors.assertFalse;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
@@ -74,7 +73,7 @@ public class LogTailerListenerTest {
 	@Test
 	void should_listen_new_lines() throws InterruptedException, IOException {
 		write(testLogFile, StringUtilsTest.LOG_LINE);
-		Thread.sleep(5000);
+		Thread.sleep(THREAD_SLEEP);
 		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
 
 		assertTrue("Not logged " + StringUtilsTest.LOG_LINE, logFileToString.contains("e4478.a.akamaiedge.net"));
@@ -125,15 +124,11 @@ public class LogTailerListenerTest {
 	 * Append some lines to a file
 	 */
 	private static void write(File file, String... lines) throws IOException {
-		FileWriter writer = null;
-		try {
-			writer = new FileWriter(file, true);
-			for (String line : lines) {
-				writer.write(line + System.getProperty("line.separator"));
-			}
-		} finally {
-			IOUtils.closeQuietly(writer);
-		}
+        StringBuffer stringBuffer = new StringBuffer();
+        String lineSeparator = System.getProperty("line.separator");
+        for (String line: lines) {
+            stringBuffer.append(line).append(lineSeparator);
+        }
+        FileUtils.write(file, stringBuffer, StandardCharsets.UTF_8);
 	}
-
 }
