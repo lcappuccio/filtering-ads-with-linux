@@ -170,7 +170,8 @@ public class RestController {
 	public ResponseEntity<HttpStatus> addIgnoredDomain(
 			@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
 
-		LOGGER.info(String.format("RestController Add ignored domain %s", ignoredDomain));
+		LOGGER.info(String.format("RestController Add ignored domain %s",
+                ignoredDomain.replaceAll("[\n\r]", "_")));
 		dataService.addIgnoredDomain(ignoredDomain);
 
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -181,7 +182,8 @@ public class RestController {
 	public ResponseEntity<HttpStatus> removeIgnoredDomain(
 			@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
 
-		LOGGER.info(String.format("RestController Remove ignored domain %s", ignoredDomain));
+		LOGGER.info(String.format("RestController Remove ignored domain %s",
+                ignoredDomain.replaceAll("[\n\r]", "_")));
 		dataService.removeIgnoredDomain(ignoredDomain);
 
 		return new ResponseEntity<>(HttpStatus.OK);
