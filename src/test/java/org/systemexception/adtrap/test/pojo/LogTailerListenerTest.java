@@ -39,7 +39,7 @@ public class LogTailerListenerTest {
 	private final static int SLEEP_TIMER = 100;
 
 	public final static File INFO_LOG_FILE = new File("target/adtrap-test.log");
-	public final static int THREAD_SLEEP = 5000;
+	public final static int THREAD_SLEEP = 2000;
 
 	@Autowired
 	private LogQueue logQueue;
@@ -75,6 +75,7 @@ public class LogTailerListenerTest {
 		write(testLogFile, StringUtilsTest.LOG_LINE);
 		Thread.sleep(THREAD_SLEEP);
 		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
+        Thread.sleep(THREAD_SLEEP);
 
 		assertTrue("Not logged " + StringUtilsTest.LOG_LINE, logFileToString.contains("e4478.a.akamaiedge.net"));
 	}
