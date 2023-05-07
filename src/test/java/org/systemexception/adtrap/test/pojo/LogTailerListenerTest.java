@@ -101,6 +101,7 @@ public class LogTailerListenerTest {
 			write(testLogFile, outString);
 			Thread.sleep(THREAD_SLEEP);
 			FileUtils.moveFile(testLogFile, testLogFileRotate);
+            Thread.sleep(THREAD_SLEEP);
 			outString = StringUtilsTest.LOG_LINE;
 			write(testLogFile, outString);
 			Thread.sleep(THREAD_SLEEP);
