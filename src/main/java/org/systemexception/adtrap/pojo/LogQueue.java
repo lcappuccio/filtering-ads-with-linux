@@ -9,7 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @date 10/11/2016 19:11
  */
 @Component
-public class LogQueue extends LinkedBlockingQueue {
+public class LogQueue extends LinkedBlockingQueue<String> {
 
 	private LinkedBlockingQueue<String> blockingQueue;
 
