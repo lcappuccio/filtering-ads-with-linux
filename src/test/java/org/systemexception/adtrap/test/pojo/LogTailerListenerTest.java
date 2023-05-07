@@ -39,7 +39,7 @@ public class LogTailerListenerTest {
 	private final static int SLEEP_TIMER = 100;
 
 	public final static File INFO_LOG_FILE = new File("target/adtrap-test.log");
-	public final static int THREAD_SLEEP = 2000;
+	public final static int THREAD_SLEEP = 5000;
 
 	@Autowired
 	private LogQueue logQueue;
