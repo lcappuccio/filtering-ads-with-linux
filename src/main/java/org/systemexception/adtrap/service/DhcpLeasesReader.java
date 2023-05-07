@@ -25,7 +25,7 @@ public class DhcpLeasesReader {
 
 	@Autowired
 	public DhcpLeasesReader(String filePath) {
-		LOGGER.info("adtrap dhcp lease file path: " + filePath);
+		LOGGER.info("adtrap dhcp lease file path: {}", filePath);
 		dhcpLeaseFile = new File(filePath);
 		if (!dhcpLeaseFile.exists()) {
 			String errorMessage = String.format("File %s does not exist", filePath);

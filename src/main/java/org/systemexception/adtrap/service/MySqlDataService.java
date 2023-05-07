@@ -20,11 +20,12 @@ public class MySqlDataService implements DataService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MySqlDataService.class);
 	private final JdbcTemplate jdbcTemplate;
-	private final String ipAddress, homeDomain;
+	private final String ipAddress;
+    private final String homeDomain;
 
 	@Autowired
 	public MySqlDataService(JdbcTemplate jdbcTemplate, String ipAddress, String homeDomain) {
-		LOGGER.info("adtrap ip address: " + ipAddress);
+		LOGGER.info("adtrap ip address: {}", ipAddress);
 		this.jdbcTemplate = jdbcTemplate;
 		this.ipAddress = ipAddress;
 		this.homeDomain = homeDomain;
@@ -32,7 +33,7 @@ public class MySqlDataService implements DataService {
 
 	@Override
 	public DnsLogLine save(DnsLogLine dnsLogLine) {
-		LOGGER.info("Received: " + dnsLogLine.toString());
+		LOGGER.info("Received: {}", dnsLogLine);
 		jdbcTemplate.update(Queries.SAVE_QUERY, dnsLogLine.getDate(), dnsLogLine.getQueryType(),
 				dnsLogLine.getQueryDomain(), dnsLogLine.getQueryTarget());
 		return dnsLogLine;
@@ -131,7 +132,7 @@ public class MySqlDataService implements DataService {
 		long daysBack = 30L;
 		long monthInMillis = System.currentTimeMillis() - (dayInMills * daysBack);
 		int deletedLines = jdbcTemplate.update(Queries.CLEANUP, monthInMillis);
-		LOGGER.info("Scheduled database cleanup: " + deletedLines + " lines deleted");
+		LOGGER.info("Scheduled database cleanup: {} lines deleted", deletedLines);
 	}
 
 }

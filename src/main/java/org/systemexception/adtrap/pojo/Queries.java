@@ -6,6 +6,9 @@ package org.systemexception.adtrap.pojo;
  */
 public class Queries {
 
+    private Queries() {
+    }
+
 	// SAVE
 	public static final String SAVE_QUERY = "INSERT INTO DNS_LOG_LINES " +
 			"(LOG_TIME, QUERY_TYPE, QUERY_DOMAIN, QUERY_TARGET) VALUES (?, ?, ? ,?)";
