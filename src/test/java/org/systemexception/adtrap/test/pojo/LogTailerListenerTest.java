@@ -1,9 +1,9 @@
 package org.systemexception.adtrap.test.pojo;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import static org.springframework.test.util.AssertionErrors.assertFalse;
-import static org.springframework.test.util.AssertionErrors.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {Application.class})
@@ -72,14 +72,14 @@ public class LogTailerListenerTest {
 	}
 
 	@Test
-    @Ignore("Never works on CI, use only in local")
+    @Disabled(("Never works on CI, use only in local"))
 	void should_listen_new_lines() throws InterruptedException, IOException {
 		write(testLogFile, StringUtilsTest.LOG_LINE);
 		Thread.sleep(THREAD_SLEEP);
 		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
         Thread.sleep(THREAD_SLEEP);
 
-		assertTrue("Not logged " + StringUtilsTest.LOG_LINE, logFileToString.contains("e4478.a.akamaiedge.net"));
+		assertTrue(logFileToString.contains("e4478.a.akamaiedge.net"));
 	}
 
 	@Test
@@ -93,8 +93,7 @@ public class LogTailerListenerTest {
 		Thread.sleep(THREAD_SLEEP);
 		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
 
-		assertTrue("FileNotFoundException not logged", logFileToString.contains(
-				FileNotFoundException.class.getName()));
+		assertTrue(logFileToString.contains(FileNotFoundException.class.getName()));
 	}
 
 	@Test
@@ -110,7 +109,7 @@ public class LogTailerListenerTest {
 			Thread.sleep(THREAD_SLEEP);
 			String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
 
-			assertTrue("File rotation not logged", logFileToString.contains("File rotated"));
+			assertTrue(logFileToString.contains("File rotated"));
 		}
 	}
 
@@ -121,7 +120,7 @@ public class LogTailerListenerTest {
 		logTailer = new LogTailer(fileWithData, logTailerListener, SLEEP_TIMER);
 		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
 
-		assertFalse("Loaded old content", logFileToString.contains("googleads.g.doubleclick.net"));
+		assertFalse(logFileToString.contains("googleads.g.doubleclick.net"));
 	}
 
 	/**
