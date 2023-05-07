@@ -74,7 +74,7 @@ public class LogTailerListenerTest {
 	@Test
 	void should_listen_new_lines() throws InterruptedException, IOException {
 		write(testLogFile, StringUtilsTest.LOG_LINE);
-		Thread.sleep(THREAD_SLEEP);
+		Thread.sleep(5000);
 		String logFileToString = FileUtils.readFileToString(INFO_LOG_FILE, Charset.defaultCharset());
 
 		assertTrue("Not logged " + StringUtilsTest.LOG_LINE, logFileToString.contains("e4478.a.akamaiedge.net"));
