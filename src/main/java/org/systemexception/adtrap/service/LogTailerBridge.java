@@ -37,14 +37,14 @@ public class LogTailerBridge {
 	@Scheduled(cron = "* * * * * *")
 	public synchronized void postData() throws ParseException, InterruptedException {int queueSize = logQueue.size();
 		for (int i = 0; i < queueSize; i++) {
-			String queueItem = (String) logQueue.take();
+			String queueItem = logQueue.take();
 			Optional<DnsLogLine> dnsLogLine = jsonMapper.dnsLogLineFromLogLine(queueItem);
 			if (dnsLogLine.isPresent()) {
 				if (!isDomainIgnored(dnsLogLine.get())) {
 					dataService.save(dnsLogLine.get());
 				}
 			} else {
-				LOGGER.warn("Bad line caught, skipped: " + queueItem);
+				LOGGER.warn("Bad line caught, skipped: {}", queueItem);
 			}
 		}
 	}
@@ -57,9 +57,10 @@ public class LogTailerBridge {
 	 */
 	private boolean isDomainIgnored(DnsLogLine dnsLogLine) {
 		List<String> ignoreList = getIgnoredDomainList();
-		for (String ignoredDomain : ignoreList) {
-			if (StringUtils.containsIgnoreCase(dnsLogLine.getQueryDomain(), ignoredDomain)) {
-				LOGGER.info("Ignored domain: " + dnsLogLine.getQueryDomain());
+        String queryDomain = dnsLogLine.getQueryDomain();
+        for (String ignoredDomain : ignoreList) {
+            if (StringUtils.containsIgnoreCase(queryDomain, ignoredDomain)) {
+				LOGGER.info("Ignored domain: {}", queryDomain);
 				return true;
 			}
 		}

@@ -52,7 +52,7 @@ class ViewControllerTest {
 	}
 
 	@Test
-    @Disabled
+    @Disabled("Pending upgrade of login/authorization")
     // TODO investigate changes in org.systemexception.adtrap.SecurityConfig
 	void main_page_is_redirect() throws Exception {
 		MvcResult mvcResult = sut.perform(MockMvcRequestBuilders.get("/")).andExpect(status().isFound())

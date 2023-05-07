@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.systemexception.adtrap.Application;
 import org.systemexception.adtrap.model.DhcpLease;
+import org.systemexception.adtrap.pojo.StringUtils;
 import org.systemexception.adtrap.service.DataService;
 import org.systemexception.adtrap.service.DhcpLeasesReader;
 
@@ -167,11 +168,9 @@ public class RestController {
 
 	@RequestMapping(value = "addignoreddomain", method = RequestMethod.POST,
 			params = {DOMAIN_PARAMETER}, produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<HttpStatus> addIgnoredDomain(
-			@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
+	public ResponseEntity<HttpStatus> addIgnoredDomain(@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
 
-		LOGGER.info(String.format("RestController Add ignored domain %s",
-                ignoredDomain.replaceAll("[\n\r]", "_")));
+		LOGGER.info("RestController Add ignored domain {}", StringUtils.sanitizeDomain(ignoredDomain));
 		dataService.addIgnoredDomain(ignoredDomain);
 
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -179,11 +178,9 @@ public class RestController {
 
 	@RequestMapping(value = "removeignoreddomain", method = RequestMethod.POST,
 			params = {DOMAIN_PARAMETER}, produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<HttpStatus> removeIgnoredDomain(
-			@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
+	public ResponseEntity<HttpStatus> removeIgnoredDomain(@RequestParam(value = DOMAIN_PARAMETER) final String ignoredDomain) {
 
-		LOGGER.info(String.format("RestController Remove ignored domain %s",
-                ignoredDomain.replaceAll("[\n\r]", "_")));
+		LOGGER.info("RestController Remove ignored domain {}", StringUtils.sanitizeDomain(ignoredDomain));
 		dataService.removeIgnoredDomain(ignoredDomain);
 
 		return new ResponseEntity<>(HttpStatus.OK);

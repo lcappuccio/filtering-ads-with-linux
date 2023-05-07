@@ -44,7 +44,7 @@ public class DhcpLeasesReader {
 		try {
 			dhcpLeaseFileLines = FileUtils.readLines(dhcpLeaseFile, Charset.defaultCharset());
 		} catch (IOException e) {
-			LOGGER.warn(String.format("File %s does not exist", filePath));
+			LOGGER.warn("File {} does not exist", filePath);
 		}
 		return DhcpFileParser.parseFileContents(dhcpLeaseFileLines);
 	}

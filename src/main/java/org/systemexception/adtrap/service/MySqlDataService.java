@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.systemexception.adtrap.model.DnsLogLine;
 import org.systemexception.adtrap.pojo.Queries;
+import org.systemexception.adtrap.pojo.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -111,13 +112,13 @@ public class MySqlDataService implements DataService {
 
 	@Override
 	public void addIgnoredDomain(final String ignoredDomain) {
-		LOGGER.debug(String.format("Add ignored domain %s", ignoredDomain));
+		LOGGER.debug("Add ignored domain {}", StringUtils.sanitizeDomain(ignoredDomain));
 		jdbcTemplate.update(Queries.SAVE_IGNORED_DOMAIN, ignoredDomain);
 	}
 
 	@Override
 	public void removeIgnoredDomain(final String ignoredDomain) {
-		LOGGER.debug(String.format("Delete ignored domain %s", ignoredDomain));
+		LOGGER.debug("Delete ignored domain {}", StringUtils.sanitizeDomain(ignoredDomain));
 		jdbcTemplate.update(Queries.DELETE_IGNORED_DOMAIN, ignoredDomain);
 	}
 

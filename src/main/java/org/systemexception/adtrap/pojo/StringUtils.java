@@ -30,4 +30,12 @@ public class StringUtils {
 
 		return result;
 	}
+
+    public static String sanitizeDomain(final String domain) {
+        if (domain.contains(System.lineSeparator())) {
+            return domain.replaceAll(System.lineSeparator(), "_");
+        } else {
+            return domain;
+        }
+    }
 }
