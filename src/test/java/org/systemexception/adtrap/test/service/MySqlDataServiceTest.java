@@ -103,56 +103,56 @@ class MySqlDataServiceTest {
 	void should_count_top_clients() {
 		List<Map<String, Object>> maps = sut.countTopClients();
 
-		assertTrue(maps.size() > 0);
+        assertFalse(maps.isEmpty());
 	}
 
 	@Test
 	void should_count_top_requests() {
 		List<Map<String, Object>> maps = sut.countTopRequests();
 
-		assertTrue(maps.size() > 0);
+        assertFalse(maps.isEmpty());
 	}
 
 	@Test
 	void should_group_by_query_type() {
 		List<Map<String, Object>> maps = sut.groupByQueryType();
 
-		assertTrue(maps.size() > 0);
+        assertFalse(maps.isEmpty());
 	}
 
 	@Test
 	void should_group_by_query_domain() {
 		List<Map<String, Object>> maps = sut.groupByQueryDomain();
 
-		assertTrue(maps.size() > 0);
+        assertFalse(maps.isEmpty());
 	}
 
 	@Test
 	void should_group_by_query_target() {
 		List<Map<String, Object>> maps = sut.groupByQueryTarget();
 
-		assertTrue(maps.size() > 0);
+        assertFalse(maps.isEmpty());
 	}
 
 	@Test
 	void should_group_by_filtered_domains() {
 		List<Map<String, Object>> maps = sut.groupByFilteredDomains();
 
-		assertTrue(maps.size() > 0);
+        assertFalse(maps.isEmpty());
 	}
 
 	@Test
 	void should_count_hourly_stats() {
 		List<Map<String, Object>> maps = sut.dailyByHour();
 
-		assertTrue(maps.size() > 0);
+        assertFalse(maps.isEmpty());
 	}
 
 	@Test
 	void should_count_monthly_stats() {
 		List<Map<String, Object>> maps = sut.monthlyByDay();
 
-		assertTrue(maps.size() > 0);
+        assertFalse(maps.isEmpty());
 	}
 
 	@Test
@@ -171,9 +171,10 @@ class MySqlDataServiceTest {
 		List<Map<String, Object>> ignoredDomains = sut.getIgnoredDomains();
 
 		for (Map<String, Object> object: ignoredDomains) {
-			if (object.containsValue(ignoredDomain)) {
-				domainIsSaved = true;
-			}
+            if (object.containsValue(ignoredDomain)) {
+                domainIsSaved = true;
+                break;
+            }
 		}
 
 		assertTrue(domainIsSaved);
@@ -190,9 +191,10 @@ class MySqlDataServiceTest {
 		List<Map<String, Object>> ignoredDomains = sut.getIgnoredDomains();
 
 		for (Map<String, Object> object: ignoredDomains) {
-			if (object.containsValue(ignoredDomain)) {
-				domainIsSaved = true;
-			}
+            if (object.containsValue(ignoredDomain)) {
+                domainIsSaved = true;
+                break;
+            }
 		}
 
 		assertFalse(domainIsSaved);
