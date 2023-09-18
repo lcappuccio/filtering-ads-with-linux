@@ -24,21 +24,21 @@ public interface DataService {
 	 *
 	 * @return
 	 */
-	int countAll();
+	Integer countAll();
 
 	/**
 	 * Count all entries that were filtered
 	 *
 	 * @return
 	 */
-	int countAllFiltered();
+    Integer countAllFiltered();
 
 	/**
 	 * Count distinct advertisers
 	 *
 	 * @return
 	 */
-	int countDistinctAdvertisersFiltered();
+    Integer countDistinctAdvertisersFiltered();
 
 	/**
 	 * Count top dns clients
