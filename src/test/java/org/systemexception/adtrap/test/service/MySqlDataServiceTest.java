@@ -14,12 +14,23 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.systemexception.adtrap.Application;
 import org.systemexception.adtrap.model.DnsLogLine;
 import org.systemexception.adtrap.pojo.Queries;
+import org.systemexception.adtrap.service.DataService;
 import org.systemexception.adtrap.service.MySqlDataService;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author leo
@@ -38,7 +49,7 @@ class MySqlDataServiceTest {
 	private String homeDomain;
 
 	@Autowired
-	private MySqlDataService sut;
+	private DataService sut;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -198,4 +209,15 @@ class MySqlDataServiceTest {
 		assertFalse(domainIsSaved);
 		assertEquals(1, ignoredDomains.size());
 	}
+
+    @Test
+    void should_cleanup_database() {
+        final JdbcTemplate mockJdbcTemplate = mock(JdbcTemplate.class);
+        doReturn(50).when(mockJdbcTemplate).update(eq(Queries.CLEANUP), anyLong());
+        MySqlDataService innerSut = new MySqlDataService(mockJdbcTemplate, anyString(), anyString());
+
+        innerSut.cleanUpDatabase();
+
+        verify(mockJdbcTemplate, times(1)).update(eq(Queries.CLEANUP), anyLong());
+    }
 }
