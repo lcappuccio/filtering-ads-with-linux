@@ -21,6 +21,8 @@ import org.systemexception.adtrap.Application;
 import org.systemexception.adtrap.SecurityConfig;
 import org.systemexception.adtrap.controller.ViewController;
 
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -81,7 +83,7 @@ class ViewControllerTest {
 		assertTrue(mvcResult.getResponse().getContentAsString().contains(TITLE_LOGIN_HEADER_TAG));
 		assertTrue(mvcResult.getResponse().getContentAsString().contains(ViewController.MESSAGE_ERROR));
 		assertEquals(ViewController.MESSAGE_ERROR,
-				mvcResult.getModelAndView().getModel().get(ViewController.ATTRIBUTE_ERROR));
+				Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get(ViewController.ATTRIBUTE_ERROR));
 	}
 
 	@Test
@@ -96,7 +98,7 @@ class ViewControllerTest {
 		assertTrue(mvcResult.getResponse().getContentAsString().contains(TITLE_LOGIN_HEADER_TAG));
 		assertTrue(mvcResult.getResponse().getContentAsString().contains(ViewController.MESSAGE_LOGOUT));
 		assertEquals(ViewController.MESSAGE_LOGOUT,
-				mvcResult.getModelAndView().getModel().get(ViewController.ATTRIBUTE_MESSAGE));
+				Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get(ViewController.ATTRIBUTE_MESSAGE));
 	}
 
 	@Test
