@@ -40,7 +40,7 @@ public class JsonMapper {
 	/**
 	 * Handle exception for DHCP logs
 	 *
-	 * @param logSplitted a dnsmasq log line splitted into an arraylist
+	 * @param logSplitted a dnsmasq log line split into an arraylist
 	 * @param dnsLogLine {@link org.systemexception.adtrap.model.DnsLogLine}
 	 * @return {@link org.systemexception.adtrap.model.DnsLogLine}
 	 */

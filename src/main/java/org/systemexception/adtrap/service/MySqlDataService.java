@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.systemexception.adtrap.model.DnsLogLine;
 import org.systemexception.adtrap.pojo.Queries;
@@ -24,7 +25,7 @@ public class MySqlDataService implements DataService {
     private final String homeDomain;
 
 	@Autowired
-	public MySqlDataService(JdbcTemplate jdbcTemplate, String ipAddress, String homeDomain) {
+	public MySqlDataService(JdbcTemplate jdbcTemplate, @NonNull String ipAddress, @NonNull String homeDomain) {
 		LOGGER.info("adtrap ip address: {}", ipAddress);
 		this.jdbcTemplate = jdbcTemplate;
 		this.ipAddress = ipAddress;
@@ -40,21 +41,21 @@ public class MySqlDataService implements DataService {
 	}
 
 	@Override
-	public int countAll() {
+	public Integer countAll() {
 		LOGGER.debug("Count all");
 		return jdbcTemplate.queryForObject(Queries.COUNT_ALL, Integer.class);
 	}
 
 	@Override
-	public int countAllFiltered() {
+	public Integer countAllFiltered() {
 		LOGGER.debug("Count all filtered");
-		return jdbcTemplate.queryForObject(Queries.COUNT_ALL_FILTERED, new Object[]{ipAddress}, Integer.class);
+		return jdbcTemplate.queryForObject(Queries.COUNT_ALL_FILTERED, Integer.class, ipAddress);
 	}
 
 	@Override
-	public int countDistinctAdvertisersFiltered() {
+	public Integer countDistinctAdvertisersFiltered() {
 		LOGGER.debug("Count distinct advertisers filtered");
-		return jdbcTemplate.queryForObject(Queries.COUNT_DISTINCT_ADVERTISERS, new Object[]{ipAddress}, Integer.class);
+		return jdbcTemplate.queryForObject(Queries.COUNT_DISTINCT_ADVERTISERS, Integer.class, ipAddress);
 	}
 
 	@Override
